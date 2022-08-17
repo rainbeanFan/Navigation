@@ -17,7 +17,12 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = NavHostFragment.create(R.navigation.lancet_navigation)
+
+        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment,navHostFragment)
+            .setPrimaryNavigationFragment(navHostFragment)
+            .commitNow()
+
         val navController = navHostFragment.navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -44,5 +49,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mBinding!!.toolbar)
         NavigationUI.setupWithNavController(mBinding!!.toolbar,navController,appBarConfiguration)
 
+        NavigationUI.setupWithNavController(mBinding!!.bottomNavigationView,navController)
+
     }
+
 }
