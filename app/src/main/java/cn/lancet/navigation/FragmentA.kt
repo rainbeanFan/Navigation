@@ -17,8 +17,6 @@ import cn.lancet.navigation.databinding.FragmentABinding
 class FragmentA : Fragment() {
 
     private var dummyButton: Button? = null
-    private var fullscreenContent: View? = null
-    private var fullscreenContentControls: View? = null
 
     private var _binding: FragmentABinding? = null
 
@@ -40,8 +38,6 @@ class FragmentA : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         dummyButton = binding.dummyButton
-        fullscreenContent = binding.fullscreenContent
-        fullscreenContentControls = binding.fullscreenContentControls
 
         val options = navOptions {
             anim {
@@ -62,8 +58,6 @@ class FragmentA : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         dummyButton = null
-        fullscreenContent = null
-        fullscreenContentControls = null
     }
 
 

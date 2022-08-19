@@ -1,11 +1,9 @@
 package cn.lancet.navigation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import androidx.fragment.app.commit
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commitNow
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -39,24 +37,12 @@ class MainActivity : AppCompatActivity() {
         )
 
         mNavController?.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.fragmentC) {
-                mBinding!!.toolbar.visibility = View.GONE
-            } else {
-                mBinding!!.toolbar.visibility = View.VISIBLE
-            }
+            mBinding!!.toolbar.isTitleCentered = destination.id == R.id.fragmentC
         }
 
 
         val appBarConfiguration = AppBarConfiguration
             .Builder(mNavController!!.graph).build()
-//            .Builder().setFallbackOnNavigateUpListener {
-//            if (navController.navigateUp()) {
-//                true
-//            } else {
-//                finish()
-//                false
-//            }
-//        }.build()
 
         setSupportActionBar(mBinding!!.toolbar)
         NavigationUI.setupWithNavController(

@@ -13,8 +13,6 @@ import cn.lancet.navigation.databinding.FragmentCBinding
 class FragmentC : Fragment() {
 
     private var dummyButton: Button? = null
-    private var fullscreenContent: View? = null
-    private var fullscreenContentControls: View? = null
 
     private var _binding: FragmentCBinding? = null
 
@@ -37,8 +35,6 @@ class FragmentC : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         dummyButton = binding.dummyButton
-        fullscreenContent = binding.fullscreenContent
-        fullscreenContentControls = binding.fullscreenContentControls
 
         dummyButton?.setOnClickListener {
 
@@ -52,8 +48,6 @@ class FragmentC : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         dummyButton = null
-        fullscreenContent = null
-        fullscreenContentControls = null
     }
 
     override fun onDestroyView() {
