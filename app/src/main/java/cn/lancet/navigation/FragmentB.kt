@@ -7,13 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.Navigation
+import androidx.navigation.navOptions
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentB.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentB : Fragment() {
 
     override fun onCreateView(
@@ -26,8 +22,18 @@ class FragmentB : Fragment() {
     }
 
     private fun initView(view: View) {
+
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_in
+                exit = R.anim.fade_out
+                popEnter = R.anim.fade_in
+                popExit = R.anim.slide_out
+            }
+        }
+
         view.findViewById<Button>(R.id.dummy_button).setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.fragmentC)
+            Navigation.findNavController(view).navigate(R.id.fragmentC,null,options)
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.navOptions
 import cn.lancet.navigation.databinding.FragmentABinding
 
 /**
@@ -42,8 +43,17 @@ class FragmentA : Fragment() {
         fullscreenContent = binding.fullscreenContent
         fullscreenContentControls = binding.fullscreenContentControls
 
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_in
+                exit = R.anim.fade_out
+                popEnter = R.anim.fade_in
+                popExit = R.anim.slide_out
+            }
+        }
+
         dummyButton?.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.fragmentB)
+            Navigation.findNavController(binding.root).navigate(R.id.fragmentB, null, options)
         }
 
     }

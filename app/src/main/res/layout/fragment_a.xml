@@ -7,20 +7,16 @@
     android:theme="@style/ThemeOverlay.Navigation.FullscreenContainer"
     tools:context=".FragmentA">
 
-
     <TextView
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="A"
+        android:text="Home"
         android:textColor="?attr/fullscreenTextColor"
         android:textSize="50sp"
         android:textStyle="bold" />
 
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,6 +37,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:text="@string/dummy_button" />
 
         </LinearLayout>

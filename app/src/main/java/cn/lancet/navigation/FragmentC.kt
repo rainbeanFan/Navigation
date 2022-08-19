@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.navOptions
 import cn.lancet.navigation.databinding.FragmentCBinding
 
 
@@ -44,7 +42,8 @@ class FragmentC : Fragment() {
 
         dummyButton?.setOnClickListener {
 
-            binding.root.findNavController().navigate(R.id.action_fragmentC_pop_including_fragmentA)
+            binding.root.findNavController()
+                .navigate(R.id.action_fragmentC_pop_including_fragmentA, null)
 
         }
 

@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.commit
+import androidx.fragment.app.commitNow
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,9 +26,11 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = NavHostFragment.create(R.navigation.lancet_navigation)
 
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, navHostFragment)
-            .setPrimaryNavigationFragment(navHostFragment)
-            .commitNow()
+        supportFragmentManager.commitNow {
+            this.replace(R.id.nav_host_fragment, navHostFragment)
+                .setPrimaryNavigationFragment(navHostFragment)
+        }
+
 
         mNavController = navHostFragment.navController
 

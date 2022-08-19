@@ -12,11 +12,7 @@
         tools:layout="@layout/fragment_a">
         <action
             android:id="@+id/action_fragmentA_to_fragmentB"
-            app:destination="@id/fragmentB"
-            app:enterAnim="@anim/slide_enter_right"
-            app:exitAnim="@anim/slide_exit_left"
-            app:popEnterAnim="@anim/slide_enter_left"
-            app:popExitAnim="@anim/slide_exit_right" />
+            app:destination="@id/fragmentB" />
     </fragment>
     <fragment
         android:id="@+id/fragmentB"
@@ -25,11 +21,7 @@
         tools:layout="@layout/fragment_b">
         <action
             android:id="@+id/action_fragmentB_to_fragmentC"
-            app:destination="@id/fragmentC"
-            app:enterAnim="@anim/slide_enter_right"
-            app:exitAnim="@anim/slide_exit_left"
-            app:popEnterAnim="@anim/slide_enter_left"
-            app:popExitAnim="@anim/slide_exit_right"/>
+            app:destination="@id/fragmentC"/>
     </fragment>
     <fragment
         android:id="@+id/fragmentC"
@@ -42,10 +34,6 @@
 <!--            app:destination="@id/confirmDialogFragment" />-->
         <action
             android:id="@+id/action_fragmentC_pop_including_fragmentA"
-            app:enterAnim="@anim/slide_enter_right"
-            app:exitAnim="@anim/slide_exit_left"
-            app:popEnterAnim="@anim/slide_enter_left"
-            app:popExitAnim="@anim/slide_exit_right"
             app:popUpTo="@id/fragmentA"
             app:launchSingleTop="true" />
 
