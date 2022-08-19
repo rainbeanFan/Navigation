@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_b">
         <action
             android:id="@+id/action_fragmentB_to_fragmentC"
-            app:destination="@id/fragmentC"/>
+            app:destination="@id/fragmentC" />
     </fragment>
     <fragment
         android:id="@+id/fragmentC"
@@ -29,13 +29,13 @@
         android:label="fragment_c"
         tools:layout="@layout/fragment_c">
 
-<!--        <action-->
-<!--            android:id="@+id/action_fragmentC_to_confirmDialogFragment"-->
-<!--            app:destination="@id/confirmDialogFragment" />-->
+        <!--        <action-->
+        <!--            android:id="@+id/action_fragmentC_to_confirmDialogFragment"-->
+        <!--            app:destination="@id/confirmDialogFragment" />-->
         <action
             android:id="@+id/action_fragmentC_pop_including_fragmentA"
-            app:popUpTo="@id/fragmentA"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/fragmentA" />
 
     </fragment>
     <dialog

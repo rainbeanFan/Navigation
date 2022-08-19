@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity() {
 
         mNavController = navHostFragment.navController
 
+        mNavController?.navigatorProvider?.addNavigator(
+            FixNavigator(this,supportFragmentManager,R.id.nav_host_fragment)
+        )
+
         mNavController?.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.fragmentC) {
                 mBinding!!.toolbar.visibility = View.GONE
@@ -41,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 mBinding!!.toolbar.visibility = View.VISIBLE
             }
         }
+
 
         val appBarConfiguration = AppBarConfiguration
             .Builder(mNavController!!.graph).build()
