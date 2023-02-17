@@ -1,6 +1,7 @@
 package cn.lancet.navigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,19 +24,32 @@ class FragmentA : Fragment() {
 
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("onCreate  ","Fragment A")
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        Log.d("onCreateView  ","Fragment A")
         _binding = FragmentABinding.inflate(inflater, container, false)
         return binding.root
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("onResume  ","Fragment A")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.d("onViewCreated  ","Fragment A")
 
         dummyButton = binding.dummyButton
 
@@ -58,11 +72,18 @@ class FragmentA : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         dummyButton = null
+
+        Log.d("onDestroy  ","Fragment A")
+
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("onDestroyView  ","Fragment A")
+
         _binding = null
     }
+
+
 }

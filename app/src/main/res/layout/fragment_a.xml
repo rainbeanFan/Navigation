@@ -10,8 +10,9 @@
 
     <TextView
         android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center"
         android:text="Home"
         android:textColor="?attr/fullscreenTextColor"
@@ -28,5 +29,11 @@
         android:text="Next Page"
         android:textAllCaps="false"
         android:textColor="@color/white" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_home_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"/>
 
 </FrameLayout>
