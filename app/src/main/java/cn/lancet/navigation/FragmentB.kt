@@ -5,36 +5,69 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.Navigation
-import androidx.navigation.navOptions
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import cn.bmob.v3.BmobQuery
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.FindListener
+import cn.lancet.navigation.adapter.ContactAdapter
+import cn.lancet.navigation.databinding.FragmentBBinding
+import cn.lancet.navigation.module.User
 
 
 class FragmentB : Fragment() {
 
+    private var _binding: FragmentBBinding? = null
+
+    private var mRvContact: RecyclerView? = null
+
+    private var mAdapter: ContactAdapter? = null
+
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_b, container, false)
-        initView(view)
-        return view
+    ): View {
+        _binding = FragmentBBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private fun initView(view: View) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val options = navOptions {
-            anim {
-                enter = R.anim.slide_in
-                exit = R.anim.fade_out
-                popEnter = R.anim.fade_in
-                popExit = R.anim.slide_out
+        mRvContact = binding.rvContact
+        mAdapter = ContactAdapter(requireContext())
+
+        initData()
+
+    }
+
+    private fun initData() {
+        mRvContact?.layoutManager = LinearLayoutManager(requireContext())
+
+        mRvContact?.adapter = mAdapter
+
+        val queries = BmobQuery<User>()
+
+        queries.findObjects(object : FindListener<User>() {
+            override fun done(users: MutableList<User>?, e: BmobException?) {
+                if (e == null && users != null) {
+                    mAdapter?.setData(users)
+                }
             }
-        }
 
-        view.findViewById<Button>(R.id.dummy_button).setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.fragmentC,null,options)
-        }
+        })
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mRvContact = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

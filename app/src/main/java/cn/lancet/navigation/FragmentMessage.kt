@@ -5,21 +5,27 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.navOptions
+import androidx.recyclerview.widget.RecyclerView
+import cn.bmob.v3.exception.BmobException
+import cn.bmob.v3.listener.SaveListener
 import cn.lancet.navigation.databinding.FragmentABinding
+import cn.lancet.navigation.module.User
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-class FragmentA : Fragment() {
+class FragmentMessage : Fragment() {
 
-    private var dummyButton: Button? = null
 
     private var _binding: FragmentABinding? = null
+
+    private var mRvMessage:RecyclerView?=null
 
 
     private val binding get() = _binding!!
@@ -51,27 +57,31 @@ class FragmentA : Fragment() {
 
         Log.d("onViewCreated  ","Fragment A")
 
-        dummyButton = binding.dummyButton
-
-        val options = navOptions {
-            anim {
-                enter = R.anim.slide_in
-                exit = R.anim.fade_out
-                popEnter = R.anim.fade_in
-                popExit = R.anim.slide_out
-            }
-        }
-
-        dummyButton?.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.fragmentB, null, options)
-        }
+        mRvMessage = binding.rvMessage
 
     }
 
+    private fun saveUser() {
+        val user = User("Lucky","hello","rainbean@126.com")
+
+        user.save(object : SaveListener<String>() {
+            override fun done(objectId: String?, e: BmobException?) {
+                e?.let {
+                    requireActivity().runOnUiThread {
+                        Toast.makeText(requireContext(),e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+
+
+        })
+
+    }
 
     override fun onDestroy() {
         super.onDestroy()
-        dummyButton = null
+        mRvMessage = null
 
         Log.d("onDestroy  ","Fragment A")
 

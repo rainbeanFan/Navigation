@@ -3,37 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/fullscreenBackgroundColor"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
-    android:theme="@style/ThemeOverlay.Navigation.FullscreenContainer"
-    tools:context=".FragmentA">
+    tools:context=".FragmentMessage">
 
-    <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Home"
-        android:textColor="?attr/fullscreenTextColor"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/dummy_button"
-        style="?android:attr/buttonBarButtonStyle"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_message"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_weight="1"
-        android:text="Next Page"
-        android:textAllCaps="false"
-        android:textColor="@color/white" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/et_home_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"/>
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

@@ -3,6 +3,10 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+
+        maven {
+            url "https://maven.rongcloud.cn/repository/maven-releases/"
+        }
     }
 
 }
@@ -11,6 +15,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+
+        maven {
+            url "https://maven.rongcloud.cn/repository/maven-releases/"
+        }
+
     }
 
     buildscript {
