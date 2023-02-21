@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:theme="@style/ThemeOverlay.Navigation.FullscreenContainer"
+    tools:context=".FragmentContact">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_contact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_hint_letter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/bg_contact_hit_letter"
+        android:contentDescription=""
+        android:padding="40dp"
+        android:textSize="36sp"
+        tools:text="A"
+        android:textColor="#005EE9"
+        tools:visibility="visible"
+        android:visibility="gone"/>
+
+    <cn.lancet.navigation.widget.SideBar
+        android:id="@+id/side_bar"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="100dp"
+        android:paddingEnd="20dp"
+        android:layout_gravity="center_vertical|end"
+        android:background="#00000000"/>
+
+</FrameLayout>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SectionIndexer
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.lancet.navigation.R
@@ -11,7 +12,8 @@ import cn.lancet.navigation.module.User
 import coil.load
 import com.google.android.material.imageview.ShapeableImageView
 
-class ContactAdapter(val context: Context):RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
+class ContactAdapter(val context: Context):RecyclerView.Adapter<ContactAdapter.ContactViewHolder>(),
+SectionIndexer{
 
     private var mData = mutableListOf<User>()
 
@@ -35,6 +37,15 @@ class ContactAdapter(val context: Context):RecyclerView.Adapter<ContactAdapter.C
 
         holder.tvName.text = data.name
         holder.tvEmail.text = data.email
+
+        val section = getSectionForPosition(position)
+        if (position == getPositionForSection(section)){
+            holder.tvCatalog.visibility = View.VISIBLE
+            holder.tvCatalog.text = mData[position].sort_letter
+        }else{
+            holder.tvCatalog.visibility = View.GONE
+        }
+
     }
 
     fun setData(datas: MutableList<User>) {
@@ -44,9 +55,28 @@ class ContactAdapter(val context: Context):RecyclerView.Adapter<ContactAdapter.C
     }
 
     class ContactViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView){
+        val tvCatalog:AppCompatTextView = itemView.findViewById(R.id.tv_catalog)
         val ivAvatar: ShapeableImageView = itemView.findViewById(R.id.iv_avatar)
         val tvName: AppCompatTextView = itemView.findViewById(R.id.tv_name)
         val tvEmail: AppCompatTextView = itemView.findViewById(R.id.tv_email)
+    }
+
+    override fun getSections(): Array<Any>? {
+        return null
+    }
+
+    override fun getPositionForSection(sectionIndex: Int): Int {
+        for (i in 0 until mData.size){
+            val firstChar = mData[i].sort_letter?.get(0)?.toInt()
+            if (firstChar == sectionIndex){
+                return i
+            }
+        }
+        return -1
+    }
+
+    override fun getSectionForPosition(position: Int): Int {
+        return mData[position].sort_letter?.get(0)?.toInt()?:0
     }
 
 }

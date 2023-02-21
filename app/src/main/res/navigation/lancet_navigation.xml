@@ -21,9 +21,9 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentB"
-        android:name="cn.lancet.navigation.FragmentB"
+        android:name="cn.lancet.navigation.FragmentContact"
         android:label="fragment_b"
-        tools:layout="@layout/fragment_b">
+        tools:layout="@layout/fragment_contact">
         <action
             android:id="@+id/action_fragmentB_to_fragmentC"
             app:destination="@id/fragmentC" />
