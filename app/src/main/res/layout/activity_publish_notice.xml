@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".notice.PublishNoticeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/img_back_black"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="发布"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:text="标题"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_notice_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:hint="请输入标题"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="15dp"
+            android:text="内容"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_notice_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="150dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:hint="请输入内容"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="15dp"
+            android:text="封面"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="15dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_add"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_publish"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="15dp"
+        android:enabled="false"
+        android:text="发布"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="10dp"
+        android:layout_gravity="bottom"/>
+
+</LinearLayout>

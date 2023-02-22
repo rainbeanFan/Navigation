@@ -67,7 +67,7 @@ class SideBar  : View {
 
         when(action){
             MotionEvent.ACTION_UP -> {
-                setBackgroundDrawable(ColorDrawable(0x00000000))
+                background = ColorDrawable(0x00000000)
                 choose = -1
                 invalidate()
                 mTextDialog?.visibility = GONE

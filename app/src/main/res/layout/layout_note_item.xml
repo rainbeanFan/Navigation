@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F2F4F8"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
+
+    <TextView
+        android:id="@+id/tv_notification_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="3dp"
+        android:textColor="#A1A3B3"
+        android:textSize="14sp"
+        android:background="@drawable/bg_notice_time"
+        tools:text="June 19, 19:35 PM" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/csl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_notification_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+                tools:src="@mipmap/ic_notice_place_holder" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_notification_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:maxLength="80"
+                android:textColor="#141A42"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/iv_notification_image"
+                app:layout_constraintTop_toBottomOf="@id/iv_notification_image"
+                tools:text="notification title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_notification_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:lineSpacingMultiplier="1.3"
+                android:maxLength="80"
+                android:textColor="#72768E"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/tv_notification_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_notification_title"
+                tools:text="Please restart the app to refresh your account status and enjoy all the features of Truck Path Command. "
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/line_divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="13dp"
+                android:background="#E6E8EC"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/tv_notification_content"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                tools:text="阿丽拉"
+                android:textColor="#005EE9"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line_divider"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

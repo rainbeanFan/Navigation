@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import cn.bmob.v3.listener.SaveListener
@@ -73,6 +72,10 @@ class LoginActivity:AppCompatActivity() {
                                     AppPreUtils.putString(Constant.KEY_USER_ID, it)
                                 }
 
+                                it.avatar?.let {
+                                    AppPreUtils.putString(Constant.KEY_AVATAR,it)
+                                }
+
 //                                {
 //                                    "code": 200,
 //                                    "userId": "7efe36b075",
@@ -81,8 +84,6 @@ class LoginActivity:AppCompatActivity() {
 
                                 RongIM.connect("F1CGxX0eNJqy1DNMDN0eCamljoOYFl59u6JoyppQ9Y0=@osi5.cn.rongnav.com;osi5.cn.rongcfg.com", object : RongIMClient.ConnectCallback() {
                                     override fun onSuccess(userId: String?) {
-
-
 
                                         RouteUtils.routeToConversationListActivity(this@LoginActivity,"")
 

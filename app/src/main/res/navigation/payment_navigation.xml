@@ -8,8 +8,7 @@
     <fragment
         android:id="@+id/fragmentPaymentList"
         android:name="cn.lancet.navigation.payment.FragmentPaymentList"
-        android:label="fragment_payment_list"
-        tools:layout="@layout/fragment_payment_list">
+        android:label="fragment_payment_list">
         <action
             android:id="@+id/action_fragmentPaymentList_to_fragmentPaymentPay"
             app:destination="@id/fragmentPaymentPay">
@@ -64,13 +63,11 @@
     <fragment
         android:id="@+id/fragmentPaymentResult"
         android:name="cn.lancet.navigation.payment.FragmentPaymentResult"
-        android:label="fragment_payment_result"
-        tools:layout="@layout/fragment_payment_result" />
+        android:label="fragment_payment_result" />
     <fragment
         android:id="@+id/fragmentPaymentPay"
         android:name="cn.lancet.navigation.payment.FragmentPaymentPay"
-        android:label="fragment_payment_pay"
-        tools:layout="@layout/fragment_payment_pay">
+        android:label="fragment_payment_pay">
         <action
             android:id="@+id/action_fragmentPaymentPay_to_fragmentPaymentResult"
             app:destination="@id/fragmentPaymentResult">

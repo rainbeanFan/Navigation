@@ -18,4 +18,7 @@
     <string name="please_input_account">请输入账号</string>
     <string name="please_input_pwd">请输入密码</string>
     <string name="login">登录</string>
+    <string name="title_activity_publish_notice">PublishNoticeActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

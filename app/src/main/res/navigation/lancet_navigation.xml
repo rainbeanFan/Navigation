@@ -10,13 +10,6 @@
         android:name="cn.lancet.navigation.FragmentMessage"
         android:label="fragment_a"
         tools:layout="@layout/fragment_a">
-        <action
-            android:id="@+id/action_fragmentA_to_fragmentB"
-            app:destination="@id/fragmentB"
-            app:enterAnim="@anim/slide_enter_right"
-            app:exitAnim="@anim/slide_exit_left"
-            app:popEnterAnim="@anim/slide_enter_left"
-            app:popExitAnim="@anim/slide_exit_right" />
 
     </fragment>
     <fragment
@@ -24,41 +17,18 @@
         android:name="cn.lancet.navigation.FragmentContact"
         android:label="fragment_b"
         tools:layout="@layout/fragment_contact">
-        <action
-            android:id="@+id/action_fragmentB_to_fragmentC"
-            app:destination="@id/fragmentC" />
+
     </fragment>
     <fragment
         android:id="@+id/fragmentC"
-        android:name="cn.lancet.navigation.FragmentC"
+        android:name="cn.lancet.navigation.FragmentMe"
         android:label="fragment_c"
-        tools:layout="@layout/fragment_c">
-
-        <!--        <action-->
-        <!--            android:id="@+id/action_fragmentC_to_confirmDialogFragment"-->
-        <!--            app:destination="@id/confirmDialogFragment" />-->
-        <action
-            android:id="@+id/action_fragmentC_pop_including_fragmentA"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/fragmentA" />
+        tools:layout="@layout/fragment_me">
 
     </fragment>
     <dialog
         android:id="@+id/confirmDialogFragment"
         android:name="cn.lancet.navigation.ConfirmDialogFragment"
         android:label="ConfirmDialogFragment" />
-
-    <include app:graph="@navigation/good_navigation" />
-    <include app:graph="@navigation/account_navigation" />
-    <include app:graph="@navigation/payment_navigation" />
-    <fragment
-        android:id="@+id/fragmentMessage"
-        android:name="cn.lancet.navigation.message.FragmentMessage"
-        android:label="fragment_message_list"
-        tools:layout="@layout/fragment_message_list" />
-
-    <action
-        android:id="@+id/action_global_messageCenterFragment"
-        app:destination="@id/fragmentMessage" />
 
 </navigation>

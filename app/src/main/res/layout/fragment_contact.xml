@@ -6,7 +6,8 @@
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:theme="@style/ThemeOverlay.Navigation.FullscreenContainer"
-    tools:context=".FragmentContact">
+    tools:context=".FragmentContact"
+    tools:ignore="MissingDefaultResource">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_contact"

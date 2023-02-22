@@ -1,27 +1,28 @@
 package cn.lancet.navigation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import cn.lancet.navigation.adapter.ContactAdapter
-import cn.lancet.navigation.databinding.FragmentBBinding
+import cn.lancet.navigation.databinding.FragmentContactBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.util.FirstLetterComparator
 import cn.lancet.navigation.widget.SideBar
+import com.hjq.toast.Toaster
 import java.util.Locale
 
 
 class FragmentContact : Fragment() {
 
-    private var _binding: FragmentBBinding? = null
+    private var _binding: FragmentContactBinding? = null
 
     private var mRvContact: RecyclerView? = null
 
@@ -38,7 +39,7 @@ class FragmentContact : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBBinding.inflate(inflater, container, false)
+        _binding = FragmentContactBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -68,7 +69,12 @@ class FragmentContact : Fragment() {
                     (mRvContact?.layoutManager as LinearLayoutManager).scrollToPosition(position)
                 }
             }
+        })
 
+        mAdapter?.setOnItemClickListener(object : ContactAdapter.OnItemClickListener {
+            override fun onItemClick(user: User) {
+                Toaster.showLong(user)
+            }
         })
 
         val queries = BmobQuery<User>()

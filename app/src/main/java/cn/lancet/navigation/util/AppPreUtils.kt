@@ -14,6 +14,9 @@ class AppPreUtils {
             return MMKV.defaultMMKV().getString(key,"")?:""
         }
 
+        fun clearAll() {
+            MMKV.defaultMMKV().clearAll()
+        }
     }
 
 }
