@@ -3,10 +3,6 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
-
-        maven {
-            url "https://maven.rongcloud.cn/repository/maven-releases/"
-        }
     }
 
 }
@@ -19,6 +15,8 @@ dependencyResolutionManagement {
         maven {
             url "https://maven.rongcloud.cn/repository/maven-releases/"
         }
+        maven {url 'https://dl.bintray.com/chaozhouzhang/maven' }
+        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
 
     }
 

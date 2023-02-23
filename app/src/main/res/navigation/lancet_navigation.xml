@@ -7,21 +7,21 @@
 
     <fragment
         android:id="@+id/fragmentA"
-        android:name="cn.lancet.navigation.FragmentMessage"
+        android:name="cn.lancet.navigation.ui.home.FragmentHome"
         android:label="fragment_a"
-        tools:layout="@layout/fragment_a">
+        tools:layout="@layout/fragment_home">
 
     </fragment>
     <fragment
         android:id="@+id/fragmentB"
-        android:name="cn.lancet.navigation.FragmentContact"
+        android:name="cn.lancet.navigation.ui.contact.FragmentContact"
         android:label="fragment_b"
         tools:layout="@layout/fragment_contact">
 
     </fragment>
     <fragment
         android:id="@+id/fragmentC"
-        android:name="cn.lancet.navigation.FragmentMe"
+        android:name="cn.lancet.navigation.ui.me.FragmentMe"
         android:label="fragment_c"
         tools:layout="@layout/fragment_me">
 

@@ -7,8 +7,12 @@ import androidx.fragment.app.commitNow
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+//import cn.bmob.newim.BmobIM
+//import cn.bmob.newim.bean.BmobIMUserInfo
+//import cn.bmob.newim.listener.ConnectListener
 import cn.bmob.v3.Bmob
 import cn.bmob.v3.BmobQuery
+import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.QueryListener
 import cn.lancet.navigation.constans.Constant
@@ -65,6 +69,18 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun getUserInfo(){
+
+        val currentUser = BmobUser.getCurrentUser()
+
+        if (currentUser!=null && !currentUser.objectId.isNullOrBlank()){
+//            BmobIM.connect(currentUser.objectId, object : ConnectListener() {
+//                override fun done(uid: String?, e: BmobException?) {
+//                    BmobIM.getInstance().updateUserInfo(
+//                        BmobIMUserInfo()
+//                    )
+//                }
+//            })
+        }
 
         val query = BmobQuery<User>()
 

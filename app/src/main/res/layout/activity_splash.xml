@@ -18,6 +18,7 @@
         android:layout_gravity="end"
         android:padding="10dp"
         tools:text="跳过（5s）"
+        android:background="@drawable/bg_notice_time"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/black"/>

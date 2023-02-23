@@ -14,9 +14,7 @@ import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityLoginBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.util.AppPreUtils
-import io.rong.imkit.RongIM
-import io.rong.imkit.utils.RouteUtils
-import io.rong.imlib.RongIMClient
+
 
 class LoginActivity:AppCompatActivity() {
 
@@ -82,27 +80,6 @@ class LoginActivity:AppCompatActivity() {
 //                                    "token": "F1CGxX0eNJqy1DNMDN0eCamljoOYFl59QrGPAEc3930=@osi5.cn.rongnav.com;osi5.cn.rongcfg.com"
 //                                }
 
-                                RongIM.connect("F1CGxX0eNJqy1DNMDN0eCamljoOYFl59u6JoyppQ9Y0=@osi5.cn.rongnav.com;osi5.cn.rongcfg.com", object : RongIMClient.ConnectCallback() {
-                                    override fun onSuccess(userId: String?) {
-
-                                        RouteUtils.routeToConversationListActivity(this@LoginActivity,"")
-
-//                                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-//                                        finish()
-
-                                    }
-
-                                    override fun onError(error: RongIMClient.ConnectionErrorCode?) {
-                                        Log.e("error  ",""+error?.name)
-                                        startActivity(Intent(this@LoginActivity,MainActivity::class.java))
-                                        finish()
-                                    }
-
-                                    override fun onDatabaseOpened(p0: RongIMClient.DatabaseOpenStatus?) {
-
-                                    }
-
-                                })
 
 
                             }else{

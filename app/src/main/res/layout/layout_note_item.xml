@@ -27,7 +27,9 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp">
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="8dp"
+        android:elevation="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/csl_layout"

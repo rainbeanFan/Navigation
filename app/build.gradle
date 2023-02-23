@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -37,6 +39,11 @@ android {
     }
 }
 
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -55,21 +62,33 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
 
     implementation 'io.coil-kt:coil:2.2.2'
-//    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.5'
     implementation 'com.alibaba:fastjson:1.2.79'
 
     implementation 'io.github.bmob:android-sdk:3.8.21'
+//    implementation 'cn.bmob.android:bmob-im:2.1.5@aar'
+
+//    implementation 'cn.bmob.android:bmob-im:2.1.0@aar'
+//    implementation ('cn.bmob.android:bmob-sdk:3.6.3') {
+//        exclude group: 'com.google.code.gson', module: 'gson'
+//        exclude group: 'com.squareup.okio', module: 'okio-jvm'
+//    }
+
+
+
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okio:okio:3.2.0'
     implementation 'com.google.code.gson:gson:2.10'
 
-    implementation 'cn.rongcloud.sdk:im_kit:5.3.5'
+//    implementation 'cn.rongcloud.sdk:im_kit:5.3.5'
     implementation 'com.tencent:mmkv:1.2.15'
 
     implementation 'com.github.getActivity:Toaster:12.0'
 
     implementation "org.greenrobot:eventbus:3.3.1"
+
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
 
 }

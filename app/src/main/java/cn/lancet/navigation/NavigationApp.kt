@@ -4,8 +4,12 @@ import android.app.Application
 import cn.bmob.v3.Bmob
 import com.hjq.toast.Toaster
 import com.tencent.mmkv.MMKV
-import io.rong.imkit.RongIM
+import dagger.hilt.android.HiltAndroidApp
+import java.io.BufferedReader
+import java.io.File
+import java.io.FileReader
 
+@HiltAndroidApp
 class NavigationApp:Application() {
 
     override fun onCreate() {
@@ -15,10 +19,30 @@ class NavigationApp:Application() {
 
         Bmob.initialize(this,"18f0791eb905bf4a3efb8769d449c9e9")
 
-        RongIM.init(this,"k51hidapi3tb")
+        if (applicationInfo.packageName.equals(getLancetProcessName())){
+//            BmobIM.init(this)
+//            BmobIM.registerDefaultMessageHandler(LancetMessageHandler())
+        }
+
+//        RongIM.init(this,"k51hidapi3tb")
 
         MMKV.initialize(this)
 
     }
+
+
+
+    private fun getLancetProcessName():String?{
+        try {
+            val file = File("/proc/"+android.os.Process.myPid()+"/"+"cmdline")
+            val mBufferedReader = BufferedReader(FileReader(file))
+            val processName = mBufferedReader.readLine().trim()
+            mBufferedReader.close()
+            return processName
+        }catch (e:Exception){
+            return null
+        }
+    }
+
 
 }
