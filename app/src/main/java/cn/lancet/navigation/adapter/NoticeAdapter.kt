@@ -55,6 +55,11 @@ class NoticeAdapter(val context: Context) :
         notifyDataSetChanged()
     }
 
+    fun addData(data: Notice) {
+        mData.add(0,data)
+        notifyItemInserted(0)
+    }
+
     class NoticeViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
         val llRoot: LinearLayout = itemView.findViewById(R.id.ll_root)
         val tvTime: AppCompatTextView = itemView.findViewById(R.id.tv_notification_time)

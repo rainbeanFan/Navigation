@@ -16,6 +16,7 @@ import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentHomeBinding
 import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.notice.NoticeDetailActivity
+import cn.lancet.navigation.notice.NoticeViewModel
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -33,6 +34,7 @@ class FragmentHome : Fragment() {
     private var mAdapter: NoticeAdapter? = null
 
     private lateinit var viewModel: NoticeListViewModel
+    private lateinit var viewModelNotice: NoticeViewModel
 
     private val binding get() = _binding!!
 
@@ -59,6 +61,11 @@ class FragmentHome : Fragment() {
             ViewModelProvider.NewInstanceFactory()
         )[NoticeListViewModel::class.java]
 
+        viewModelNotice = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[NoticeViewModel::class.java]
+
         mAdapter = NoticeAdapter(requireContext())
         mRvMessage = binding.rvMessage
         mRvMessage?.apply {
@@ -79,6 +86,10 @@ class FragmentHome : Fragment() {
             mAdapter?.setData(it)
         })
 
+        viewModelNotice.addNotice.observe(viewLifecycleOwner){
+            mAdapter?.addData(it)
+        }
+
     }
 
     private fun getNotices() {
@@ -92,6 +103,8 @@ class FragmentHome : Fragment() {
             "deleteNotice" -> getNotices()
         }
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

@@ -5,17 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.FindListener
 import cn.bmob.v3.listener.QueryListener
-import cn.lancet.navigation.R
 import cn.lancet.navigation.constans.Constant
-import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.module.User
-import cn.lancet.navigation.repository.NoticeModelRepository
 import cn.lancet.navigation.util.AppPreUtils
-import coil.load
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 
 class MeViewModel():ViewModel() {
@@ -35,18 +29,6 @@ class MeViewModel():ViewModel() {
                     }
                 }
             })
-        }
-    }
-
-    fun addNotice(notice: Notice){
-        viewModelScope.launch{
-            NoticeModelRepository.getInstance().addNotice(notice)
-        }
-    }
-
-    fun deleteNotice(noticeId:String){
-        viewModelScope.launch {
-            NoticeModelRepository.getInstance().deleteNotice(noticeId)
         }
     }
 

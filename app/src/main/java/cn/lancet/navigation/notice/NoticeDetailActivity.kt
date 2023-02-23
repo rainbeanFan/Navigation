@@ -2,16 +2,13 @@ package cn.lancet.navigation.notice
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.QueryListener
-import cn.bmob.v3.listener.UpdateListener
+import androidx.lifecycle.ViewModelProvider
 import cn.lancet.navigation.R
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityNoticeDetailBinding
-import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.util.TimeUtil
 import coil.load
+import com.hjq.toast.Toaster
 import org.greenrobot.eventbus.EventBus
 
 
@@ -21,10 +18,14 @@ class NoticeDetailActivity:AppCompatActivity() {
 
     private var mNoticeId: String? = null
 
+    private lateinit var viewModel: NoticeViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoticeDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[NoticeViewModel::class.java]
 
         mNoticeId = intent?.getStringExtra(Constant.KEY_NOTICE_ID)
 
@@ -37,57 +38,37 @@ class NoticeDetailActivity:AppCompatActivity() {
         if (mNoticeId.isNullOrBlank()){
             return
         }
-        getNoticeDetail()
+
+        viewModel.getNoticeDetail(mNoticeId!!)
+
+        viewModel.noticeLiveData.observe(this){
+            binding.tvNotificationTitle.text = it.noticeTitle
+            binding.ivNotificationCover.load(it.coverImageUrl){
+                placeholder(R.mipmap.ic_notice_place_holder)
+                error(R.mipmap.ic_notice_place_holder)
+            }
+
+            binding.tvNoticeContent.text = it.noticeContent
+            binding.tvNoticePublisher.text = it.publisher
+            binding.tvNoticePublisherTime.text = it.createdTime?.let { time -> TimeUtil.ctsToTimeStr(time) }
+        }
 
         binding.ivDelete.setOnClickListener {
-            deleteNotice()
+            mNoticeId?.let {
+                viewModel.deleteNotice(it)
+            }
+        }
+
+        viewModel.deleteNotice.observe(this){
+            if (it){
+                EventBus.getDefault().post("deleteNotice")
+                finish()
+            }else{
+                Toaster.showLong("Delete notice failed")
+            }
         }
 
         binding.ivBack.setOnClickListener { finish() }
-
-    }
-
-    private fun getNoticeDetail(){
-        val query = BmobQuery<Notice>()
-        query.getObject(mNoticeId, object : QueryListener<Notice>() {
-            override fun done(notice: Notice?, e: BmobException?) {
-                if (e == null) {
-                    notice?.let {
-
-                        binding.tvNotificationTitle.text = it.noticeTitle
-                        binding.ivNotificationCover.load(it.coverImageUrl){
-                            placeholder(R.mipmap.ic_notice_place_holder)
-                            error(R.mipmap.ic_notice_place_holder)
-                        }
-
-                        binding.tvNoticeContent.text = it.noticeContent
-                        binding.tvNoticePublisher.text = it.publisher
-                        binding.tvNoticePublisherTime.text = it.createdTime?.let { it1 ->
-                            TimeUtil.ctsToTimeStr(
-                                it1
-                            )
-                        }
-
-
-
-                    }
-                }
-            }
-
-        })
-    }
-
-    private fun deleteNotice(){
-        val notice = Notice()
-        notice.delete(mNoticeId, object : UpdateListener() {
-            override fun done(e: BmobException?) {
-                if (e == null){
-                    EventBus.getDefault().post("deleteNotice")
-                    finish()
-                }
-            }
-
-        })
     }
 
 

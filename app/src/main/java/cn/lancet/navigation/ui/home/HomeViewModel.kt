@@ -8,7 +8,6 @@ import cn.bmob.v3.datatype.BmobQueryResult
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.SQLQueryListener
 import cn.lancet.navigation.module.Notice
-import cn.lancet.navigation.repository.NoticeModelRepository
 import kotlinx.coroutines.launch
 
 
@@ -29,17 +28,6 @@ class NoticeListViewModel ():ViewModel() {
         }
     }
 
-    fun addNotice(notice: Notice){
-        viewModelScope.launch{
-            NoticeModelRepository.getInstance().addNotice(notice)
-        }
-    }
-
-    fun deleteNotice(noticeId:String){
-        viewModelScope.launch {
-            NoticeModelRepository.getInstance().deleteNotice(noticeId)
-        }
-    }
 
 }
 

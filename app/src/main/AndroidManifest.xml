@@ -59,7 +59,6 @@ xmlns:tools="http://schemas.android.com/tools">
         </intent-filter>
     </activity>
 
-    <activity android:name=".NavigationDrawerActivity" />
     <activity
         android:name="cn.lancet.navigation.MainActivity"
         android:launchMode="singleTask" />

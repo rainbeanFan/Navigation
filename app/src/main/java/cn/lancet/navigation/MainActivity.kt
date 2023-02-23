@@ -82,18 +82,18 @@ class MainActivity : AppCompatActivity() {
 //            })
         }
 
-        val query = BmobQuery<User>()
-
-        query.getObject(AppPreUtils.getString(Constant.KEY_USER_ID),
-            object : QueryListener<User>() {
-                override fun done(user: User?, e: BmobException?) {
-                    if (e == null) {
-                        user?.let {
-                            AppPreUtils.putString(Constant.KEY_USER_NAME,it.name?:it.account?:"")
-                        }
-                    }
-                }
-            })
+//        val query = BmobQuery<User>()
+//
+//        query.getObject(AppPreUtils.getString(Constant.KEY_USER_ID),
+//            object : QueryListener<User>() {
+//                override fun done(user: User?, e: BmobException?) {
+//                    if (e == null) {
+//                        user?.let {
+//                            AppPreUtils.putString(Constant.KEY_USER_NAME,it.name?:it.account?:"")
+//                        }
+//                    }
+//                }
+//            })
 
     }
 

@@ -6,12 +6,13 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.ViewModelProvider
 import cn.bmob.v3.datatype.BmobFile
 import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UploadFileListener
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityPublishNoticeBinding
+import cn.lancet.navigation.event.AddNoticeEvent
 import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.util.AppPreUtils
 import cn.lancet.navigation.util.FileUtils
@@ -24,6 +25,8 @@ class PublishNoticeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPublishNoticeBinding
 
     private var mUri:Uri?=null
+
+    private lateinit var viewModel: NoticeViewModel
 
     private val launcherActivity = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -39,6 +42,9 @@ class PublishNoticeActivity : AppCompatActivity() {
 
         binding = ActivityPublishNoticeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this,
+            ViewModelProvider.NewInstanceFactory())[NoticeViewModel::class.java]
 
         binding.ivBack.setOnClickListener { finish() }
 
@@ -70,27 +76,11 @@ class PublishNoticeActivity : AppCompatActivity() {
             mUri?.let { it1 -> uploadNoticeCoverImage(it1) }
         }
 
-    }
+        viewModel.addNotice.observe(this){
+            Toaster.showLong("发布成功")
+            finish()
+        }
 
-    private fun publishNotice(fileUrl:String){
-
-        val notice = Notice(
-            createdTime = System.currentTimeMillis(),
-            updatedTime = System.currentTimeMillis(),
-            coverImageUrl = fileUrl,
-            noticeTitle = binding.etNoticeTitle.text.toString(),
-            noticeContent = binding.etNoticeContent.text.toString(),
-            publisher = AppPreUtils.getString(Constant.KEY_USER_NAME))
-
-        notice.save(object : SaveListener<String>() {
-            override fun done(objectId: String?, e: BmobException?) {
-                if (e == null && objectId!=null) {
-                    EventBus.getDefault().post("addNotice")
-                    Toaster.showLong("发布成功")
-                    finish()
-                }
-            }
-        })
     }
 
     private fun uploadNoticeCoverImage(uri:Uri){
@@ -101,12 +91,20 @@ class PublishNoticeActivity : AppCompatActivity() {
 
         val bmobFile = BmobFile(imagePathFile)
 
+        val notice = Notice(
+            createdTime = System.currentTimeMillis(),
+            updatedTime = System.currentTimeMillis(),
+            coverImageUrl = fileUrl,
+            noticeTitle = binding.etNoticeTitle.text.toString(),
+            noticeContent = binding.etNoticeContent.text.toString(),
+            publisher = AppPreUtils.getString(Constant.KEY_USER_NAME))
+
         bmobFile.uploadblock(object : UploadFileListener() {
             override fun done(e: BmobException?) {
                 if (e == null){
                     fileUrl = bmobFile.fileUrl
                 }
-                publishNotice(fileUrl)
+                viewModel.addNotice(notice.copy(coverImageUrl = fileUrl))
             }
         })
 
