@@ -1,6 +1,7 @@
 package cn.lancet.navigation.ui.contact
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -102,34 +103,19 @@ class FragmentContact : Fragment() {
         mAdapter?.setOnItemClickListener(object : ContactAdapter.OnItemClickListener {
             override fun onItemClick(user: User) {
 
+//                val intent = Intent(requireContext(),ConversationActivity::class.java).apply {
+//                    putExtra(RouteUtils.CONVERSATION_TYPE,Conversation.ConversationType.PRIVATE)
+//                    putExtra(RouteUtils.TARGET_ID,user.objectId)
+//                    putExtra(Constant.KEY_USER_NAME,user.name)
+//                }
+//
+//                requireContext().startActivity(intent)
+
                 RouteUtils.routeToConversationActivity(
                     requireContext(),
                     Conversation.ConversationType.PRIVATE,
                     user.objectId
                 )
-
-//                val message = Message.obtain(user.objectId,
-//                    Conversation.ConversationType.PRIVATE,
-//                    TextMessage.obtain("我是一条来自${AppPreUtils.getString(Constant.KEY_USER_NAME)}的消息！"))
-//
-//                IMCenter.getInstance().sendMessage(message,null,null,
-//                    object : IRongCallback.ISendMessageCallback {
-//                        override fun onAttached(message: Message?) {
-//
-//                        }
-//
-//                        override fun onSuccess(message: Message?) {
-//                            Toaster.showLong("发送成功！")
-//                        }
-//
-//                        override fun onError(
-//                            message: Message?,
-//                            errorCode: RongIMClient.ErrorCode?
-//                        ) {
-//                            Toaster.showLong("发送失败  ${errorCode.toString()}！")
-//                        }
-//
-//                    })
             }
         })
 
