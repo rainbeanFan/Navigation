@@ -12,12 +12,10 @@ import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.UploadFileListener
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityPublishNoticeBinding
-import cn.lancet.navigation.event.AddNoticeEvent
 import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.util.AppPreUtils
 import cn.lancet.navigation.util.FileUtils
 import com.hjq.toast.Toaster
-import org.greenrobot.eventbus.EventBus
 
 
 class PublishNoticeActivity : AppCompatActivity() {
@@ -66,7 +64,6 @@ class PublishNoticeActivity : AppCompatActivity() {
         }
 
         binding.ivCover.setOnClickListener {
-
             val intent = Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             launcherActivity.launch(intent)
@@ -104,9 +101,10 @@ class PublishNoticeActivity : AppCompatActivity() {
                 if (e == null){
                     fileUrl = bmobFile.fileUrl
                 }
-                viewModel.addNotice(notice.copy(coverImageUrl = fileUrl))
             }
         })
+
+        viewModel.addNotice(notice.copy(coverImageUrl = fileUrl))
 
     }
 

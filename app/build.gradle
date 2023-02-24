@@ -61,7 +61,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
 
-    implementation 'io.coil-kt:coil:2.2.2'
+    implementation 'io.coil-kt:coil:1.4.0'
     implementation 'com.alibaba:fastjson:1.2.79'
 
     implementation 'io.github.bmob:android-sdk:3.8.21'
@@ -90,5 +90,10 @@ dependencies {
 
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
+
+    implementation 'com.mayabot.mynlp:mynlp:3.2.0'
+
+    implementation 'com.mayabot.mynlp.resource:mynlp-resource-pinyin:1.1.0'
+
 
 }

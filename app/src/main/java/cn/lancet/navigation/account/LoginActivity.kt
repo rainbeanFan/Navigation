@@ -73,15 +73,11 @@ class LoginActivity:AppCompatActivity() {
                                 it.avatar?.let {
                                     AppPreUtils.putString(Constant.KEY_AVATAR,it)
                                 }
-
 //                                {
 //                                    "code": 200,
 //                                    "userId": "7efe36b075",
 //                                    "token": "F1CGxX0eNJqy1DNMDN0eCamljoOYFl59QrGPAEc3930=@osi5.cn.rongnav.com;osi5.cn.rongcfg.com"
 //                                }
-
-
-
                             }else{
                                 Toast.makeText(this@LoginActivity, "The account and password don`t match.", Toast.LENGTH_SHORT).show()
                             }

@@ -1,239 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:theme="@style/ThemeOverlay.Navigation.FullscreenContainer"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.me.FragmentMe">
+    android:fitsSystemWindows="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:background="@drawable/img_me_bg">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_avatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                app:shapeAppearance="@style/CircleRoundImageStyle"
-                android:scaleType="centerCrop"
-                app:strokeColor="@color/black"
-                app:strokeWidth="1dp"
-                tools:src="@mipmap/icon_default_avatar"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/iv_avatar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                tools:text="Lucky"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--个人信息 新朋友 隐私设置 分享 设置-->
-    <LinearLayout
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_avatar_bg"
         android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/cardview_dark_background" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/action_logout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fitsSystemWindows="true"
+        android:src="@drawable/icon_logout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="75dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_default_avatar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/light_blue_900"
+        app:strokeWidth="0.5dp"
+        app:shapeAppearance="@style/CircleRoundImageStyle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="75dp"
+        android:text="@{user.name}"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="神秘的jetpack" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:text="@{user.description}"
+        android:textColor="#999999"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        tools:text="神秘的jetpack" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/go_detail"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_right_arrow"
+        app:tint="@color/white" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_overlap"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <LinearLayout
-            android:id="@+id/ll_me_info"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/white"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_user_info_icon" />
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/like_count"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="个人信息"
-                android:textColor="@android:color/black" />
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.3"
+                android:textColor="#666666"
+                android:text="100\n获赞" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_right_arrow" />
+            <TextView
+                android:id="@+id/fans_count"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.3"
+                android:textColor="#666666"
+                android:text="100\n粉丝" />
 
+
+            <TextView
+                android:id="@+id/follow_count"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.3"
+                android:textColor="#666666"
+                android:text="100\n关注" />
+
+            <TextView
+                android:id="@+id/score_count"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.3"
+                android:textColor="#666666"
+                android:text="1000\n粉丝" />
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_overlap">
 
         <LinearLayout
-            android:id="@+id/ll_new_friend"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/white"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_new_firend_icon" />
 
             <TextView
+                android:id="@+id/user_feed"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="新朋友"
-                android:textColor="@android:color/black" />
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="帖子"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                app:drawableTopCompat="@drawable/ic_profile_my_post" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_right_arrow" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_private_set"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_private_setting" />
 
             <TextView
+                android:id="@+id/user_comment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="隐私设置"
-                android:textColor="@android:color/black" />
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="评论"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                app:drawableTopCompat="@drawable/ic_profile_my_comment" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_right_arrow" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_share"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_share_icon" />
 
             <TextView
+                android:id="@+id/user_favorite"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="分享"
-                android:textColor="@android:color/black" />
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="收藏"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                app:drawableTopCompat="@drawable/ic_profile_my_collection" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_right_arrow" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_notice"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_setting_icon" />
 
             <TextView
+                android:id="@+id/user_history"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:text="无法连接服务器的通知[必看]"
-                android:textColor="@android:color/black" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_right_arrow" />
-
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="观看历史"
+                android:textColor="#333333"
+                android:textSize="12sp"
+                app:drawableTopCompat="@drawable/ic_profile_my_read_history" />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_setting"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_setting_icon" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:text="设置"
-                android:textColor="@android:color/black" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/img_right_arrow" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-</LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

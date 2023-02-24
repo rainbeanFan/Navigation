@@ -3,6 +3,7 @@ package cn.lancet.navigation
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.commitNow
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -20,6 +21,7 @@ import cn.lancet.navigation.databinding.ActivityMainBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.notice.PublishNoticeActivity
 import cn.lancet.navigation.util.AppPreUtils
+import cn.lancet.navigation.util.StatusBar
 import coil.load
 import com.hjq.toast.Toaster
 
@@ -30,7 +32,9 @@ class MainActivity : AppCompatActivity() {
     private var mNavController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        StatusBar.fitSystemBar(this)
         super.onCreate(savedInstanceState)
+
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
 
@@ -44,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         mBinding?.fabCreateNotice?.setOnClickListener {
-            Toaster.showLong("Create Notice")
             startActivity(Intent(this,PublishNoticeActivity::class.java))
         }
 

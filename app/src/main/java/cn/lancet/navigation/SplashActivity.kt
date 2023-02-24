@@ -3,6 +3,7 @@ package cn.lancet.navigation
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.constans.Constant
@@ -25,6 +26,8 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
+
         mBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
 

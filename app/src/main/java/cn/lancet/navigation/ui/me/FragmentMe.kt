@@ -9,12 +9,17 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import cn.lancet.navigation.R
 import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.databinding.FragmentMeBinding
 import cn.lancet.navigation.util.AppPreUtils
+import cn.lancet.navigation.widget.LogoutDialog
 import coil.load
+import coil.transform.BlurTransformation
 import com.google.android.material.imageview.ShapeableImageView
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class FragmentMe : Fragment() {
@@ -46,10 +51,8 @@ class FragmentMe : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentMeBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,27 +63,44 @@ class FragmentMe : Fragment() {
             ViewModelProvider.NewInstanceFactory()
         )[MeViewModel::class.java]
 
-        mUserAvatar = binding.ivAvatar
-        mUserName = binding.tvName
+        mUserAvatar = binding.avatar
+        mUserName = binding.name
 
         viewModel.getUserInfo()
 
-        viewModel.userLiveData.observe(viewLifecycleOwner){
-            binding.tvName.text = it.name
-            binding.ivAvatar.load(it.avatar){
-                placeholder(R.mipmap.icon_default_avatar)
-                error(R.mipmap.icon_default_avatar)
+        lifecycleScope.launch {
+            viewModel.sharedFlow.collect {
+                binding.name.text = it.name
+                binding.avatar.load(it.avatar){
+                    placeholder(R.mipmap.icon_default_avatar)
+                    error(R.mipmap.icon_default_avatar)
+                }
+                binding.ivAvatarBg.load(it.avatar){
+                    placeholder(R.drawable.splash)
+                    error(R.drawable.splash)
+                    .transformations(BlurTransformation(requireContext(),5F,10F))
+                }
             }
         }
-
         initEvent()
     }
 
     private fun initEvent() {
-        binding.llSetting.setOnClickListener {
-            AppPreUtils.clearAll()
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
-            activity?.finish()
+
+        binding.goDetail.setOnClickListener {
+            startActivity(Intent(requireContext(),UserInfoActivity::class.java))
+        }
+
+        binding.actionLogout.setOnClickListener {
+            LogoutDialog.newInstance()
+                .setOnLogoutListener(object : LogoutDialog.OnLogoutClickListener {
+                    override fun logout() {
+                        AppPreUtils.clearAll()
+                        startActivity(Intent(requireContext(), LoginActivity::class.java))
+                        activity?.finish()
+                    }
+                })
+                .show(requireActivity().supportFragmentManager,"LOGOUT")
         }
     }
 

@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 
-class MeViewModel() : ViewModel() {
+class UserInfoViewModel() : ViewModel() {
 
     val sharedFlow = MutableSharedFlow<User>()
 

@@ -1,6 +1,7 @@
 package cn.lancet.navigation.util
 
 import cn.lancet.navigation.module.User
+import com.mayabot.nlp.module.pinyin.Pinyins
 
 class FirstLetterComparator : Comparator<User> {
     override fun compare(o1: User?, o2: User?): Int {

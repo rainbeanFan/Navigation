@@ -2,7 +2,6 @@ package cn.lancet.navigation.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,20 +108,14 @@ class FragmentHome : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         mRvMessage = null
-
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this)
         }
-
-        Log.d("onDestroy  ", "Fragment A")
-
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("onDestroyView  ", "Fragment A")
-
         _binding = null
     }
 

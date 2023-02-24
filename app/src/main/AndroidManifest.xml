@@ -43,7 +43,7 @@ xmlns:tools="http://schemas.android.com/tools">
     android:roundIcon="@mipmap/ic_logo"
     android:supportsRtl="true"
     android:name=".NavigationApp"
-    android:theme="@style/Theme.Navigation"
+    android:theme="@style/Theme.Navigation.NoActionBar"
     tools:targetApi="31">
     <activity
         android:name=".SplashActivity"
@@ -64,13 +64,12 @@ xmlns:tools="http://schemas.android.com/tools">
         android:launchMode="singleTask" />
     <activity
         android:name="cn.lancet.navigation.account.LoginActivity"
-        android:launchMode="singleTop"
-        android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        android:launchMode="singleTop" />
 
     <activity
-        android:name="cn.lancet.navigation.notice.PublishNoticeActivity"
-        android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
+        android:name="cn.lancet.navigation.notice.PublishNoticeActivity" />
     <activity android:name="cn.lancet.navigation.notice.NoticeDetailActivity" />
+    <activity android:name="cn.lancet.navigation.ui.me.UserInfoActivity" />
 
     <provider
         android:name="cn.bmob.v3.util.BmobContentProvider"
