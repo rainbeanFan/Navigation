@@ -80,6 +80,7 @@ class FragmentMe : Fragment() {
                     error(R.drawable.splash)
                     .transformations(BlurTransformation(requireContext(),5F,10F))
                 }
+                binding.description.text = it.email
             }
         }
         initEvent()

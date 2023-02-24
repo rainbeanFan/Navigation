@@ -2,31 +2,28 @@ package cn.lancet.navigation.account
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import cn.bmob.v3.BmobQuery
-import cn.bmob.v3.exception.BmobException
-import cn.bmob.v3.listener.FindListener
-import cn.bmob.v3.listener.SaveListener
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import cn.lancet.navigation.MainActivity
-import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityLoginBinding
-import cn.lancet.navigation.module.User
-import cn.lancet.navigation.util.AppPreUtils
+import com.hjq.toast.Toaster
+import kotlinx.coroutines.launch
 
 
 class LoginActivity:AppCompatActivity() {
 
     private var mBinding: ActivityLoginBinding? = null
 
+    private lateinit var viewModel: UserViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
-
+        viewModel = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[UserViewModel::class.java]
         initEvent()
-
     }
 
     private fun initEvent() {
@@ -45,69 +42,26 @@ class LoginActivity:AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            login(account,password)
-
-
-
-
+            viewModel.login(account,password)
         }
-    }
 
-    private fun login(account:String,pwd:String){
-        val bmobQuery = BmobQuery<User>()
-
-        var hasSignup = false
-
-        bmobQuery.findObjects(object : FindListener<User>() {
-            override fun done(users: MutableList<User>?, e: BmobException?) {
-                if (e == null && !users.isNullOrEmpty()){
-                    users.forEach {
-                        if (it.account.equals(account)){
-                            hasSignup = true
-                            if (it.pwd.equals(pwd)){
-
-                                it.objectId?.let {
-                                    AppPreUtils.putString(Constant.KEY_USER_ID, it)
-                                }
-
-                                it.avatar?.let {
-                                    AppPreUtils.putString(Constant.KEY_AVATAR,it)
-                                }
-//                                {
-//                                    "code": 200,
-//                                    "userId": "7efe36b075",
-//                                    "token": "F1CGxX0eNJqy1DNMDN0eCamljoOYFl59QrGPAEc3930=@osi5.cn.rongnav.com;osi5.cn.rongcfg.com"
-//                                }
-                            }else{
-                                Toast.makeText(this@LoginActivity, "The account and password don`t match.", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-                    if (!hasSignup){
-                        signUp(account,pwd)
-                    }
-                }
+        lifecycleScope.launch {
+            viewModel.loginSharedFlow.collect{
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
             }
+        }
 
-        })
-
-    }
-
-    private fun signUp(account:String,password:String){
-        val user = User(account = account, pwd = password,name = account)
-
-        user.save(object : SaveListener<String>() {
-            override fun done(objectId: String?, e: BmobException?) {
-                if (e == null && !objectId.isNullOrBlank()){
+        lifecycleScope.launch {
+            viewModel.signupSharedFlow.collect{
+                if (it){
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
                 }else{
-                    Toast.makeText(this@LoginActivity, "Login failed!", Toast.LENGTH_SHORT).show()
+                    Toaster.showLong("Login failed!")
                 }
             }
-
-        })
-
+        }
     }
 
 

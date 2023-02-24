@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     private var mNavController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        StatusBar.fitSystemBar(this)
         super.onCreate(savedInstanceState)
 
         mBinding = ActivityMainBinding.inflate(layoutInflater)

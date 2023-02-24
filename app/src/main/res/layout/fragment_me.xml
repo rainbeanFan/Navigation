@@ -29,8 +29,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/avatar"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="75dp"
         android:scaleType="centerCrop"
@@ -46,12 +46,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="75dp"
-        android:text="@{user.name}"
+        android:layout_marginTop="2dp"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintLeft_toRightOf="@+id/avatar"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar"
         tools:text="神秘的jetpack" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -59,12 +59,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="6dp"
-        android:text="@{user.description}"
-        android:textColor="#999999"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@+id/avatar"
-        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
         tools:text="神秘的jetpack" />
 
     <androidx.appcompat.widget.AppCompatImageView
