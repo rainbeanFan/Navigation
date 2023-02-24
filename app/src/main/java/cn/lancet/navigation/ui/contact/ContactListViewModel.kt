@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import cn.bmob.v3.BmobQuery
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
+import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.module.User
+import cn.lancet.navigation.util.AppPreUtils
 import com.mayabot.nlp.module.pinyin.Pinyins
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -20,20 +22,23 @@ class ContactListViewModel() : ViewModel() {
         queries.findObjects(object : FindListener<User>() {
             override fun done(users: MutableList<User>?, e: BmobException?) {
                 if (e == null && users != null) {
-                    users.forEach {
-                        val result = Pinyins.convert(it.name)
+                    val result = users.filter {
+                        it.objectId != AppPreUtils.getString(Constant.KEY_USER_ID)
+                    }
+                    result.forEach {
+                        val pinyin = Pinyins.convert(it.name)
                         it.sort_letter =
-                            if (result!!.asString().substring(0, 1).uppercase(Locale.getDefault())
+                            if (pinyin!!.asString().substring(0, 1).uppercase(Locale.getDefault())
                                     .matches("[A-Z]".toRegex())
                             ) {
-                                result.asString().substring(0, 1).uppercase(Locale.getDefault())
+                                pinyin.asString().substring(0, 1).uppercase(Locale.getDefault())
                             } else {
                                 "#"
                             }
                     }
 
                     viewModelScope.launch {
-                        contactSharedFlow.emit(users!!)
+                        contactSharedFlow.emit(result.toMutableList())
                     }
                 }
             }

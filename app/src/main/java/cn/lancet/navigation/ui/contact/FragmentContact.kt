@@ -1,7 +1,6 @@
 package cn.lancet.navigation.ui.contact
 
-//import cn.bmob.newim.BmobIM
-//import cn.bmob.newim.bean.BmobIMUserInfo
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +13,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.lancet.navigation.adapter.ContactAdapter
+import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentContactBinding
 import cn.lancet.navigation.module.User
+import cn.lancet.navigation.util.AppPreUtils
 import cn.lancet.navigation.util.FirstLetterComparator
 import cn.lancet.navigation.widget.SideBar
 import com.hjq.toast.Toaster
+import io.rong.imkit.IMCenter
+import io.rong.imkit.utils.RouteUtils
+import io.rong.imlib.IRongCallback
+import io.rong.imlib.RongIMClient
+import io.rong.imlib.model.Conversation
+import io.rong.imlib.model.Message
+import io.rong.message.TextMessage
 import kotlinx.coroutines.launch
 
 
@@ -93,13 +101,35 @@ class FragmentContact : Fragment() {
 
         mAdapter?.setOnItemClickListener(object : ContactAdapter.OnItemClickListener {
             override fun onItemClick(user: User) {
-                Toaster.showLong(user)
 
-//                BmobIM.getInstance().startPrivateConversation(
-//                    BmobIMUserInfo(0,user.objectId,
-//                        user.name,user.avatar),null
-//                )
+                RouteUtils.routeToConversationActivity(
+                    requireContext(),
+                    Conversation.ConversationType.PRIVATE,
+                    user.objectId
+                )
 
+//                val message = Message.obtain(user.objectId,
+//                    Conversation.ConversationType.PRIVATE,
+//                    TextMessage.obtain("我是一条来自${AppPreUtils.getString(Constant.KEY_USER_NAME)}的消息！"))
+//
+//                IMCenter.getInstance().sendMessage(message,null,null,
+//                    object : IRongCallback.ISendMessageCallback {
+//                        override fun onAttached(message: Message?) {
+//
+//                        }
+//
+//                        override fun onSuccess(message: Message?) {
+//                            Toaster.showLong("发送成功！")
+//                        }
+//
+//                        override fun onError(
+//                            message: Message?,
+//                            errorCode: RongIMClient.ErrorCode?
+//                        ) {
+//                            Toaster.showLong("发送失败  ${errorCode.toString()}！")
+//                        }
+//
+//                    })
             }
         })
 
@@ -110,23 +140,11 @@ class FragmentContact : Fragment() {
 
         lifecycleScope.launch {
             viewModel.contactSharedFlow.collect {
-                mLoaded = true
-//                binding.progressBar.hide()
                 mAdapter?.setData(it.sortedWith(mComparator).toMutableList())
             }
         }
-
         viewModel.getContactList()
 
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (!mLoaded){
-//            binding.progressBar.show()
-//            viewModel.getContactList()
-        }
     }
 
     override fun onDestroy() {

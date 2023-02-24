@@ -5,6 +5,7 @@ import cn.bmob.v3.Bmob
 import com.hjq.toast.Toaster
 import com.tencent.mmkv.MMKV
 import dagger.hilt.android.HiltAndroidApp
+import io.rong.imkit.RongIM
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -19,12 +20,7 @@ class NavigationApp:Application() {
 
         Bmob.initialize(this,"18f0791eb905bf4a3efb8769d449c9e9")
 
-        if (applicationInfo.packageName.equals(getLancetProcessName())){
-//            BmobIM.init(this)
-//            BmobIM.registerDefaultMessageHandler(LancetMessageHandler())
-        }
-
-//        RongIM.init(this,"k51hidapi3tb")
+        RongIM.init(this,"k51hidwqkv3tb")
 
         MMKV.initialize(this)
 
