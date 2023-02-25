@@ -103,18 +103,24 @@ class FragmentContact : Fragment() {
         mAdapter?.setOnItemClickListener(object : ContactAdapter.OnItemClickListener {
             override fun onItemClick(user: User) {
 
+                RouteUtils.registerActivity(RouteUtils.RongActivityType.ConversationActivity,
+                    ConversationActivity::class.java)
+
 //                val intent = Intent(requireContext(),ConversationActivity::class.java).apply {
 //                    putExtra(RouteUtils.CONVERSATION_TYPE,Conversation.ConversationType.PRIVATE)
 //                    putExtra(RouteUtils.TARGET_ID,user.objectId)
-//                    putExtra(Constant.KEY_USER_NAME,user.name)
 //                }
-//
-//                requireContext().startActivity(intent)
+
+                val bundle = Bundle().apply {
+                    putString(Constant.KEY_USER_NAME,user.name)
+                }
+
+//               requireContext().startActivity(intent)
 
                 RouteUtils.routeToConversationActivity(
                     requireContext(),
                     Conversation.ConversationType.PRIVATE,
-                    user.objectId
+                    user.objectId,bundle
                 )
             }
         })

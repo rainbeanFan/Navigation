@@ -16,7 +16,7 @@ class ConversationActivity : AppCompatActivity() {
         mBinding = ActivityConversationBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        val name = intent?.getStringExtra(Constant.KEY_USER_NAME)
+        val name = intent?.extras?.getString(Constant.KEY_USER_NAME)
 
         mBinding.ivBack.setOnClickListener { finish() }
         mBinding.tvTitle.text = name

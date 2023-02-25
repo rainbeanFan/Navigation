@@ -16,6 +16,7 @@ import cn.lancet.navigation.databinding.FragmentHomeBinding
 import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.notice.NoticeDetailActivity
 import cn.lancet.navigation.notice.NoticeViewModel
+import cn.lancet.navigation.widget.CommentBottomDialog
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -77,6 +78,16 @@ class FragmentHome : Fragment() {
                 intent.putExtra(Constant.KEY_NOTICE_ID, notice.objectId)
                 startActivity(intent)
             }
+
+        })
+
+        mAdapter?.setOnCommentClickListener(object : NoticeAdapter.OnCommentClickListener {
+            override fun onCommentClick(notice: Notice) {
+                CommentBottomDialog(notice.objectId).show(
+                    requireActivity().supportFragmentManager,"COMMENT"
+                )
+            }
+
         })
 
         getNotices()

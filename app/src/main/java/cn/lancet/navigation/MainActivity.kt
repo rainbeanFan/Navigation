@@ -35,13 +35,6 @@ class MainActivity : AppCompatActivity() {
 
         getUserInfo()
 
-        val avatar = AppPreUtils.getString(Constant.KEY_AVATAR)
-
-        mBinding?.ivAvatar?.load(avatar) {
-            placeholder(R.mipmap.icon_default_avatar)
-            error(R.mipmap.icon_default_avatar)
-        }
-
         mBinding?.fabCreateNotice?.setOnClickListener {
             startActivity(Intent(this, PublishNoticeActivity::class.java))
         }

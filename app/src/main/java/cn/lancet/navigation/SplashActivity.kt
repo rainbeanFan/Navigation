@@ -26,7 +26,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, true)
 
         mBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
