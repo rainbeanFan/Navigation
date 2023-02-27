@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "961425072611",
+    "project_id": "walden-556d0",
+    "storage_bucket": "walden-556d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:961425072611:android:d134e79f505af9e7dec0d6",
+        "android_client_info": {
+          "package_name": "cn.lancet.navigation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "961425072611-dke9unbpk6hilqq5ttc47a0rhrc1alpq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe8LD4NCznRh_8bq9TFon5P-EbFCCk39s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "961425072611-dke9unbpk6hilqq5ttc47a0rhrc1alpq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

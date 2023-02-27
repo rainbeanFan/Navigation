@@ -9,6 +9,7 @@ import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivitySplashBinding
 import cn.lancet.navigation.util.AppPreUtils
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -29,6 +30,8 @@ class SplashActivity : AppCompatActivity() {
 
         mBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
+
+        FirebaseAnalytics.getInstance(this)
 
         val intent = if (AppPreUtils.getString(Constant.KEY_USER_ID).isBlank()) {
             Intent(this@SplashActivity, LoginActivity::class.java)
