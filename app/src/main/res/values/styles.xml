@@ -7,6 +7,8 @@
 
     <style name="BottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/white</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
     <style name="RoundCornerBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">

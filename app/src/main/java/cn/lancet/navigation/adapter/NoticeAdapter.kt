@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.lancet.navigation.R
+import cn.lancet.navigation.module.Comment
 import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.util.TimeUtil
 import coil.load
@@ -66,6 +67,33 @@ class NoticeAdapter(val context: Context) :
             mCommentListener?.onCommentClick(data)
         }
 
+    }
+
+    override fun onBindViewHolder(
+        holder: NoticeViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+            return
+        }
+
+        val holder = holder
+
+        val avatarUrl =
+            "https://images.pexels.com/photos/2174974/pexels-photo-2174974.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+
+        payloads.forEach {
+            if (it is Comment){
+                holder.ivCommentAvatar.load(it.commentAvatarUrl){
+
+                }
+                holder.tvCommentName.text = it.commentName
+                holder.tvCommentTitle.text = it.commentTitle
+                holder.ivCommentCover.load(avatarUrl)
+            }
+        }
     }
 
     fun setData(datas: MutableList<Notice>) {

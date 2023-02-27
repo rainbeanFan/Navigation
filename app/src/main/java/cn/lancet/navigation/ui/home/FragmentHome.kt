@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.lancet.navigation.adapter.NoticeAdapter
@@ -17,6 +17,7 @@ import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.notice.NoticeDetailActivity
 import cn.lancet.navigation.notice.NoticeViewModel
 import cn.lancet.navigation.widget.CommentBottomDialog
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -35,6 +36,8 @@ class FragmentHome : Fragment() {
 
     private lateinit var viewModel: NoticeListViewModel
     private lateinit var viewModelNotice: NoticeViewModel
+
+    private var mNoticeIds = mutableListOf<String>()
 
     private val binding get() = _binding!!
 
@@ -92,12 +95,29 @@ class FragmentHome : Fragment() {
 
         getNotices()
 
-        viewModel._notices.observe(viewLifecycleOwner, Observer {
-            mAdapter?.setData(it)
-        })
+        lifecycleScope.launch {
+            viewModel.noticeStateFlow.collect {
+                mAdapter?.setData(it)
+                it.forEach {  notice ->
+                    mNoticeIds.add(notice.objectId)
+                    viewModel.getComment(notice.objectId)
+                }
+            }
+        }
 
-        viewModelNotice.addNotice.observe(viewLifecycleOwner){
-            mAdapter?.addData(it)
+        lifecycleScope.launch {
+            viewModel.commentStateFlow.collect {
+                if (it.second.isNotEmpty()){
+                    mAdapter?.notifyItemChanged(mNoticeIds.indexOf(it.first),it.second[0])
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModelNotice.addFlow.collect{
+                mNoticeIds.add(0,it.objectId)
+                mAdapter?.addData(it)
+            }
         }
 
     }
@@ -109,7 +129,6 @@ class FragmentHome : Fragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: String) {
         when (event) {
-            "addNotice" -> getNotices()
             "deleteNotice" -> getNotices()
         }
     }

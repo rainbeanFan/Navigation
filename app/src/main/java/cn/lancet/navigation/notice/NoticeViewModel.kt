@@ -1,6 +1,5 @@
 package cn.lancet.navigation.notice
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cn.bmob.v3.BmobQuery
@@ -9,52 +8,52 @@ import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
 import cn.lancet.navigation.module.Notice
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-
 
 
 class NoticeViewModel ():ViewModel() {
 
-    var noticeLiveData = MutableLiveData<Notice>()
-    var deleteNotice = MutableLiveData<Boolean>()
-    var addNotice = MutableLiveData<Notice>()
+    var noticeFlow = MutableSharedFlow<Notice>()
+    var deleteFlow = MutableSharedFlow<Boolean>()
+    var addFlow = MutableSharedFlow<Notice>()
     fun getNoticeDetail(noticeId:String){
-        viewModelScope.launch {
-            val queries = BmobQuery<Notice>()
-
-            queries.getObject(noticeId, object : QueryListener<Notice>() {
-                override fun done(notice: Notice?, e: BmobException?) {
-                    if (e == null) {
+        val queries = BmobQuery<Notice>()
+        queries.getObject(noticeId, object : QueryListener<Notice>() {
+            override fun done(notice: Notice?, e: BmobException?) {
+                if (e == null) {
+                    viewModelScope.launch {
                         notice?.let {
-                            noticeLiveData.postValue(it)
+                            noticeFlow.emit(it)
                         }
                     }
                 }
-            })
-        }
+            }
+        })
     }
 
+
     fun addNotice(notice: Notice){
-        viewModelScope.launch{
-            notice.save(object : SaveListener<String>() {
-                override fun done(objectId: String?, e: BmobException?) {
-                    if (e == null && objectId!=null) {
-                        addNotice.postValue(notice)
+        notice.save(object : SaveListener<String>() {
+            override fun done(objectId: String?, e: BmobException?) {
+                if (e == null && objectId!=null) {
+                    viewModelScope.launch {
+                        addFlow.emit(notice)
                     }
                 }
-            })
-        }
+            }
+        })
     }
 
     fun deleteNotice(noticeId:String){
-        viewModelScope.launch {
-            val notice = Notice()
-            notice.delete(noticeId, object : UpdateListener() {
-                override fun done(e: BmobException?) {
-                    deleteNotice.postValue(e == null)
+        val notice = Notice()
+        notice.delete(noticeId, object : UpdateListener() {
+            override fun done(e: BmobException?) {
+                viewModelScope.launch {
+                    deleteFlow.emit(e == null)
                 }
-            })
-        }
+            }
+        })
     }
 
 }

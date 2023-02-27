@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -70,9 +71,12 @@ class CommentBottomDialog(noticeId:String):BottomSheetDialogFragment() {
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[CommentViewModel::class.java]
 
-        val commentContent = view.findViewById<AppCompatEditText>(R.id.et_remark).text?.toString()?:""
+        view.findViewById<AppCompatImageView>(R.id.iv_close_remark).setOnClickListener { dismissAllowingStateLoss()}
+
+        val etCommentContent = view.findViewById<AppCompatEditText>(R.id.et_remark)
 
         view.findViewById<MaterialButton>(R.id.btn_commit).setOnClickListener {
+            val commentContent = etCommentContent.text.toString()
             mNoticeId?.let{
                 viewModel.comment(it,commentContent,"Image")
             }
@@ -82,8 +86,10 @@ class CommentBottomDialog(noticeId:String):BottomSheetDialogFragment() {
             viewModel.commentStateFlow.collect(){
                 if (it){
                     Toaster.showLong("评论成功啦！")
+                    dismissAllowingStateLoss()
                 }else{
                     Toaster.showLong("评论失败啦！")
+                    dismissAllowingStateLoss()
                 }
             }
         }

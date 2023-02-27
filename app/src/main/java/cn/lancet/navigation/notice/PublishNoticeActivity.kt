@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import cn.bmob.v3.datatype.BmobFile
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.UploadFileListener
@@ -16,6 +17,7 @@ import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.util.AppPreUtils
 import cn.lancet.navigation.util.FileUtils
 import com.hjq.toast.Toaster
+import kotlinx.coroutines.launch
 
 
 class PublishNoticeActivity : AppCompatActivity() {
@@ -73,9 +75,11 @@ class PublishNoticeActivity : AppCompatActivity() {
             mUri?.let { it1 -> uploadNoticeCoverImage(it1) }
         }
 
-        viewModel.addNotice.observe(this){
-            Toaster.showLong("发布成功")
-            finish()
+        lifecycleScope.launch {
+            viewModel.addFlow.collect{
+                Toaster.showLong("发布成功")
+                finish()
+            }
         }
 
     }

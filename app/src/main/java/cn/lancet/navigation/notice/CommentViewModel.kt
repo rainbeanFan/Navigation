@@ -15,7 +15,6 @@ class CommentViewModel:ViewModel() {
     var commentStateFlow = MutableSharedFlow<Boolean>()
 
     fun comment(noticeId:String,commentTitle:String,commentType:String){
-
         val comment = Comment()
         comment.noticeId = noticeId
         comment.commentAvatarUrl = AppPreUtils.getString(Constant.KEY_AVATAR)
@@ -24,18 +23,13 @@ class CommentViewModel:ViewModel() {
         comment.commentType = commentType
         comment.commentImageUrl = AppPreUtils.getString(Constant.KEY_AVATAR)
 
-
         comment.save(object : SaveListener<String>() {
             override fun done(commentId: String?, e: BmobException?) {
                 viewModelScope.launch {
                     commentStateFlow.emit(e == null)
                 }
             }
-
         })
-
-
-
     }
 
 }

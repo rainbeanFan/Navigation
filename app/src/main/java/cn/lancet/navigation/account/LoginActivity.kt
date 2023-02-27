@@ -12,7 +12,7 @@ import com.hjq.toast.Toaster
 import kotlinx.coroutines.launch
 
 
-class LoginActivity:AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private var mBinding: ActivityLoginBinding? = null
 
@@ -22,7 +22,10 @@ class LoginActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
-        viewModel = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[UserViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.NewInstanceFactory()
+        )[UserViewModel::class.java]
         initEvent()
     }
 
@@ -31,33 +34,33 @@ class LoginActivity:AppCompatActivity() {
         mBinding?.btnLogin?.setOnClickListener {
 
             val account = mBinding?.etAccount?.text.toString()
-            if (account.isBlank()){
+            if (account.isBlank()) {
                 Toast.makeText(this, "please input your account", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val password = mBinding?.etPwd?.text.toString()
-            if (password.isBlank()){
+            if (password.isBlank()) {
                 Toast.makeText(this, "please input your password", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            viewModel.login(account,password)
+            viewModel.login(account, password)
         }
 
         lifecycleScope.launch {
-            viewModel.loginSharedFlow.collect{
+            viewModel.loginSharedFlow.collect {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             }
         }
 
         lifecycleScope.launch {
-            viewModel.signupSharedFlow.collect{
-                if (it){
+            viewModel.signupSharedFlow.collect {
+                if (it) {
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
-                }else{
+                } else {
                     Toaster.showLong("Login failed!")
                 }
             }
