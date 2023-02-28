@@ -17,6 +17,7 @@ import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.notice.NoticeDetailActivity
 import cn.lancet.navigation.notice.NoticeViewModel
 import cn.lancet.navigation.widget.CommentBottomDialog
+import com.hjq.toast.Toaster
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -104,6 +105,20 @@ class FragmentHome : Fragment() {
                 }
             }
         }
+
+        mRvMessage?.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val layoutManager = recyclerView.layoutManager
+                if (layoutManager is LinearLayoutManager){
+                    val lastItemPosition = layoutManager.findLastVisibleItemPosition()
+                    val firstItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                    Toaster.showLong("${firstItemPosition}  - ${lastItemPosition}")
+
+                }
+            }
+        })
 
         lifecycleScope.launch {
             viewModel.commentStateFlow.collect {
