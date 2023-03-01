@@ -49,8 +49,8 @@ class SplashActivity : AppCompatActivity() {
                 mBinding?.tvJump?.text = "跳过(${it}s)"
             }
             .onCompletion {
-                startActivity(intent)
-                finish()
+//                startActivity(intent)
+//                finish()
             }.launchIn(lifecycleScope)
 
         mBinding?.tvJump?.setOnClickListener {
