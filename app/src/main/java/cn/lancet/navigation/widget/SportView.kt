@@ -20,7 +20,7 @@ private val RADIUS = 150.dp
 class SportView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        textSize = 100.dp
+        textSize = 60.dp
         typeface = ResourcesCompat.getFont(context, R.font.roboto_bold)
         textAlign = Paint.Align.CENTER //Horizontal Center
 //        isFakeBoldText = true
@@ -59,18 +59,18 @@ class SportView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
 //        mPaint.getTextBounds("Jacky",0,"Jacky".length,mBound)
         canvas.drawText(
-            "Joe", width / 2F,
+            "Joe phony", width / 2F,
             height / 2F - (mFontMetrics.ascent + mFontMetrics.descent) / 2F, mPaint
         )
 
         mPaint.textAlign = Paint.Align.LEFT
         mPaint.getFontMetrics(mFontMetrics)
-        canvas.drawText("abcd", -mBound.left.toFloat(), -mFontMetrics.top,mPaint)
+//        canvas.drawText("abcd", -mBound.left.toFloat(), -mFontMetrics.top,mPaint)
 
         mPaint.textAlign = Paint.Align.LEFT
         mPaint.textSize = 10.dp
         mPaint.getFontMetrics(mFontMetrics)
-        canvas.drawText("abcd", -mBound.left.toFloat(), -mFontMetrics.top,mPaint)
+//        canvas.drawText("abcd", -mBound.left.toFloat(), -mFontMetrics.top,mPaint)
 
     }
 
