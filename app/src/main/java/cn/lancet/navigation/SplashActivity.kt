@@ -1,5 +1,6 @@
 package cn.lancet.navigation
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,15 @@ class SplashActivity : AppCompatActivity() {
         setContentView(mBinding!!.root)
 
         FirebaseAnalytics.getInstance(this)
+
+//        mBinding!!.circleView.postDelayed({
+//            mBinding!!.circleView.mUseFloatingLabel = false
+//        },3000)
+
+//        val animator = ObjectAnimator.ofFloat(mBinding!!.circleView, "radius", 150.dp)
+//
+//        animator.startDelay = 1500
+//        animator.start()
 
         val intent = if (AppPreUtils.getString(Constant.KEY_USER_ID).isBlank()) {
             Intent(this@SplashActivity, LoginActivity::class.java)

@@ -65,13 +65,13 @@ class RoundImageView(context: Context?, attrs: AttributeSet?) : View(context, at
         val options = BitmapFactory.Options().apply {
             inJustDecodeBounds = true
         }
-        BitmapFactory.decodeResource(resources, R.drawable.splash, options)
+        BitmapFactory.decodeResource(resources, R.mipmap.splash, options)
         options.apply {
             inJustDecodeBounds = false
             inDensity = options.outWidth
             inTargetDensity = width
         }
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.splash, options)
+        val bitmap = BitmapFactory.decodeResource(resources, R.mipmap.splash, options)
         return Bitmap.createBitmap(
             bitmap, (bitmap.width / 2 - IMAGE_WIDTH / 2).toInt(),
             (bitmap.height / 2 - IMAGE_WIDTH / 2).toInt(),

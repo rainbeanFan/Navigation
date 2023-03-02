@@ -42,11 +42,13 @@ class CameraView(context: Context, attrs: AttributeSet?) : View(context, attrs) 
 
         canvas.save()
         canvas.translate((BITMAP_PADDING + BITMAP_SIZE) / 2, (BITMAP_PADDING + mBitmap.height) / 2)
+        canvas.rotate(-30F)
 //        mCamera.applyToCanvas(canvas)
         canvas.clipRect(
-            -BITMAP_PADDING / 2F, -mBitmap.height / 2F,
-            BITMAP_SIZE / 2F, 0F
+            -BITMAP_PADDING, -mBitmap.height.toFloat(),
+            BITMAP_SIZE, 0F
         )
+        canvas.rotate(30F)
         canvas.translate(
             -(BITMAP_PADDING + BITMAP_SIZE) / 2,
             -(BITMAP_PADDING + mBitmap.height) / 2
@@ -56,11 +58,13 @@ class CameraView(context: Context, attrs: AttributeSet?) : View(context, attrs) 
 //  下半部分
         canvas.save()
         canvas.translate((BITMAP_PADDING + BITMAP_SIZE) / 2, (BITMAP_PADDING + mBitmap.height) / 2)
+        canvas.rotate(-30F)
         mCamera.applyToCanvas(canvas)
         canvas.clipRect(
-            -BITMAP_PADDING / 2F, 0F,
-            BITMAP_SIZE / 2F, mBitmap.height / 2F
+            -BITMAP_PADDING, 0F,
+            BITMAP_SIZE, mBitmap.height.toFloat()
         )
+        canvas.rotate(30F)
         canvas.translate(
             -(BITMAP_PADDING + BITMAP_SIZE) / 2,
             -(BITMAP_PADDING + mBitmap.height) / 2
@@ -73,11 +77,11 @@ class CameraView(context: Context, attrs: AttributeSet?) : View(context, attrs) 
     private fun getAvatar(width: Int): Bitmap {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
-        BitmapFactory.decodeResource(resources, R.drawable.splash, options)
+        BitmapFactory.decodeResource(resources, R.mipmap.splash, options)
         options.inJustDecodeBounds = false
         options.inDensity = options.outWidth
         options.inTargetDensity = width
-        return BitmapFactory.decodeResource(resources, R.drawable.splash, options)
+        return BitmapFactory.decodeResource(resources, R.mipmap.splash, options)
     }
 
 }

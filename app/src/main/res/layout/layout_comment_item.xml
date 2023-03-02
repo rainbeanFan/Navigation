@@ -104,7 +104,7 @@
                 android:layout_gravity="center"
                 android:background="@color/picture_color_transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/splash"
+                android:src="@mipmap/splash"
                 app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small" />
 
             <androidx.appcompat.widget.AppCompatImageView

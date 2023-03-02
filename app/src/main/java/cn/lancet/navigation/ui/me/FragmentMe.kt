@@ -76,8 +76,8 @@ class FragmentMe : Fragment() {
                     error(R.mipmap.icon_default_avatar)
                 }
                 binding.ivAvatarBg.load(it.avatar){
-                    placeholder(R.drawable.splash)
-                    error(R.drawable.splash)
+                    placeholder(R.mipmap.splash)
+                    error(R.mipmap.splash)
                     .transformations(BlurTransformation(requireContext(),5F,10F))
                 }
                 binding.description.text = it.email

@@ -81,13 +81,13 @@ class MultilineTextView(context: Context, attrs: AttributeSet?) : View(context, 
         val options = BitmapFactory.Options().apply {
             inJustDecodeBounds = true
         }
-        BitmapFactory.decodeResource(resources, R.drawable.splash, options)
+        BitmapFactory.decodeResource(resources, R.mipmap.splash, options)
         options.apply {
             inJustDecodeBounds = false
             inDensity = options.outWidth
             inTargetDensity = width
         }
-        return BitmapFactory.decodeResource(resources, R.drawable.splash, options)
+        return BitmapFactory.decodeResource(resources, R.mipmap.splash, options)
     }
 
 
