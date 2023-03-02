@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.constans.Constant
