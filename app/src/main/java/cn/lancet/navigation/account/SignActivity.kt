@@ -1,20 +1,21 @@
 package cn.lancet.navigation.account
 
-import android.content.Intent
+import android.content.DialogInterface
+import android.content.DialogInterface.OnClickListener
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import cn.lancet.navigation.MainActivity
-import cn.lancet.navigation.databinding.ActivityLoginBinding
+import cn.lancet.navigation.databinding.ActivitySignBinding
 import cn.lancet.navigation.util.CommonUtil
 import com.hjq.toast.Toaster
 import kotlinx.coroutines.launch
 
 
-class LoginActivity : AppCompatActivity() {
+class SignActivity : AppCompatActivity() {
 
-    private var mBinding: ActivityLoginBinding? = null
+    private var mBinding: ActivitySignBinding? = null
 
     private lateinit var viewModel: UserViewModel
 
@@ -23,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityLoginBinding.inflate(layoutInflater)
+        mBinding = ActivitySignBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
         viewModel = ViewModelProvider(
             this,
@@ -34,15 +35,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initEvent() {
 
-        mBinding?.tvSign?.setOnClickListener {
-            startActivity(Intent(this, SignActivity::class.java))
-        }
-
         mBinding?.tvAgree?.setOnClickListener {
             Toaster.show("查看用户协议")
         }
 
-        mBinding?.btnLogin?.setOnClickListener {
+        mBinding?.btnSign?.setOnClickListener {
             mAccount = mBinding?.etAccount?.text.toString()
             if (mAccount.isBlank() || !CommonUtil.emailIsValid(mAccount)) {
                 Toaster.show("please input your email")
@@ -59,16 +56,32 @@ class LoginActivity : AppCompatActivity() {
                 Toaster.show("请先同意用户协议！")
                 return@setOnClickListener
             }
-            viewModel.login(mAccount, mPassword)
+            viewModel.signUp(mAccount, mPassword)
         }
+
 
         lifecycleScope.launch {
-            viewModel.loginSharedFlow.collect {
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                finish()
+            viewModel.signupSharedFlow.collect {
+                if (it) {
+                    AlertDialog.Builder(this@SignActivity).apply {
+                        setTitle("温馨提示")
+                        setNegativeButton("确认", object : OnClickListener {
+                            override fun onClick(dialog: DialogInterface?, which: Int) {
+                                dialog?.dismiss()
+                            }
+                        })
+                        setPositiveButton("取消", object : OnClickListener {
+                            override fun onClick(dialog: DialogInterface?, which: Int) {
+                                dialog?.dismiss()
+                            }
+
+                        })
+                    }.show()
+                } else {
+                    Toaster.showLong("注册失败，请稍后再试!")
+                }
             }
         }
-
     }
 
 

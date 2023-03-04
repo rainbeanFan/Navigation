@@ -66,6 +66,8 @@ class FragmentMe : Fragment() {
         mUserAvatar = binding.avatar
         mUserName = binding.name
 
+        initEvent()
+
         viewModel.getUserInfo()
 
         lifecycleScope.launch {
@@ -83,7 +85,7 @@ class FragmentMe : Fragment() {
                 binding.description.text = it.email
             }
         }
-        initEvent()
+
     }
 
     private fun initEvent() {
