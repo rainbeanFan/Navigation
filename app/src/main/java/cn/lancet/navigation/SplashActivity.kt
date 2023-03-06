@@ -1,8 +1,11 @@
 package cn.lancet.navigation
 
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.bmob.v3.BmobUser
@@ -10,6 +13,9 @@ import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivitySplashBinding
 import cn.lancet.navigation.util.AppPreUtils
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -33,6 +39,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(mBinding!!.root)
 
         FirebaseAnalytics.getInstance(this)
+
+        updateAppState()
 
 //        mBinding!!.circleView.postDelayed({
 //            mBinding!!.circleView.mUseFloatingLabel = false
@@ -69,6 +77,38 @@ class SplashActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun updateAppState(){
+        val appUpdateManager = AppUpdateManagerFactory.create(this)
+
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE){
+                if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+                    appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        AppUpdateType.IMMEDIATE,
+                        this,0x001
+                    )
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK){
+
+        }
+    }
+
+    val launchForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK){
+            val intent = result.data
+        }
+    }
+
 
 
     override fun onDestroy() {

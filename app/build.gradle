@@ -13,18 +13,54 @@ android {
     namespace 'cn.lancet.navigation'
     compileSdk 33
 
+    signingConfigs {
+        debug {
+            storeFile file('./walden.jks')
+            storePassword '870220'
+            keyAlias 'walden'
+            keyPassword '870220'
+        }
+        release {
+            storeFile file('./walden.jks')
+            storePassword '870220'
+            keyAlias 'walden'
+            keyPassword '870220'
+        }
+    }
+
+
     defaultConfig {
         applicationId "cn.lancet.navigation"
         minSdk 23
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode parent.ext.versionCode
+        versionName parent.ext.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        applicationVariants.all {
+            variant ->
+                variant.outputs.all {
+                    outputFileName = "ToDo_" + versionName + "_" + versionCode + "_" + commitHash + variant.buildType.name.charAt(0).toUpperCase() + ".apk"
+                }
+        }
+
+        //仅保留v7a，v8a架构的so库
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -40,6 +76,33 @@ android {
         viewBinding true
         dataBinding true
     }
+
+    flavorDimensions 'mode'
+
+    productFlavors {
+        prod{
+            dimension 'mode'
+            applicationId 'cn.lancet.navigation'
+            buildConfigField "int","TYPE","1"
+            manifestPlaceholders = [
+                    app_icon:"@mipmap/ic_logo",
+                    app_name:"ToDo_Pro",
+                    provider_name:"cn.lancet.navigation.fileprovider"
+            ]
+        }
+
+        dev{
+            dimension 'mode'
+            applicationId 'cn.lancet.navigation.dev'
+            buildConfigField "int","TYPE","2"
+            manifestPlaceholders = [
+                    app_icon:"@mipmap/ic_logo",
+                    app_name:"ToDo_Dev",
+                    provider_name:"cn.lancet.navigation.dev.fileprovider"
+            ]
+        }
+    }
+
 }
 
 // Allow references to generated code
@@ -65,6 +128,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:23.1.0'
     implementation 'com.google.firebase:firebase-inappmessaging-display:20.2.0'
     implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+    implementation 'com.google.android.play:app-update-ktx:2.0.1'
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -83,9 +148,8 @@ dependencies {
     implementation 'com.squareup.okio:okio:3.2.0'
     implementation 'com.google.code.gson:gson:2.10'
 
-    implementation 'cn.rongcloud.sdk:im_kit:5.3.5'
+//    implementation 'cn.rongcloud.sdk:im_kit:5.3.5'
     implementation 'com.tencent:mmkv:1.2.15'
-//    implementation 'com.aliyun.dpa:oss-android-sdk:2.9.13'
 
     implementation 'com.github.getActivity:Toaster:12.0'
 

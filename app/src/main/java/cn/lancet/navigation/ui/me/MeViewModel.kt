@@ -18,8 +18,6 @@ class MeViewModel() : ViewModel() {
 
     val sharedFlow = MutableSharedFlow<User>()
 
-
-
     fun getUserInfo() {
 
         BmobUser.fetchUserInfo(object : FetchUserInfoListener<User>() {

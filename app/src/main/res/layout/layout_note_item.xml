@@ -92,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginTop="13dp"
-                    android:background="@color/picture_color_light_grey"
+                    android:background="#66000000"
                     android:visibility="invisible"
                     app:layout_constraintTop_toBottomOf="@id/tv_notification_content" />
 
@@ -129,7 +129,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/picture_color_light_grey"
+                    android:background="#88000000"
                     android:visibility="invisible"
                     app:layout_constraintTop_toBottomOf="@id/tv_publisher" />
 
@@ -148,7 +148,7 @@
                     android:text="风景系列"
                     android:textColor="@color/black"
                     android:textSize="10sp"
-                    app:backgroundTint="@color/picture_color_transparent"
+                    app:backgroundTint="#99000000"
                     app:cornerRadius="10dp"
                     app:icon="@drawable/icon_tag"
                     app:iconGravity="textEnd"

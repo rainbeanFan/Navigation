@@ -7,7 +7,6 @@ import com.google.firebase.storage.ktx.storage
 import com.hjq.toast.Toaster
 import com.tencent.mmkv.MMKV
 import dagger.hilt.android.HiltAndroidApp
-import io.rong.imkit.RongIM
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -19,7 +18,7 @@ class NavigationApp:Application() {
         super.onCreate()
         Toaster.init(this)
         Bmob.initialize(this,"18f0791eb905bf4a3efb8769d449c9e9")
-        RongIM.init(this,"k51hidwqkv3tb")
+//        RongIM.init(this,"k51hidwqkv3tb")
         MMKV.initialize(this)
     }
 

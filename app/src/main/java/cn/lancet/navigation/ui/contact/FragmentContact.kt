@@ -17,17 +17,8 @@ import cn.lancet.navigation.adapter.ContactAdapter
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentContactBinding
 import cn.lancet.navigation.module.User
-import cn.lancet.navigation.util.AppPreUtils
 import cn.lancet.navigation.util.FirstLetterComparator
 import cn.lancet.navigation.widget.SideBar
-import com.hjq.toast.Toaster
-import io.rong.imkit.IMCenter
-import io.rong.imkit.utils.RouteUtils
-import io.rong.imlib.IRongCallback
-import io.rong.imlib.RongIMClient
-import io.rong.imlib.model.Conversation
-import io.rong.imlib.model.Message
-import io.rong.message.TextMessage
 import kotlinx.coroutines.launch
 
 
@@ -103,8 +94,8 @@ class FragmentContact : Fragment() {
         mAdapter?.setOnItemClickListener(object : ContactAdapter.OnItemClickListener {
             override fun onItemClick(user: User) {
 
-                RouteUtils.registerActivity(RouteUtils.RongActivityType.ConversationActivity,
-                    ConversationActivity::class.java)
+//                RouteUtils.registerActivity(RouteUtils.RongActivityType.ConversationActivity,
+//                    ConversationActivity::class.java)
 
 //                val intent = Intent(requireContext(),ConversationActivity::class.java).apply {
 //                    putExtra(RouteUtils.CONVERSATION_TYPE,Conversation.ConversationType.PRIVATE)
@@ -117,11 +108,11 @@ class FragmentContact : Fragment() {
 
 //               requireContext().startActivity(intent)
 
-                RouteUtils.routeToConversationActivity(
-                    requireContext(),
-                    Conversation.ConversationType.PRIVATE,
-                    user.objectId,bundle
-                )
+//                RouteUtils.routeToConversationActivity(
+//                    requireContext(),
+//                    Conversation.ConversationType.PRIVATE,
+//                    user.objectId,bundle
+//                )
             }
         })
 

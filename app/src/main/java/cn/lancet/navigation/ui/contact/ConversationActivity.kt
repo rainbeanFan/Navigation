@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import cn.lancet.navigation.R
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityConversationBinding
-import io.rong.imkit.conversation.ConversationFragment
+//import io.rong.imkit.conversation.ConversationFragment
 
 class ConversationActivity : AppCompatActivity() {
 
@@ -21,9 +21,9 @@ class ConversationActivity : AppCompatActivity() {
         mBinding.ivBack.setOnClickListener { finish() }
         mBinding.tvTitle.text = name
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, ConversationFragment())
-            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.container, ConversationFragment())
+//            .commit()
 
     }
 

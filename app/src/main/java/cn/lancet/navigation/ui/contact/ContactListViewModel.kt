@@ -3,11 +3,10 @@ package cn.lancet.navigation.ui.contact
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cn.bmob.v3.BmobQuery
+import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
-import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.module.User
-import cn.lancet.navigation.util.AppPreUtils
 import com.mayabot.nlp.module.pinyin.Pinyins
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -23,7 +22,7 @@ class ContactListViewModel() : ViewModel() {
             override fun done(users: MutableList<User>?, e: BmobException?) {
                 if (e == null && users != null) {
                     val result = users.filter {
-                        it.objectId != AppPreUtils.getString(Constant.KEY_USER_ID)
+                        it.objectId != BmobUser.getCurrentUser(User::class.java).objectId
                     }
                     result.forEach {
                         val pinyin = Pinyins.convert(it.name)
