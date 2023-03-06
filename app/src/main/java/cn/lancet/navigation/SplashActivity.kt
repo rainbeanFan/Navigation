@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import cn.bmob.v3.BmobUser
 import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivitySplashBinding
@@ -42,10 +43,10 @@ class SplashActivity : AppCompatActivity() {
 //        animator.startDelay = 1500
 //        animator.start()
 
-        val intent = if (AppPreUtils.getString(Constant.KEY_USER_ID).isBlank()) {
-            Intent(this@SplashActivity, LoginActivity::class.java)
-        } else {
+        val intent = if (BmobUser.isLogin()) {
             Intent(this@SplashActivity, MainActivity::class.java)
+        } else {
+            Intent(this@SplashActivity, LoginActivity::class.java)
         }
 
         mJob = flow {

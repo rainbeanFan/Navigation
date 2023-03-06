@@ -10,6 +10,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import cn.bmob.v3.BmobUser
 import cn.lancet.navigation.R
 import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.databinding.FragmentMeBinding
@@ -98,7 +99,7 @@ class FragmentMe : Fragment() {
             LogoutDialog.newInstance()
                 .setOnLogoutListener(object : LogoutDialog.OnLogoutClickListener {
                     override fun logout() {
-                        AppPreUtils.clearAll()
+                        BmobUser.logOut()
                         startActivity(Intent(requireContext(), LoginActivity::class.java))
                         activity?.finish()
                     }
