@@ -16,7 +16,6 @@ import cn.lancet.navigation.databinding.FragmentHomeBinding
 import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.notice.NoticeDetailActivity
 import cn.lancet.navigation.notice.NoticeViewModel
-import cn.lancet.navigation.widget.CommentBottomDialog
 import com.hjq.toast.Toaster
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -53,7 +52,7 @@ class FragmentHome : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -85,15 +84,6 @@ class FragmentHome : Fragment() {
 
         })
 
-        mAdapter?.setOnCommentClickListener(object : NoticeAdapter.OnCommentClickListener {
-            override fun onCommentClick(notice: Notice) {
-                CommentBottomDialog(notice.objectId).show(
-                    requireActivity().supportFragmentManager,"COMMENT"
-                )
-            }
-
-        })
-
         getNotices()
 
         lifecycleScope.launch {
@@ -101,7 +91,6 @@ class FragmentHome : Fragment() {
                 mAdapter?.setData(it)
                 it.forEach {  notice ->
                     mNoticeIds.add(notice.objectId)
-                    viewModel.getComment(notice.objectId)
                 }
             }
         }
@@ -114,19 +103,11 @@ class FragmentHome : Fragment() {
                     val lastItemPosition = layoutManager.findLastVisibleItemPosition()
                     val firstItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-                    Toaster.showLong("${firstItemPosition}  - ${lastItemPosition}")
+                    Toaster.showLong("$firstItemPosition  - $lastItemPosition")
 
                 }
             }
         })
-
-        lifecycleScope.launch {
-            viewModel.commentStateFlow.collect {
-                if (it.second.isNotEmpty()){
-                    mAdapter?.notifyItemChanged(mNoticeIds.indexOf(it.first),it.second[0])
-                }
-            }
-        }
 
         lifecycleScope.launch {
             viewModelNotice.addFlow.collect{

@@ -17,6 +17,7 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.gyf.immersionbar.ImmersionBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -37,6 +38,8 @@ class SplashActivity : AppCompatActivity() {
 
         mBinding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
+
+        ImmersionBar.with(this).init()
 
         FirebaseAnalytics.getInstance(this)
 

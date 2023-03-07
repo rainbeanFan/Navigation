@@ -2,24 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/img_login_bg"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/bg_login_full" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/account_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="200dp"
-        android:hint="Email"
         app:boxBackgroundMode="outline"
         app:boxStrokeColor="@color/purple_200"
         app:layout_constraintTop_toTopOf="parent">
@@ -28,7 +25,7 @@
             android:id="@+id/et_account"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/login_edit_bg"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:maxLength="20"
             android:padding="5dp"
@@ -46,7 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="30dp"
-        android:hint="Password"
         app:boxBackgroundMode="outline"
         app:boxStrokeColor="@color/purple_200"
         app:layout_constraintTop_toBottomOf="@id/account_layout">
@@ -55,13 +51,13 @@
             android:id="@+id/et_pwd"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/login_edit_bg"
             android:inputType="textPassword"
+            android:hint="Password"
             android:maxLength="10"
             android:padding="5dp"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,17 +77,20 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_sign"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="注册"
+        android:background="@drawable/bg_et"
+        android:textColor="@color/black_overlay"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/black_overlay"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_login"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -109,7 +108,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:text="我已阅读并同意" />
 
         <androidx.appcompat.widget.AppCompatTextView

@@ -14,6 +14,7 @@ import cn.bmob.v3.listener.FetchUserInfoListener
 import cn.lancet.navigation.databinding.ActivityMainBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.notice.PublishNoticeActivity
+import com.gyf.immersionbar.ImmersionBar
 import com.hjq.toast.Toaster
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
 
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
+
+        ImmersionBar.with(this).init()
 
         getUserInfo()
 

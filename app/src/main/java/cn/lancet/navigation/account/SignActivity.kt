@@ -1,14 +1,12 @@
 package cn.lancet.navigation.account
 
-import android.content.DialogInterface
-import android.content.DialogInterface.OnClickListener
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import cn.lancet.navigation.databinding.ActivitySignBinding
 import cn.lancet.navigation.util.CommonUtil
+import com.gyf.immersionbar.ImmersionBar
 import com.hjq.toast.Toaster
 import kotlinx.coroutines.launch
 
@@ -26,6 +24,8 @@ class SignActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivitySignBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
+        ImmersionBar.with(this).init()
+
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
@@ -63,20 +63,8 @@ class SignActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.signupSharedFlow.collect {
                 if (it) {
-                    AlertDialog.Builder(this@SignActivity).apply {
-                        setTitle("温馨提示")
-                        setNegativeButton("确认", object : OnClickListener {
-                            override fun onClick(dialog: DialogInterface?, which: Int) {
-                                dialog?.dismiss()
-                            }
-                        })
-                        setPositiveButton("取消", object : OnClickListener {
-                            override fun onClick(dialog: DialogInterface?, which: Int) {
-                                dialog?.dismiss()
-                            }
-
-                        })
-                    }.show()
+                    Toaster.show("注册成功，可以登录啦！")
+                    finish()
                 } else {
                     Toaster.showLong("注册失败，请稍后再试!")
                 }

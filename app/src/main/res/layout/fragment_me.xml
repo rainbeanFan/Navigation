@@ -14,7 +14,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/cardview_dark_background" />
+        android:background="@drawable/img_login_bg" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/action_logout"

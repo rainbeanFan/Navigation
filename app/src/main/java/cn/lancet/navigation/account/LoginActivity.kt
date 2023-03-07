@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import cn.lancet.navigation.MainActivity
 import cn.lancet.navigation.databinding.ActivityLoginBinding
 import cn.lancet.navigation.util.CommonUtil
+import com.gyf.immersionbar.ImmersionBar
 import com.hjq.toast.Toaster
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(mBinding!!.root)
+        ImmersionBar.with(this).init()
+
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()

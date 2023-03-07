@@ -162,5 +162,7 @@ dependencies {
 
     implementation 'com.mayabot.mynlp.resource:mynlp-resource-pinyin:1.1.0'
 
+    implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
+
 
 }
