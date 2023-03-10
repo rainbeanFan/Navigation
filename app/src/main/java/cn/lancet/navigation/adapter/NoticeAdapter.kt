@@ -10,9 +10,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.lancet.navigation.R
-import cn.lancet.navigation.module.Comment
-import cn.lancet.navigation.module.Notice
-import cn.lancet.navigation.util.TimeUtil
+import cn.lancet.navigation.module.PlantDiscoveryInfo
 import coil.load
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -21,7 +19,7 @@ import com.google.android.material.imageview.ShapeableImageView
 class NoticeAdapter(val context: Context) :
     RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
-    private var mData = mutableListOf<Notice>()
+    private var mData = mutableListOf<PlantDiscoveryInfo>()
 
     private var mListener: OnItemClickListener? = null
     private var mCommentListener: OnCommentClickListener? = null
@@ -39,70 +37,43 @@ class NoticeAdapter(val context: Context) :
 
         val data = mData[position]
 
-        holder.ivCover.load(data.coverImageUrl) {
+        holder.ivCover.load(data.plantUrl) {
             placeholder(R.mipmap.ic_notice_place_holder)
             error(R.mipmap.ic_notice_place_holder)
         }
 
-        holder.ivPublisher.load(data.publisherAvatar) {
-            placeholder(R.mipmap.ic_notice_place_holder)
-            error(R.mipmap.ic_notice_place_holder)
-        }
+//        holder.ivPublisher.load(data.publisherAvatar) {
+//            placeholder(R.mipmap.ic_notice_place_holder)
+//            error(R.mipmap.ic_notice_place_holder)
+//        }
 
         holder.tvTime.text = data.updatedAt
-        holder.tvTitle.text = data.noticeTitle
-        holder.tvContent.text = data.noticeContent
-        holder.tvPublisher.text = data.publisher
+        holder.tvTitle.text = data.plantName
+        holder.tvContent.text = data.plantDescription
+//        holder.tvPublisher.text = data.publisher
 
-        holder.tvLike.text = data.likeCount
-        holder.tvDis.text = data.disCount
-        holder.tvComment.text = data.commentCount
-        holder.tvShare.text = data.shareCount
+//        holder.tvLike.text = data.likeCount
+//        holder.tvDis.text = data.disCount
+//        holder.tvComment.text = data.commentCount
+//        holder.tvShare.text = data.shareCount
 
         holder.llRoot.setOnClickListener {
             mListener?.onItemClick(data)
         }
 
-        holder.tvComment.setOnClickListener {
-            mCommentListener?.onCommentClick(data)
-        }
+//        holder.tvComment.setOnClickListener {
+//            mCommentListener?.onCommentClick(data)
+//        }
 
     }
 
-    override fun onBindViewHolder(
-        holder: NoticeViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
-        if (payloads.isEmpty()) {
-            super.onBindViewHolder(holder, position, payloads)
-            return
-        }
-
-        val holder = holder
-
-        val avatarUrl =
-            "https://images.pexels.com/photos/2174974/pexels-photo-2174974.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-
-        payloads.forEach {
-            if (it is Comment){
-                holder.ivCommentAvatar.load(it.commentAvatarUrl){
-
-                }
-                holder.tvCommentName.text = it.commentName
-                holder.tvCommentTitle.text = it.commentTitle
-                holder.ivCommentCover.load(avatarUrl)
-            }
-        }
-    }
-
-    fun setData(datas: MutableList<Notice>) {
+    fun setData(datas: MutableList<PlantDiscoveryInfo>) {
         mData.clear()
         mData.addAll(datas)
         notifyDataSetChanged()
     }
 
-    fun addData(data: Notice) {
+    fun addData(data: PlantDiscoveryInfo) {
         mData.add(0,data)
         notifyItemInserted(0)
     }
@@ -148,11 +119,11 @@ class NoticeAdapter(val context: Context) :
     }
 
     interface OnCommentClickListener {
-        fun onCommentClick(notice: Notice)
+        fun onCommentClick(notice: PlantDiscoveryInfo)
     }
 
     interface OnItemClickListener {
-        fun onItemClick(notice: Notice)
+        fun onItemClick(notice: PlantDiscoveryInfo)
     }
 
 }

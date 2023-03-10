@@ -1,6 +1,5 @@
 package cn.lancet.navigation
 
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -8,15 +7,12 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import cn.bmob.v3.BmobUser
-import cn.lancet.navigation.account.LoginActivity
-import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivitySplashBinding
-import cn.lancet.navigation.util.AppPreUtils
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ImmersionBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -40,28 +36,16 @@ class SplashActivity : AppCompatActivity() {
         setContentView(mBinding!!.root)
 
         ImmersionBar.with(this).init()
+        ImmersionBar.with(this).hideBar(BarHide.FLAG_HIDE_BAR)
 
         FirebaseAnalytics.getInstance(this)
 
         updateAppState()
 
-//        mBinding!!.circleView.postDelayed({
-//            mBinding!!.circleView.mUseFloatingLabel = false
-//        },3000)
-
-//        val animator = ObjectAnimator.ofFloat(mBinding!!.circleView, "radius", 150.dp)
-//
-//        animator.startDelay = 1500
-//        animator.start()
-
-        val intent = if (BmobUser.isLogin()) {
-            Intent(this@SplashActivity, MainActivity::class.java)
-        } else {
-            Intent(this@SplashActivity, LoginActivity::class.java)
-        }
+        val intent = Intent(this@SplashActivity, MainActivity::class.java)
 
         mJob = flow {
-            for (i in 5 downTo  1) {
+            for (i in 5 downTo 1) {
                 emit(i)
                 delay(1000)
             }
@@ -81,18 +65,18 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
-    private fun updateAppState(){
+    private fun updateAppState() {
         val appUpdateManager = AppUpdateManagerFactory.create(this)
 
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
 
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE){
-                if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)){
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
                     appUpdateManager.startUpdateFlowForResult(
                         appUpdateInfo,
                         AppUpdateType.IMMEDIATE,
-                        this,0x001
+                        this, 0x001
                     )
                 }
             }
@@ -101,17 +85,17 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
 
         }
     }
 
-    val launchForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK){
-            val intent = result.data
+    val launchForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+            }
         }
-    }
-
 
 
     override fun onDestroy() {

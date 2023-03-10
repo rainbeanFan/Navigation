@@ -13,9 +13,8 @@ import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FetchUserInfoListener
 import cn.lancet.navigation.databinding.ActivityMainBinding
 import cn.lancet.navigation.module.User
-import cn.lancet.navigation.notice.PublishNoticeActivity
+import cn.lancet.navigation.rest.RestHomeActivity
 import com.gyf.immersionbar.ImmersionBar
-import com.hjq.toast.Toaster
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         getUserInfo()
 
         mBinding?.fabCreateNotice?.setOnClickListener {
-            startActivity(Intent(this, PublishNoticeActivity::class.java))
+            startActivity(Intent(this, RestHomeActivity::class.java))
         }
 
         val navHostFragment = NavHostFragment.create(R.navigation.lancet_navigation)
@@ -52,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         )
 
         NavigationUI.setupWithNavController(mBinding!!.bottomNavigationView, mNavController!!)
-
     }
 
 
@@ -61,35 +59,11 @@ class MainActivity : AppCompatActivity() {
             BmobUser.fetchUserInfo(object : FetchUserInfoListener<User>() {
                 override fun done(user: User?, e: BmobException?) {
                     if (e == null) {
-                        val currentUser = BmobUser.getCurrentUser(User::class.java)
+                        BmobUser.getCurrentUser(User::class.java)
                     }
                 }
             })
         }
-    }
-
-
-    private fun connectRC(RCToken: String?) {
-
-        if (RCToken.isNullOrBlank()) {
-            Toaster.showLong("连接失败！")
-            return
-        }
-
-//        RongIM.connect(RCToken, object : RongIMClient.ConnectCallback() {
-//            override fun onSuccess(t: String?) {
-//                Toaster.showLong("IM 连接成功!")
-//            }
-//
-//            override fun onError(e: RongIMClient.ConnectionErrorCode?) {
-//                Toaster.showLong("IM 连接失败 ${e.toString()}!")
-//            }
-//
-//            override fun onDatabaseOpened(code: RongIMClient.DatabaseOpenStatus?) {
-//                Toaster.showLong("IM 连接成功 ${code.toString()}!")
-//            }
-//
-//        })
     }
 
 }

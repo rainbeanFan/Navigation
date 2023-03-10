@@ -2,7 +2,7 @@ buildscript {
 
     ext {
         versionName = "1.0.0"
-        versionCode = 1001
+        versionCode = 1002
         commitHash = "git rev-parse --short HEAD".execute().text.trim()
     }
 

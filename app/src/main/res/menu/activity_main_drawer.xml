@@ -6,10 +6,10 @@
             android:id="@+id/fragmentA"
             android:icon="@drawable/ic_menu_home"
             android:title="主页" />
-        <item
-            android:id="@+id/fragmentB"
-            android:icon="@drawable/icon_contacts"
-            android:title="好友" />
+<!--        <item-->
+<!--            android:id="@+id/fragmentB"-->
+<!--            android:icon="@drawable/icon_contacts"-->
+<!--            android:title="好友" />-->
         <item
             android:id="@+id/fragmentC"
             android:icon="@drawable/ic_menu_me"

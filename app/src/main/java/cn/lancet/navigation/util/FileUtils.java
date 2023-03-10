@@ -1,6 +1,7 @@
 package cn.lancet.navigation.util;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +12,8 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+
+import androidx.core.content.ContentResolverCompat;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -245,6 +248,32 @@ public class FileUtils {
 
         return file;
 
+    }
+
+
+
+    public static String getFilePath(Context context,Uri uri){
+        String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null){
+            data = uri.getPath();
+        }else if (ContentResolver.SCHEME_FILE.equals(scheme)){
+            data = uri.getPath();
+        }else {
+            Cursor cursor = context.getContentResolver().query(
+                    uri, new String[]{MediaStore.Images.ImageColumns.DATA},null,null,null);
+            if (null!=cursor){
+                if (cursor.moveToFirst()){
+                    int index =
+                            cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index>-1){
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
     }
 
 }

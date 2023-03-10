@@ -1,4 +1,4 @@
-package cn.lancet.navigation.notice
+package cn.lancet.navigation.rest
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +18,7 @@ class NoticeDetailActivity:AppCompatActivity() {
 
     private lateinit var binding: ActivityNoticeDetailBinding
 
-    private var mNoticeId: String? = null
+    private var mRestId: String? = null
 
     private lateinit var viewModel: NoticeViewModel
 
@@ -27,15 +27,15 @@ class NoticeDetailActivity:AppCompatActivity() {
         binding = ActivityNoticeDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[NoticeViewModel::class.java]
-        mNoticeId = intent?.getStringExtra(Constant.KEY_NOTICE_ID)
+        mRestId = intent?.getStringExtra(Constant.KEY_REST_ID)
         initEvent()
     }
 
     private fun initEvent() {
-        if (mNoticeId.isNullOrBlank()){
+        if (mRestId.isNullOrBlank()){
             return
         }
-        viewModel.getNoticeDetail(mNoticeId!!)
+        viewModel.getNoticeDetail(mRestId!!)
         lifecycleScope.launch {
             viewModel.noticeFlow.collect{
                 binding.tvNotificationTitle.text = it.noticeTitle
@@ -50,7 +50,7 @@ class NoticeDetailActivity:AppCompatActivity() {
         }
 
         binding.ivDelete.setOnClickListener {
-            mNoticeId?.let {
+            mRestId?.let {
                 viewModel.deleteNotice(it)
             }
         }

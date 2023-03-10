@@ -108,6 +108,7 @@
                     android:textColor="#005EE9"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/iv_publisher_avatar"
                     app:layout_constraintStart_toEndOf="@id/iv_publisher_avatar"
                     app:layout_constraintTop_toTopOf="@id/iv_publisher_avatar"
@@ -124,6 +125,7 @@
                     app:shapeAppearance="@style/CircleRoundImageStyle"
                     app:strokeColor="@color/light_blue_900"
                     app:strokeWidth="0.5dp"
+                    android:visibility="gone"
                     tools:src="@mipmap/icon_default_avatar" />
 
                 <View

@@ -10,12 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.bmob.v3.BmobUser
 import cn.lancet.navigation.adapter.NoticeAdapter
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentHomeBinding
-import cn.lancet.navigation.module.Notice
-import cn.lancet.navigation.notice.NoticeDetailActivity
-import cn.lancet.navigation.notice.NoticeViewModel
+import cn.lancet.navigation.module.PlantDiscoveryInfo
+import cn.lancet.navigation.module.User
+import cn.lancet.navigation.rest.NoticeDetailActivity
+import cn.lancet.navigation.rest.NoticeViewModel
 import com.hjq.toast.Toaster
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -34,7 +36,7 @@ class FragmentHome : Fragment() {
 
     private var mAdapter: NoticeAdapter? = null
 
-    private lateinit var viewModel: NoticeListViewModel
+    private lateinit var viewModel: PlantListViewModel
     private lateinit var viewModelNotice: NoticeViewModel
 
     private var mNoticeIds = mutableListOf<String>()
@@ -62,7 +64,7 @@ class FragmentHome : Fragment() {
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
-        )[NoticeListViewModel::class.java]
+        )[PlantListViewModel::class.java]
 
         viewModelNotice = ViewModelProvider(
             this,
@@ -76,9 +78,9 @@ class FragmentHome : Fragment() {
             adapter = mAdapter
         }
         mAdapter?.setOnItemClickListener(object : NoticeAdapter.OnItemClickListener {
-            override fun onItemClick(notice: Notice) {
+            override fun onItemClick(plant: PlantDiscoveryInfo) {
                 val intent = Intent(requireContext(), NoticeDetailActivity::class.java)
-                intent.putExtra(Constant.KEY_NOTICE_ID, notice.objectId)
+                intent.putExtra(Constant.KEY_REST_ID, plant.objectId)
                 startActivity(intent)
             }
 
@@ -87,39 +89,19 @@ class FragmentHome : Fragment() {
         getNotices()
 
         lifecycleScope.launch {
-            viewModel.noticeStateFlow.collect {
+            viewModel.mPlantInfoFlow.collect {
                 mAdapter?.setData(it)
-                it.forEach {  notice ->
+                it.forEach { notice ->
                     mNoticeIds.add(notice.objectId)
                 }
             }
         }
-
-        mRvMessage?.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                val layoutManager = recyclerView.layoutManager
-                if (layoutManager is LinearLayoutManager){
-                    val lastItemPosition = layoutManager.findLastVisibleItemPosition()
-                    val firstItemPosition = layoutManager.findFirstVisibleItemPosition()
-
-                    Toaster.showLong("$firstItemPosition  - $lastItemPosition")
-
-                }
-            }
-        })
-
-        lifecycleScope.launch {
-            viewModelNotice.addFlow.collect{
-                mNoticeIds.add(0,it.objectId)
-                mAdapter?.addData(it)
-            }
-        }
-
     }
 
     private fun getNotices() {
-        viewModel.getNoticeList()
+        if (BmobUser.isLogin()){
+            viewModel.getPlantInfo(BmobUser.getCurrentUser(User::class.java).objectId)
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -128,7 +110,6 @@ class FragmentHome : Fragment() {
             "deleteNotice" -> getNotices()
         }
     }
-
 
 
     override fun onDestroy() {

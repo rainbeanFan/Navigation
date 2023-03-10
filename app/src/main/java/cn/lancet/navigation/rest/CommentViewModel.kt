@@ -1,4 +1,4 @@
-package cn.lancet.navigation.notice
+package cn.lancet.navigation.rest
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

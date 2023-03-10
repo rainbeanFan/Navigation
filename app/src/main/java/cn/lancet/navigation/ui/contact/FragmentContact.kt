@@ -13,12 +13,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.bmob.v3.BmobUser
+import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.adapter.ContactAdapter
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentContactBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.util.FirstLetterComparator
 import cn.lancet.navigation.widget.SideBar
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 
@@ -40,7 +43,7 @@ class FragmentContact : Fragment() {
 
     private val binding get() = _binding!!
 
-    private var mLoaded = false
+    private var mBtnLogin:MaterialButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +71,7 @@ class FragmentContact : Fragment() {
         mRvContact = binding.rvContact
         mHitLetter = binding.tvHintLetter
         mSideBar = binding.sideBar
+        mBtnLogin = binding.btnLogin
 
         mAdapter = ContactAdapter(requireContext())
 
@@ -116,6 +120,10 @@ class FragmentContact : Fragment() {
             }
         })
 
+        mBtnLogin?.setOnClickListener {
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+        }
+
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
@@ -126,7 +134,16 @@ class FragmentContact : Fragment() {
                 mAdapter?.setData(it.sortedWith(mComparator).toMutableList())
             }
         }
-        viewModel.getContactList()
+        if (BmobUser.isLogin()){
+            viewModel.getContactList()
+            mRvContact?.visibility = View.VISIBLE
+            mSideBar?.visibility = View.VISIBLE
+            mBtnLogin?.visibility = View.GONE
+        }else{
+            mRvContact?.visibility = View.GONE
+            mSideBar?.visibility = View.GONE
+            mBtnLogin?.visibility = View.VISIBLE
+        }
 
     }
 
@@ -135,6 +152,7 @@ class FragmentContact : Fragment() {
         mRvContact = null
         mHitLetter = null
         mSideBar = null
+        mBtnLogin = null
     }
 
     override fun onDestroyView() {

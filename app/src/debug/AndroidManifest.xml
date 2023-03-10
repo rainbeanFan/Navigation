@@ -66,8 +66,8 @@
             android:name="cn.lancet.navigation.account.LoginActivity"
             android:launchMode="singleTop" />
 
-        <activity android:name="cn.lancet.navigation.notice.PublishNoticeActivity" />
-        <activity android:name="cn.lancet.navigation.notice.NoticeDetailActivity" />
+        <activity android:name="cn.lancet.navigation.rest.RestActivity" />
+        <activity android:name="cn.lancet.navigation.rest.NoticeDetailActivity" />
         <activity android:name="cn.lancet.navigation.ui.me.UserInfoActivity" />
         <activity
             android:name="cn.lancet.navigation.ui.contact.ConversationActivity"
