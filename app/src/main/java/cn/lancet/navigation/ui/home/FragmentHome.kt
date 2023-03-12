@@ -14,11 +14,10 @@ import cn.bmob.v3.BmobUser
 import cn.lancet.navigation.adapter.NoticeAdapter
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentHomeBinding
-import cn.lancet.navigation.module.PlantDiscoveryInfo
+import cn.lancet.navigation.module.RestResultInfo
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.rest.NoticeDetailActivity
 import cn.lancet.navigation.rest.NoticeViewModel
-import com.hjq.toast.Toaster
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -39,7 +38,7 @@ class FragmentHome : Fragment() {
     private lateinit var viewModel: PlantListViewModel
     private lateinit var viewModelNotice: NoticeViewModel
 
-    private var mNoticeIds = mutableListOf<String>()
+    private var mData = mutableListOf<RestResultInfo>()
 
     private val binding get() = _binding!!
 
@@ -78,7 +77,7 @@ class FragmentHome : Fragment() {
             adapter = mAdapter
         }
         mAdapter?.setOnItemClickListener(object : NoticeAdapter.OnItemClickListener {
-            override fun onItemClick(plant: PlantDiscoveryInfo) {
+            override fun onItemClick(plant: RestResultInfo) {
                 val intent = Intent(requireContext(), NoticeDetailActivity::class.java)
                 intent.putExtra(Constant.KEY_REST_ID, plant.objectId)
                 startActivity(intent)
@@ -91,16 +90,32 @@ class FragmentHome : Fragment() {
         lifecycleScope.launch {
             viewModel.mPlantInfoFlow.collect {
                 mAdapter?.setData(it)
-                it.forEach { notice ->
-                    mNoticeIds.add(notice.objectId)
-                }
             }
         }
+
+        lifecycleScope.launch {
+            viewModel.mLocalRestInfoFlow.collect {
+                mData.clear()
+                it.forEach { restResultEntity ->
+                    val entity = RestResultInfo()
+                    entity.userId = ""
+                    entity.plantName = restResultEntity.plantName
+                    entity.plantUrl = restResultEntity.plantUrl
+                    entity.plantDescription = restResultEntity.plantDescription
+                    entity.favourite = restResultEntity.favourite
+                    mData.add(entity)
+                }
+                mAdapter?.setData(mData)
+            }
+        }
+
     }
 
     private fun getNotices() {
         if (BmobUser.isLogin()){
             viewModel.getPlantInfo(BmobUser.getCurrentUser(User::class.java).objectId)
+        }else{
+            viewModel.getLocalRestInfo(requireContext())
         }
     }
 

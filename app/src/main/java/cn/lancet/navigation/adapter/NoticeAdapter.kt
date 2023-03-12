@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import cn.lancet.navigation.R
-import cn.lancet.navigation.module.PlantDiscoveryInfo
+import cn.lancet.navigation.module.RestResultInfo
 import coil.load
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -19,7 +19,7 @@ import com.google.android.material.imageview.ShapeableImageView
 class NoticeAdapter(val context: Context) :
     RecyclerView.Adapter<NoticeAdapter.NoticeViewHolder>() {
 
-    private var mData = mutableListOf<PlantDiscoveryInfo>()
+    private var mData = mutableListOf<RestResultInfo>()
 
     private var mListener: OnItemClickListener? = null
     private var mCommentListener: OnCommentClickListener? = null
@@ -67,13 +67,13 @@ class NoticeAdapter(val context: Context) :
 
     }
 
-    fun setData(datas: MutableList<PlantDiscoveryInfo>) {
+    fun setData(datas: MutableList<RestResultInfo>) {
         mData.clear()
         mData.addAll(datas)
         notifyDataSetChanged()
     }
 
-    fun addData(data: PlantDiscoveryInfo) {
+    fun addData(data: RestResultInfo) {
         mData.add(0,data)
         notifyItemInserted(0)
     }
@@ -119,11 +119,11 @@ class NoticeAdapter(val context: Context) :
     }
 
     interface OnCommentClickListener {
-        fun onCommentClick(notice: PlantDiscoveryInfo)
+        fun onCommentClick(notice: RestResultInfo)
     }
 
     interface OnItemClickListener {
-        fun onItemClick(notice: PlantDiscoveryInfo)
+        fun onItemClick(notice: RestResultInfo)
     }
 
 }

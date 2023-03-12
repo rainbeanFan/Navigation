@@ -10,7 +10,7 @@ import cn.bmob.v3.listener.SaveListener
 import cn.bmob.v3.listener.UpdateListener
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.module.Notice
-import cn.lancet.navigation.module.PlantDiscoveryInfo
+import cn.lancet.navigation.module.RestResultInfo
 import cn.lancet.navigation.net.PlantInfoRes
 import cn.lancet.navigation.util.Base64Util
 import cn.lancet.navigation.util.FileUtil
@@ -34,7 +34,7 @@ class NoticeViewModel() : ViewModel() {
     var deleteFlow = MutableSharedFlow<Boolean>()
     var addFlow = MutableSharedFlow<Notice>()
     var plantInfoFlow = MutableSharedFlow<PlantInfoRes?>()
-    var addPlantFlow = MutableSharedFlow<PlantDiscoveryInfo>()
+    var addPlantFlow = MutableSharedFlow<RestResultInfo>()
     fun getNoticeDetail(restId: String) {
         val queries = BmobQuery<Notice>()
         queries.getObject(restId, object : QueryListener<Notice>() {
@@ -120,7 +120,7 @@ class NoticeViewModel() : ViewModel() {
         })
     }
 
-    fun addPlant(plant: PlantDiscoveryInfo) {
+    fun addPlant(plant: RestResultInfo) {
         plant.save(object : SaveListener<String>() {
             override fun done(objectId: String?, e: BmobException?) {
                 if (e == null && objectId != null) {

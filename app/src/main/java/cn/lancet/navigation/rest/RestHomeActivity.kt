@@ -71,6 +71,7 @@ class RestHomeActivity : AppCompatActivity() {
                     val intent = Intent(this@RestHomeActivity,RestActivity::class.java)
                     intent.putExtra(Constant.KEY_REST_TYPE,restType.type)
                     startActivity(intent)
+                    finish()
                 }
             })
         }
