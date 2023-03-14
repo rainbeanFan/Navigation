@@ -139,6 +139,8 @@ class RestActivity : AppCompatActivity() {
 
     private fun savePlant(plantInfo: PlantInfoRes) {
 
+        if (plantInfo.result?.get(0)?.baike_info?.description.isNullOrBlank()) return
+
         val restResultEntity = RestResultEntity(
             restId = plantInfo.log_id.toString(),
             restType = mRestType,

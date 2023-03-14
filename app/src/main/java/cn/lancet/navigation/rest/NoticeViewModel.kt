@@ -13,7 +13,6 @@ import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.module.RestResultInfo
 import cn.lancet.navigation.net.PlantInfoRes
 import cn.lancet.navigation.util.Base64Util
-import cn.lancet.navigation.util.FileUtil
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -24,6 +23,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
+import java.io.File
 import java.io.IOException
 import java.net.URLEncoder
 
@@ -61,10 +61,10 @@ class NoticeViewModel() : ViewModel() {
         })
     }
 
-    fun getRestInfo(restType:Int,path: String) {
+    fun getRestInfo(restType: Int, path: String) {
 
         val baseUrl =
-            when(restType){
+            when (restType) {
                 1 -> "https://aip.baidubce.com/rest/2.0/image-classify/v1/classify/ingredient"
                 2 -> "https://aip.baidubce.com/rest/2.0/image-classify/v1/animal"
                 3 -> "https://aip.baidubce.com/rest/2.0/image-classify/v2/dish"
@@ -73,21 +73,22 @@ class NoticeViewModel() : ViewModel() {
             }
 
 
-        val imgData = FileUtil.readFileByBytes(path)
+        val imgData = File(path).readBytes()
+//            FileUtil.readFileByBytes(path)
         val imgStr = Base64Util.encode(imgData)
-        val imgParam = "image="+URLEncoder.encode(imgStr, "UTF-8")
+        val imgParam = "image=" + URLEncoder.encode(imgStr, "UTF-8")
 
         val url = "$baseUrl?access_token=${Constant.KEY_BD_ACCESS_TOKEN}"
         val client: OkHttpClient = OkHttpClient.Builder()
             .build()
 
         val requestBody =
-            when(restType){
-                1 ->"${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
-                2 ->"${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
-                3 ->"${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
-                4 ->"${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
-                else ->"${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
+            when (restType) {
+                1 -> "${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
+                2 -> "${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
+                3 -> "${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
+                4 -> "${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
+                else -> "${imgParam}&baike_num=3".toRequestBody("application/x-www-form-urlencoded".toMediaTypeOrNull())
 
             }
 
@@ -107,7 +108,7 @@ class NoticeViewModel() : ViewModel() {
                     val gson = Gson()
                     val str = response.body!!.string()
 
-                    Log.d("BDAI onResponse ",str)
+                    Log.d("BDAI onResponse ", str)
 
                     val plantInfo: PlantInfoRes? =
                         gson.fromJson(str, PlantInfoRes::class.java)

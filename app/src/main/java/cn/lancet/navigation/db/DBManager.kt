@@ -9,12 +9,11 @@ class DBManager private constructor() {
         val db = Room.databaseBuilder(context, LancetDatabase::class.java, "lancet-db").build()
         return db
     }
+
     companion object {
         val instance: DBManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            DBManager()
+            cn.lancet.navigation.db.DBManager()
         }
-
-
 
     }
 
