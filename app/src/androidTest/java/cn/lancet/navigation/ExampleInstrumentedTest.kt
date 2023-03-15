@@ -21,4 +21,25 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("cn.lancet.navigation", appContext.packageName)
     }
+
+    fun main(vararg args:String){
+
+        val nums = intArrayOf(2,7,11,15)
+        val target = 9
+        twoSum(nums, target)
+    }
+
+    fun twoSum(nums:IntArray,target:Int):IntArray{
+        val intArray = mutableListOf<Int>()
+        nums.forEachIndexed { index, i ->
+            if (nums.contains(target - i) && index!=nums.indexOf(target - i)){
+                intArray.add(index)
+                intArray.add(nums.indexOf(target - i))
+                return@forEachIndexed
+            }
+        }
+        println(intArray)
+        return intArray.toIntArray()
+    }
+
 }

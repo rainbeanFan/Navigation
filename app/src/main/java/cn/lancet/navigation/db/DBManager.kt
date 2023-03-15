@@ -12,7 +12,7 @@ class DBManager private constructor() {
 
     companion object {
         val instance: DBManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            cn.lancet.navigation.db.DBManager()
+            DBManager()
         }
 
     }
