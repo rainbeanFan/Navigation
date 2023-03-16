@@ -75,10 +75,9 @@ class UserViewModel : ViewModel() {
         val baseUrl = "https://aip.baidubce.com/rest/2.0/image-process/v1/selfie_anime"
 
         val imgData = File(path).readBytes()
-//            FileUtil.readFileByBytes(path)
         val imgStr = Base64Util.encode(imgData)
         val originalAvatar = URLEncoder.encode(imgStr, "UTF-8")
-        val imgParam = "image=" + originalAvatar
+        val imgParam = "image=$originalAvatar"
 
         val url = "$baseUrl?access_token=${Constant.KEY_BD_ACCESS_TOKEN}"
         val client: OkHttpClient = OkHttpClient.Builder()

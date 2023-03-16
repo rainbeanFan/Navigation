@@ -6,8 +6,7 @@ import androidx.room.Room
 class DBManager private constructor() {
 
     fun getDB(context: Context): LancetDatabase {
-        val db = Room.databaseBuilder(context, LancetDatabase::class.java, "lancet-db").build()
-        return db
+        return Room.databaseBuilder(context, LancetDatabase::class.java, "lancet-db").build()
     }
 
     companion object {

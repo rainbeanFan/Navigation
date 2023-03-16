@@ -52,7 +52,6 @@ class MeViewModel() : ViewModel() {
         val baseUrl = "https://aip.baidubce.com/rest/2.0/image-process/v1/selfie_anime"
 
         val imgData = File(path).readBytes()
-//            FileUtil.readFileByBytes(path)
         val imgStr = Base64Util.encode(imgData)
         val imgParam = "image=" + URLEncoder.encode(imgStr, "UTF-8")
 

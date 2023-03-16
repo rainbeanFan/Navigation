@@ -91,15 +91,6 @@ class FragmentMe : Fragment() {
             viewModel.getUserInfo()
         }
 
-//        lifecycleScope.launch {
-//            viewModel.sharedFlow.collect {
-//                binding.avatar.load(it.avatar) {
-//                    placeholder(R.mipmap.icon_default_avatar)
-//                    error(R.mipmap.icon_default_avatar)
-//                }
-//            }
-//        }
-
         lifecycleScope.launch {
             viewModel.userAvatarFlow.collect {
                 val currentUser = BmobUser.getCurrentUser(User::class.java)
