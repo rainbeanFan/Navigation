@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity() {
         getUserInfo()
 
         mBinding?.fabCreateNotice?.setOnClickListener {
-            startActivity(Intent(this, RestHomeActivity::class.java))
+            startActivity(Intent(this, MotionLayoutActivity::class.java))
+//            startActivity(Intent(this, RestHomeActivity::class.java))
         }
 
         val navHostFragment = NavHostFragment.create(R.navigation.lancet_navigation)

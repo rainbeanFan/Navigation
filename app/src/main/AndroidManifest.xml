@@ -83,6 +83,7 @@ xmlns:tools="http://schemas.android.com/tools">
     <activity android:name="cn.lancet.navigation.account.SignActivity" />
     <activity android:name="cn.lancet.navigation.rest.RestHomeActivity" />
     <activity android:name="cn.lancet.navigation.rest.PreviewActivity" />
+    <activity android:name="cn.lancet.navigation.MotionLayoutActivity" />
 
     <!--    <provider-->
 <!--        android:name="cn.bmob.v3.util.BmobContentProvider"-->
