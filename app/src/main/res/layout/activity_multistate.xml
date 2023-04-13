@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layoutDescription="@xml/slide_scene">
+
+
+    <ImageView
+        android:id="@+id/arrow_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_right_arrow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <View
+        android:id="@+id/people_pad"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="4dp"
+        android:background="@color/purple_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/people1"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/avatar_1_raster"
+        app:layout_constraintBottom_toTopOf="@id/people3"
+        app:layout_constraintEnd_toStartOf="@id/people2"
+        app:layout_constraintStart_toStartOf="@id/people_pad"
+        app:layout_constraintTop_toTopOf="@id/people_pad" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/people2"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/avatar_2_raster"
+        app:layout_constraintBottom_toTopOf="@id/people4"
+        app:layout_constraintEnd_toEndOf="@id/people_pad"
+        app:layout_constraintStart_toEndOf="@id/people1"
+        app:layout_constraintTop_toTopOf="@id/people_pad" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/people3"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/avatar_3_raster"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/people5"
+        app:layout_constraintEnd_toStartOf="@id/people4"
+        app:layout_constraintStart_toStartOf="@id/people_pad"
+        app:layout_constraintTop_toBottomOf="@id/people1" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/people4"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/avatar_4_raster"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/people6"
+        app:layout_constraintEnd_toEndOf="@id/people_pad"
+        app:layout_constraintStart_toEndOf="@id/people3"
+        app:layout_constraintTop_toBottomOf="@id/people2" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/people5"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/avatar_5_raster"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/people7"
+        app:layout_constraintEnd_toStartOf="@id/people6"
+        app:layout_constraintStart_toStartOf="@id/people_pad"
+        app:layout_constraintTop_toBottomOf="@id/people3" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/people6"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/avatar_6_raster"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/people8"
+        app:layout_constraintEnd_toEndOf="@id/people_pad"
+        app:layout_constraintStart_toEndOf="@id/people5"
+        app:layout_constraintTop_toBottomOf="@id/people4" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/people7"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/avatar_7_raster"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@id/people_pad"
+        app:layout_constraintEnd_toStartOf="@id/people8"
+        app:layout_constraintStart_toStartOf="@id/people_pad"
+        app:layout_constraintTop_toBottomOf="@id/people5" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterButton
+        android:id="@+id/people8"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/avatar_8_raster"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@id/people_pad"
+        app:layout_constraintEnd_toEndOf="@id/people_pad"
+        app:layout_constraintStart_toEndOf="@id/people7"
+        app:layout_constraintTop_toBottomOf="@id/people6" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
