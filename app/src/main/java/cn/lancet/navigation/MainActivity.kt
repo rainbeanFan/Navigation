@@ -14,6 +14,7 @@ import cn.bmob.v3.listener.FetchUserInfoListener
 import cn.lancet.navigation.databinding.ActivityMainBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.rest.RestHomeActivity
+import cn.lancet.navigation.widget.HotDialog
 import com.gyf.immersionbar.ImmersionBar
 
 class MainActivity : AppCompatActivity() {
@@ -33,8 +34,11 @@ class MainActivity : AppCompatActivity() {
         getUserInfo()
 
         mBinding?.fabCreateNotice?.setOnClickListener {
-            startActivity(Intent(this, MotionLayoutActivity::class.java))
+//            startActivity(Intent(this, MotionLayoutActivity::class.java))
 //            startActivity(Intent(this, RestHomeActivity::class.java))
+
+            HotDialog().show(supportFragmentManager,"HOT")
+
         }
 
         val navHostFragment = NavHostFragment.create(R.navigation.lancet_navigation)

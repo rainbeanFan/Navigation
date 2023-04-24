@@ -16,4 +16,9 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="Widget.PictureInPicture.MovieView" parent="android:Widget">
+        <item name="android:src">@null</item>
+        <item name="android:adjustViewBounds">false</item>
+    </style>
+
 </resources>

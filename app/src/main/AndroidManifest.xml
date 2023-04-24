@@ -85,6 +85,11 @@ xmlns:tools="http://schemas.android.com/tools">
     <activity android:name="cn.lancet.navigation.rest.PreviewActivity" />
     <activity android:name="cn.lancet.navigation.MotionLayoutActivity" />
 
+
+    <activity android:name="cn.lancet.navigation.ui.VideoActivity"
+        android:supportsPictureInPicture="true"
+        android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
+
     <!--    <provider-->
 <!--        android:name="cn.bmob.v3.util.BmobContentProvider"-->
 <!--        android:authorities="cn.lancet.navigation.BmobContentProvider" />-->
