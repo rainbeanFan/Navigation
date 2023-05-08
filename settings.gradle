@@ -30,3 +30,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Walden"
 include ':app'
+include ':me'
+include ':common'
+include ':find'
+include ':discovery'

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:src="raw/vid_bigbuckbunny"
+        android:src="@raw/vid_bigbuckbunny"
         android:title="Big Buck Bunny"/>
 
     <ScrollView
@@ -36,8 +36,21 @@
                 android:text="Enter Picture-in-Picture mode"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/explanation"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hyphenationFrequency="normal"
+                android:justificationMode="inter_word"
+                android:text="This sample demonstrates basic usage of Picture-in-Picture"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/switch_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Switch to custom actions example"/>
 
 
         </LinearLayout>

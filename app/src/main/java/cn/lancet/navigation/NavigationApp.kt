@@ -2,6 +2,9 @@ package cn.lancet.navigation
 
 import android.app.Application
 import cn.bmob.v3.Bmob
+import cn.lancet.common.AppConfig
+import cn.lancet.common.IAppComponent
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.hjq.toast.Toaster
@@ -12,7 +15,7 @@ import java.io.File
 import java.io.FileReader
 
 @HiltAndroidApp
-class NavigationApp:Application() {
+class NavigationApp:Application(),IAppComponent {
 
     override fun onCreate() {
         super.onCreate()
@@ -36,6 +39,20 @@ class NavigationApp:Application() {
             return processName
         }catch (e:Exception){
             return null
+        }
+    }
+
+    override fun initialize(app: Application) {
+        AppConfig.COMPONENTS.forEach {component->
+            try {
+                val clazz = Class.forName(component)
+                val obj = clazz.newInstance()
+                if (obj is IAppComponent){
+                    obj.initialize(app)
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
         }
     }
 
