@@ -7,6 +7,8 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import cn.bmob.v3.Bmob
 import cn.lancet.common.AppConfig
 import cn.lancet.common.IAppComponent
+import cn.lancet.common.ServiceFactory
+import cn.lancet.discovery.UserInstallService
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.hjq.toast.Toaster
@@ -23,6 +25,8 @@ class NavigationApp:Application(),IAppComponent,DefaultLifecycleObserver {
         super<Application>.onCreate()
 
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+
+        initialize(this)
 
         Toaster.init(this)
         Bmob.initialize(this,"18f0791eb905bf4a3efb8769d449c9e9")
@@ -61,6 +65,9 @@ class NavigationApp:Application(),IAppComponent,DefaultLifecycleObserver {
     }
 
     override fun initialize(app: Application) {
+
+        ServiceFactory.instance.setUserInstallService(UserInstallService())
+
         AppConfig.COMPONENTS.forEach {component->
             try {
                 val clazz = Class.forName(component)

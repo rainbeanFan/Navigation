@@ -4,7 +4,7 @@ import android.app.Application
 import cn.lancet.common.IAppComponent
 import cn.lancet.common.ServiceFactory
 
-class DiscoveryApp:Application(),IAppComponent {
+class FindApp:Application(),IAppComponent {
 
     override fun onCreate() {
         super.onCreate()
@@ -12,7 +12,7 @@ class DiscoveryApp:Application(),IAppComponent {
     }
 
     override fun initialize(app: Application) {
-        ServiceFactory.instance.setUserInstallService(UserInstallService())
+
     }
 
 

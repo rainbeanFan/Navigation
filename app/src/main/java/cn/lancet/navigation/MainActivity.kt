@@ -12,6 +12,8 @@ import androidx.navigation.ui.NavigationUI
 import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FetchUserInfoListener
+import cn.lancet.discovery.DiscoveryActivity
+import cn.lancet.discovery.FindActivity
 import cn.lancet.navigation.databinding.ActivityMainBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.rest.RestHomeActivity
@@ -38,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         mBinding?.fabCreateNotice?.setOnClickListener {
 //            startActivity(Intent(this, MotionLayoutActivity::class.java))
-            startActivity(Intent(this, RestHomeActivity::class.java))
+            startActivity(Intent(this, FindActivity::class.java))
         }
 
         val navHostFragment = NavHostFragment.create(R.navigation.lancet_navigation)

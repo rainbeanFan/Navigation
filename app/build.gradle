@@ -138,6 +138,7 @@ dependencies {
     implementation 'com.google.android.play:app-update-ktx:2.0.1'
     implementation project(path: ':common')
     implementation project(path: ':find')
+    implementation project(path: ':discovery')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
