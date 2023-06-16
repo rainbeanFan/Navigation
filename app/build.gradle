@@ -139,6 +139,7 @@ dependencies {
     implementation project(path: ':common')
     implementation project(path: ':find')
     implementation project(path: ':discovery')
+    implementation project(path: ':me')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
