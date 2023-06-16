@@ -12,7 +12,7 @@ class FindApp:Application(),IAppComponent {
     }
 
     override fun initialize(app: Application) {
-
+        ServiceFactory.instance.setUserExitService(FindService())
     }
 
 

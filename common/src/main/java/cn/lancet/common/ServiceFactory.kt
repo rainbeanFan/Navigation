@@ -10,6 +10,14 @@ class ServiceFactory private constructor(){
         mIUserInstallService = service
     }
 
+    private var mIUserExitService:IUserExitService?=null
+
+    fun getUserExitService() = mIUserExitService
+
+    fun setUserExitService(service: IUserExitService){
+        mIUserExitService = service
+    }
+
     companion object {
 
         val instance:ServiceFactory by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED){

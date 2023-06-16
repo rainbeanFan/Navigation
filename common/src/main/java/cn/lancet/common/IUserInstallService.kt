@@ -4,6 +4,6 @@ import android.content.Context
 
 interface IUserInstallService {
 
-    fun launch(context:Context,extra:String)
+    fun launch(context:Context,extra:String) {}
 
 }

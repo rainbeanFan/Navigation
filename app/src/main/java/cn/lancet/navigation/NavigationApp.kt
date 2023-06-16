@@ -8,6 +8,7 @@ import cn.bmob.v3.Bmob
 import cn.lancet.common.AppConfig
 import cn.lancet.common.IAppComponent
 import cn.lancet.common.ServiceFactory
+import cn.lancet.discovery.FindService
 import cn.lancet.discovery.UserInstallService
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -67,6 +68,7 @@ class NavigationApp:Application(),IAppComponent,DefaultLifecycleObserver {
     override fun initialize(app: Application) {
 
         ServiceFactory.instance.setUserInstallService(UserInstallService())
+        ServiceFactory.instance.setUserExitService(FindService())
 
         AppConfig.COMPONENTS.forEach {component->
             try {
