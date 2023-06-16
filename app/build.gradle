@@ -183,4 +183,7 @@ dependencies {
     // To use Kotlin annotation processing tool (kapt)
     ksp 'androidx.room:room-compiler:2.5.1'
 
+    implementation 'com.github.svga:SVGAPlayer-Android:2.6.1'
+
+
 }
