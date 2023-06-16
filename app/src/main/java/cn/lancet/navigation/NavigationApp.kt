@@ -1,10 +1,12 @@
 package cn.lancet.navigation
 
 import android.app.Application
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ProcessLifecycleOwner
 import cn.bmob.v3.Bmob
 import cn.lancet.common.AppConfig
 import cn.lancet.common.IAppComponent
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.hjq.toast.Toaster
@@ -15,14 +17,30 @@ import java.io.File
 import java.io.FileReader
 
 @HiltAndroidApp
-class NavigationApp:Application(),IAppComponent {
+class NavigationApp:Application(),IAppComponent,DefaultLifecycleObserver {
 
     override fun onCreate() {
-        super.onCreate()
+        super<Application>.onCreate()
+
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+
         Toaster.init(this)
         Bmob.initialize(this,"18f0791eb905bf4a3efb8769d449c9e9")
 //        RongIM.init(this,"k51hidwqkv3tb")
         MMKV.initialize(this)
+    }
+
+
+    override fun onStop(owner: LifecycleOwner) {
+//        Toaster.show("onStop")
+    }
+
+    override fun onPause(owner: LifecycleOwner) {
+        Toaster.show("onPause")
+    }
+
+    override fun onResume(owner: LifecycleOwner) {
+        Toaster.show("onResume")
     }
 
     private fun initStores() {

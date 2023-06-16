@@ -83,7 +83,11 @@ xmlns:tools="http://schemas.android.com/tools">
         android:windowSoftInputMode="stateHidden|adjustResize"
         tools:ignore="LockedOrientationActivity" />
     <activity android:name="cn.lancet.navigation.account.SignActivity" />
-    <activity android:name="cn.lancet.navigation.rest.RestHomeActivity" />
+
+    <activity android:name="cn.lancet.navigation.rest.RestHomeActivity"
+        android:supportsPictureInPicture="true"
+        android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"/>
+
     <activity android:name="cn.lancet.navigation.rest.PreviewActivity" />
     <activity android:name="cn.lancet.navigation.MotionLayoutActivity" />
 
@@ -121,6 +125,7 @@ xmlns:tools="http://schemas.android.com/tools">
     <service
         android:foregroundServiceType="camera"
         android:name="cn.lancet.navigation.WaldenService" />
+    <service android:name="cn.lancet.navigation.KeepLiveService" />
 
 
     <meta-data

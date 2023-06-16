@@ -32,6 +32,26 @@
             android:textSize="20sp"
             android:text="识别"/>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="添加"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_delete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="删除"/>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

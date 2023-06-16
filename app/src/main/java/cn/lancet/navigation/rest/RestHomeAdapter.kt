@@ -19,6 +19,8 @@ class RestHomeAdapter(val context: Context) :
 
     private var mData = mutableListOf<RestType>()
 
+    private var mRestId = mutableListOf<Int>()
+
     private var mListener:OnRestTypeClickListener?=null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestHomeViewHolder {
@@ -46,8 +48,23 @@ class RestHomeAdapter(val context: Context) :
 
     fun setData(data: MutableList<RestType>) {
         mData.clear()
+        mRestId.clear()
         mData.addAll(data)
+        data.forEach {
+            mRestId.add(it.restId!!)
+        }
         notifyDataSetChanged()
+    }
+
+    fun insertData(data:RestType){
+        mData.add(0,data)
+        mRestId.add(0,data.restId!!)
+        notifyItemInserted(0)
+    }
+
+    fun deleteData(restId: Int){
+        mData.removeAt(mRestId.indexOf(restId))
+        notifyItemRemoved(mRestId.indexOf(restId))
     }
 
     inner class RestHomeViewHolder(itemView: View) : ViewHolder(itemView) {

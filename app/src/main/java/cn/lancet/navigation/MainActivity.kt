@@ -3,6 +3,7 @@ package cn.lancet.navigation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commitNow
 import androidx.navigation.NavController
@@ -15,6 +16,7 @@ import cn.lancet.navigation.databinding.ActivityMainBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.rest.RestHomeActivity
 import com.gyf.immersionbar.ImmersionBar
+import com.hjq.toast.Toaster
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,8 +58,15 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(mBinding!!.bottomNavigationView, mNavController!!)
     }
 
-
+    private val mNums = mutableListOf(1,3,5,7,9)
     private fun getUserInfo() {
+
+        val isEmptyList = mNums.any {
+            it > 9
+        }
+
+        Log.d("Filter Result==","${isEmptyList}")
+
         if (BmobUser.isLogin()) {
             BmobUser.fetchUserInfo(object : FetchUserInfoListener<User>() {
                 override fun done(user: User?, e: BmobException?) {

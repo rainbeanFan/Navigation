@@ -18,7 +18,7 @@ class LogoutDialog : DialogFragment(){
     private var mListener: OnLogoutClickListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_TITLE, android.R.style.Theme_Material_Dialog)
+        setStyle(STYLE_NO_TITLE, R.style.RoundCornerBottomSheetDialog)
     }
 
     override fun onStart() {
@@ -55,7 +55,6 @@ class LogoutDialog : DialogFragment(){
             mListener?.logout()
             dismissAllowingStateLoss()
         }
-
         return view
     }
 
