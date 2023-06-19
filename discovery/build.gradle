@@ -46,21 +46,48 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
+task sourceJar(type:Jar) {
+    from android.sourceSets.main.java.getSrcDirs()
+    archiveClassifier = "sources"
+}
 def localDefaultRepo = "file://"+new File(System.getProperty("user.home"),'.m2/repository').absolutePath
 publishing {
     repositories {  RepositoryHandler  handler->
         handler.mavenLocal()
+        handler.maven {
+            url "${localDefaultRepo}/repo"
+        }
+
+//        handler.maven { MavenArtifactRepository mavenArtifactRepository->
+//
+//            url "htp://10.0.192.56:8081/repository/core/"
+//
+//            credentials {
+//                username = "Admin"
+//                password = "135246"
+//            }
+//
+//        }
+
     }
 
-    publications { PublicationContainer publication->
+    publications { PublicationContainer publicationContainer->
 
-        maven(MavenPublication) {
+        debug(MavenPublication){
+
+            artifact sourceJar // 上传源码
 
             afterEvaluate { artifact(tasks.getByName("bundleReleaseAar"))}
-
             groupId = "cn.lancet.discovery"
             artifactId = "discovery"
             version = "0.9.0-SNAPSHOT"
+        }
+
+        release(MavenPublication) {
+            afterEvaluate { artifact(tasks.getByName("bundleReleaseAar"))}
+            groupId = "cn.lancet.discovery"
+            artifactId = "discovery"
+            version = "0.9.0"
         }
 
     }
