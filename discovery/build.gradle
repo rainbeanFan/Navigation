@@ -48,20 +48,38 @@ dependencies {
 
 def localDefaultRepo = "file://"+new File(System.getProperty("user.home"),'.m2/repository').absolutePath
 publishing {
-    repositories {
-
-        maven {
-            url = uri(localDefaultRepo)
-
-        }
-//
-//        pom.groupId "cn.lancet.discovery"
-//        pom.artifactId "discovery"
-//        pom.version "0.9-SNAPSHOT"
-//        pom.packaging "aar"
+    repositories {  RepositoryHandler  handler->
+        handler.mavenLocal()
     }
+
+    publications { PublicationContainer publication->
+
+        maven(MavenPublication) {
+
+            afterEvaluate { artifact(tasks.getByName("bundleReleaseAar"))}
+
+            groupId = "cn.lancet.discovery"
+            artifactId = "discovery"
+            version = "0.9.0-SNAPSHOT"
+        }
+
+    }
+
 
 }
 
-version = "0.9-SNAPSHOT"
-group = "cn.lancet.discovery"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
