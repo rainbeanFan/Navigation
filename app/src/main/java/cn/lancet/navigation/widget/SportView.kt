@@ -20,7 +20,7 @@ private val RADIUS = 150.dp
 class SportView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        textSize = 60.dp
+        textSize = 60.dp.toFloat()
         typeface = ResourcesCompat.getFont(context, R.font.roboto_bold)
         textAlign = Paint.Align.CENTER //Horizontal Center
 //        isFakeBoldText = true
@@ -36,9 +36,9 @@ class SportView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         mPaint.apply {
             style = Paint.Style.STROKE
             color = CIRCLE_COLOR
-            strokeWidth = RING_WIDTH
+            strokeWidth = RING_WIDTH.toFloat()
         }
-        canvas.drawCircle(width / 2F, height / 2F, RADIUS, mPaint)
+        canvas.drawCircle(width / 2F, height / 2F, RADIUS.toFloat(), mPaint)
 
         mPaint.apply {
             color = HIGHT_LIGHT_COLOR
@@ -68,7 +68,7 @@ class SportView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 //        canvas.drawText("abcd", -mBound.left.toFloat(), -mFontMetrics.top,mPaint)
 
         mPaint.textAlign = Paint.Align.LEFT
-        mPaint.textSize = 10.dp
+        mPaint.textSize = 10.dp.toFloat()
         mPaint.getFontMetrics(mFontMetrics)
 //        canvas.drawText("abcd", -mBound.left.toFloat(), -mFontMetrics.top,mPaint)
 

@@ -1,3 +1,8 @@
+import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -195,3 +200,35 @@ dependencies {
 
 
 }
+
+def timer = new Timer()
+
+def currentNum = 0
+
+def job = {
+    println "Hello Gradle currentNum = $currentNum"
+    currentNum ++
+    if (currentNum > 10) {
+        timer.cancel()
+    }
+    println "Hello Gradle end"
+}
+
+
+def timerTask =  new TimerTask() {
+    @Override
+    void run() {
+        job()
+    }
+}
+
+def square(def num){
+    num * num
+}
+
+task square{
+    doLast{
+        timer.schedule(timerTask, 0, 3000)
+    }
+}
+

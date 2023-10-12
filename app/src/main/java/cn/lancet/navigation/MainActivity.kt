@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commitNow
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -19,6 +20,10 @@ import cn.lancet.navigation.module.User
 import cn.lancet.navigation.rest.RestHomeActivity
 import com.gyf.immersionbar.ImmersionBar
 import com.hjq.toast.Toaster
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,6 +67,19 @@ class MainActivity : AppCompatActivity() {
 
     private val mNums = mutableListOf(1,3,5,7,9)
     private fun getUserInfo() {
+
+        lifecycleScope.launch {
+            flow {
+                (1..1000).forEach {
+                    delay(100)
+                    emit(it)
+                }
+            }.conflate().collect {
+                delay(250)
+                Log.d("Filter Result==","${it}")
+            }
+        }
+
 
         val isEmptyList = mNums.any {
             it > 9

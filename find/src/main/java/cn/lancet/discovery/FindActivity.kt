@@ -1,10 +1,12 @@
 package cn.lancet.discovery
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import cn.lancet.common.ServiceFactory
 import cn.lancet.find.R
+import kotlinx.coroutines.flow.flow
 
 class FindActivity:AppCompatActivity() {
 
@@ -16,6 +18,10 @@ class FindActivity:AppCompatActivity() {
             ServiceFactory.instance.getUserInstallService()?.launch(this,"find")
         }
 
+
+
+
     }
+    
 
 }

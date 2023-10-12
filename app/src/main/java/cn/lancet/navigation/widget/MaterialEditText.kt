@@ -20,7 +20,7 @@ private val EXTRA_VERTICAL_OFFSET = 16.dp
 class MaterialEditText(context: Context, attrs: AttributeSet) : AppCompatEditText(context, attrs) {
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        textSize = TEXT_SIZE
+        textSize = TEXT_SIZE.toFloat()
     }
     private var floatingLabelShown = false
     private var floatingLabelFraction = 0F
@@ -93,7 +93,8 @@ class MaterialEditText(context: Context, attrs: AttributeSet) : AppCompatEditTex
             }
             val currentVerticalValue =
                 VERTICAL_OFFSET + EXTRA_VERTICAL_OFFSET * (1 - floatingLabelFraction)
-            canvas.drawText(hint.toString(), HORIZONTAL_OFFSET, currentVerticalValue, mPaint)
+            canvas.drawText(hint.toString(),
+                HORIZONTAL_OFFSET.toFloat(), currentVerticalValue, mPaint)
         }
 
 
