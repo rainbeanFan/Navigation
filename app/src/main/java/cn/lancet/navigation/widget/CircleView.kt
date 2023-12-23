@@ -23,7 +23,7 @@ class CircleView(context: Context, attrs: AttributeSet?) : View(context, attrs) 
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawCircle(width / 2F, height / 2F, radius, mPaint)
+        canvas.drawCircle(width / 2F, height / 2F, radius.toFloat(), mPaint)
     }
 
 }

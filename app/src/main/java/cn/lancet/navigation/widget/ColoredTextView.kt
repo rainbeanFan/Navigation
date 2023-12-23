@@ -37,7 +37,8 @@ class ColoredTextView(context: Context, attrs: AttributeSet?) : AppCompatTextVie
     }
 
     override fun onDraw(canvas: Canvas) {
-        canvas.drawRoundRect(0f, 0f, width.toFloat(), height.toFloat(), CORNER_RADIUS, CORNER_RADIUS, paint)
+        canvas.drawRoundRect(0f, 0f, width.toFloat(), height.toFloat(),
+            CORNER_RADIUS.toFloat(), CORNER_RADIUS.toFloat(), paint)
         super.onDraw(canvas)
     }
 }

@@ -25,8 +25,9 @@ class CameraView(context: Context, attrs: AttributeSet?) : View(context, attrs) 
 
     private val mClipPath = Path().apply {
         addOval(
-            BITMAP_PADDING, BITMAP_PADDING, BITMAP_PADDING + BITMAP_SIZE,
-            BITMAP_PADDING + BITMAP_SIZE, Path.Direction.CW
+            BITMAP_PADDING.toFloat(), BITMAP_PADDING.toFloat(),
+            (BITMAP_PADDING + BITMAP_SIZE).toFloat(),
+            (BITMAP_PADDING + BITMAP_SIZE).toFloat(), Path.Direction.CW
         )
     }
 
@@ -41,35 +42,39 @@ class CameraView(context: Context, attrs: AttributeSet?) : View(context, attrs) 
 //            BITMAP_PADDING+ BITMAP_SIZE/2)
 
         canvas.save()
-        canvas.translate((BITMAP_PADDING + BITMAP_SIZE) / 2, (BITMAP_PADDING + mBitmap.height) / 2)
+        canvas.translate(((BITMAP_PADDING + BITMAP_SIZE) / 2).toFloat(),
+            ((BITMAP_PADDING + mBitmap.height) / 2).toFloat()
+        )
         canvas.rotate(-30F)
 //        mCamera.applyToCanvas(canvas)
-        canvas.clipRect(
-            -BITMAP_PADDING, -mBitmap.height.toFloat(),
-            BITMAP_SIZE, 0F
-        )
+//        canvas.clipRect(
+//            -BITMAP_PADDING, -mBitmap.height.toFloat(),
+//            BITMAP_SIZE, 0F
+//        )
         canvas.rotate(30F)
         canvas.translate(
-            -(BITMAP_PADDING + BITMAP_SIZE) / 2,
-            -(BITMAP_PADDING + mBitmap.height) / 2
+            (-(BITMAP_PADDING + BITMAP_SIZE) / 2).toFloat(),
+            (-(BITMAP_PADDING + mBitmap.height) / 2).toFloat()
         )
-        canvas.drawBitmap(mBitmap, BITMAP_PADDING, BITMAP_PADDING, mPaint)
+//        canvas.drawBitmap(mBitmap, BITMAP_PADDING, BITMAP_PADDING, mPaint)
         canvas.restore()
 //  下半部分
         canvas.save()
-        canvas.translate((BITMAP_PADDING + BITMAP_SIZE) / 2, (BITMAP_PADDING + mBitmap.height) / 2)
+        canvas.translate(((BITMAP_PADDING + BITMAP_SIZE) / 2).toFloat(),
+            ((BITMAP_PADDING + mBitmap.height) / 2).toFloat()
+        )
         canvas.rotate(-30F)
         mCamera.applyToCanvas(canvas)
-        canvas.clipRect(
-            -BITMAP_PADDING, 0F,
-            BITMAP_SIZE, mBitmap.height.toFloat()
-        )
+//        canvas.clipRect(
+//            -BITMAP_PADDING, 0F,
+//            BITMAP_SIZE, mBitmap.height.toFloat()
+//        )
         canvas.rotate(30F)
         canvas.translate(
-            -(BITMAP_PADDING + BITMAP_SIZE) / 2,
-            -(BITMAP_PADDING + mBitmap.height) / 2
+            (-(BITMAP_PADDING + BITMAP_SIZE) / 2).toFloat(),
+            (-(BITMAP_PADDING + mBitmap.height) / 2).toFloat()
         )
-        canvas.drawBitmap(mBitmap, BITMAP_PADDING, BITMAP_PADDING, mPaint)
+//        canvas.drawBitmap(mBitmap, BITMAP_PADDING, BITMAP_PADDING, mPaint)
         canvas.restore()
     }
 
