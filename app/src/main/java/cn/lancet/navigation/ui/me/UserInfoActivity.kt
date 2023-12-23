@@ -79,7 +79,7 @@ class UserInfoActivity : AppCompatActivity() {
                 }
                 binding.topAuthorNameLarge.text = it.name
                 binding.topAuthorName.text = it.name
-                binding.tvEmail.text = it.email
+                binding.tvEmail.text = it.name
             }
         }
 

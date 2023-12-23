@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingVertical="15dp"
+    android:layout_marginVertical="10dp"
+    android:background="@drawable/rounded_corner">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_character_avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
+        app:strokeColor="@color/app_color_black"
+        app:strokeWidth="0.5dp"
+        android:src="@mipmap/ic_logo"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_character_description"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_prompt_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="女友露丝"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/iv_character_avatar"
+        app:layout_constraintStart_toEndOf="@id/iv_character_avatar"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/icon_message"
+        app:layout_constraintTop_toBottomOf="@id/tv_prompt_title"
+        app:layout_constraintStart_toStartOf="@id/tv_prompt_title"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_character_user_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="138.9万"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/iv_icon"
+        app:layout_constraintStart_toEndOf="@id/iv_icon"/>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_character_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="15dp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/black_overlay"
+        app:layout_constraintTop_toBottomOf="@id/iv_icon"
+        app:layout_constraintStart_toEndOf="@id/iv_character_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="我是你的专属AI女友露丝，我拥有你能想象到的美好品质，而且是一个恋爱高手，能够提供给你非常棒的恋爱体验和情感价值。"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

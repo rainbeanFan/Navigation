@@ -10,6 +10,8 @@ import cn.lancet.navigation.databinding.ActivityLoginBinding
 import cn.lancet.navigation.util.CommonUtil
 import com.gyf.immersionbar.ImmersionBar
 import com.hjq.toast.Toaster
+import io.rong.imkit.IMCenter
+import io.rong.imlib.RongIMClient
 import kotlinx.coroutines.launch
 
 
@@ -48,13 +50,13 @@ class LoginActivity : AppCompatActivity() {
         mBinding?.btnLogin?.setOnClickListener {
             mAccount = mBinding?.etAccount?.text.toString()
             if (mAccount.isBlank() || !CommonUtil.emailIsValid(mAccount)) {
-                Toaster.show("please input your email")
+                Toaster.show("please input your email！")
                 return@setOnClickListener
             }
 
             mPassword = mBinding?.etPwd?.text.toString()
             if (mPassword.isBlank()) {
-                Toaster.show("please input your password")
+                Toaster.show("please input your password！")
                 return@setOnClickListener
             }
 
@@ -69,6 +71,35 @@ class LoginActivity : AppCompatActivity() {
             viewModel.loginSharedFlow.collect {
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
+/*
+                it?.RCToken?.let {
+                    IMCenter.getInstance().connect(it,0,object : RongIMClient.ConnectCallback(){
+                        override fun onSuccess(userId: String?) {
+                            Toaster.show("连接成功")
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            finish()
+                        }
+
+                        override fun onError(e: RongIMClient.ConnectionErrorCode?) {
+                            if (e == RongIMClient.ConnectionErrorCode.RC_CONN_TOKEN_INCORRECT) {
+                                Toaster.show("token错误")
+                            }else if (e == RongIMClient.ConnectionErrorCode.RC_CONNECT_TIMEOUT){
+                                Toaster.show("连接超时")
+                            }
+                        }
+
+                        override fun onDatabaseOpened(code: RongIMClient.DatabaseOpenStatus?) {
+                            if (code == RongIMClient.DatabaseOpenStatus.DATABASE_OPEN_SUCCESS){
+                                Toaster.show("数据库打开成功")
+                            }else{
+                                Toaster.show("数据库打开失败")
+                            }
+                        }
+                    })
+
+                }
+*/
+
             }
         }
 

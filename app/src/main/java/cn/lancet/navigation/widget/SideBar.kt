@@ -28,7 +28,7 @@ class SideBar  : View {
         mTextDialog = textDialog
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         val height = height

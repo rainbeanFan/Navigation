@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ import cn.lancet.navigation.R
 import cn.lancet.navigation.module.RestType
 import coil.load
 import com.google.android.material.imageview.ShapeableImageView
+import java.util.Collections
 
 
 class RestHomeAdapter(val context: Context) :
@@ -41,6 +43,7 @@ class RestHomeAdapter(val context: Context) :
         holder.tvRestName?.text = data.name
 
         holder.itemView.setOnClickListener {
+            Toast.makeText(context, "position==${holder.bindingAdapterPosition}", Toast.LENGTH_LONG).show()
             mListener?.onItemClick(data)
         }
 
@@ -53,13 +56,27 @@ class RestHomeAdapter(val context: Context) :
         data.forEach {
             mRestId.add(it.restId!!)
         }
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
     }
 
     fun insertData(data:RestType){
         mData.add(0,data)
         mRestId.add(0,data.restId!!)
         notifyItemInserted(0)
+    }
+
+    fun changeData(data:RestType){
+        mData.forEachIndexed { index, restType ->
+            if (restType.restId == data.restId){
+                mData[index] = data
+                notifyItemChanged(index)
+            }
+        }
+    }
+
+    fun moveData(){
+        Collections.swap(mData,0,2)
+        notifyItemMoved(0,2)
     }
 
     fun deleteData(restId: Int){

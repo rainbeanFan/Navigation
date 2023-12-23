@@ -11,15 +11,13 @@ import android.os.Bundle
 import android.util.Rational
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.AspectRatio
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import cn.lancet.navigation.KeepLiveService
-import cn.lancet.navigation.PlantInfoAdapter
+import cn.lancet.navigation.AnimMessage
+import cn.lancet.navigation.AnimationManager
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityRestHomeBinding
 import cn.lancet.navigation.module.RestType
-import com.hjq.toast.Toaster
 
 
 class RestHomeActivity : AppCompatActivity() {
@@ -44,6 +42,9 @@ class RestHomeActivity : AppCompatActivity() {
         )[NoticeViewModel::class.java]
 
         binding.ivBack.setOnClickListener { finish() }
+
+        AnimationManager.init(this)
+        AnimationManager.addGiftContainer(binding.llGiftContainer)
 
         initEvent()
     }
@@ -87,7 +88,7 @@ class RestHomeActivity : AppCompatActivity() {
                     val intent = Intent(this@RestHomeActivity,RestActivity::class.java)
                     intent.putExtra(Constant.KEY_REST_TYPE,restType.type)
                     startActivity(intent)
-                    finish()
+//                    finish()
                 }
             })
         }
@@ -96,48 +97,45 @@ class RestHomeActivity : AppCompatActivity() {
         mAdapter.setData(mData)
 
         binding.tvAdd.setOnClickListener {
-            mAdapter.insertData(RestType(
+
+            AnimationManager.addAnimalMessage(AnimMessage(userName = "小黑子", headUrl = "", giftNum = 10, giftName = "飞机"))
+
+
+/*            mAdapter.insertData(RestType(
                 restId = 6,
                 "户型识别",
                 url = "https://hzkyk.obs.cn-east-3.myhuaweicloud.com:443/funnyWorld%2F10072725%2F__IMAGE__PERFEC_INFO_AVATAR.jpeg?t=1683855851443",
                 type = 6
             ))
-            binding.rvRest.scrollToPosition(0)
+            binding.rvRest.scrollToPosition(0)*/
+        }
+
+
+        binding.tvUpdate.setOnClickListener {
+            AnimationManager.addAnimalMessage(AnimMessage(userName = "Jacky", headUrl = "", giftNum = 20, giftName = "红包"))
+
         }
 
         binding.tvDelete.setOnClickListener {
+
+            AnimationManager.addAnimalMessage(AnimMessage(userName = "我是学生", headUrl = "", giftNum = 10, giftName = "飞机"))
+
+
+//            mAdapter.moveData()
 //            mAdapter.deleteData(restId = 6)
 //            binding.rvRest.scrollToPosition(0)
+//
+//            if (isSupportPipMode()){
+//                if (hasPipPermission()){
+//                    enterPiPMode(Rational(3,5))
+//                }else{
+//                    startPipPermissionSetting()
+//                }
+//            }
 
-            if (isSupportPipMode()){
-                if (hasPipPermission()){
-                    enterPiPMode(Rational(10,5))
-                }else{
-                    startPipPermissionSetting()
-                }
-            }
 
         }
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-        stopService(Intent(this,KeepLiveService::class.java))
-    }
-
-    override fun onPause() {
-        super.onPause()
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
-            startForegroundService(Intent(this,KeepLiveService::class.java))
-        }else{
-            startService(Intent(this, KeepLiveService::class.java))
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        stopService(Intent(this,KeepLiveService::class.java))
     }
 
     fun isSupportPipMode(): Boolean {
@@ -149,10 +147,10 @@ class RestHomeActivity : AppCompatActivity() {
         val appOpsManager = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager? ?: return false
         val uid = android.os.Process.myUid()
 
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.Q){
-            return appOpsManager.unsafeCheckOpNoThrow(AppOpsManager.OPSTR_PICTURE_IN_PICTURE,uid,packageName) == AppOpsManager.MODE_ALLOWED
+        return if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.Q){
+            appOpsManager.unsafeCheckOpNoThrow(AppOpsManager.OPSTR_PICTURE_IN_PICTURE,uid,packageName) == AppOpsManager.MODE_ALLOWED
         }else{
-            return appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_PICTURE_IN_PICTURE,uid,packageName) == AppOpsManager.MODE_ALLOWED
+            appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_PICTURE_IN_PICTURE,uid,packageName) == AppOpsManager.MODE_ALLOWED
 
         }
     }

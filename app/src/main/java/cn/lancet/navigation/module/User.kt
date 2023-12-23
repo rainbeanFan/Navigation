@@ -9,9 +9,4 @@ data class User(
     val pwd:String?=null,
     val name: String?=null,
     var avatar: String?=null
-) : BmobUser() {
-
-    override fun toString(): String {
-        return "User(account=$account, pwd=$pwd, name='$name', avatar='$avatar')"
-    }
-}
+) : BmobUser()

@@ -21,6 +21,7 @@
     <string name="title_activity_publish_notice">PublishNoticeActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="gift_tip">送出%1$s</string>
 
     <string-array name="profile_tabs">
         <item>动态</item>

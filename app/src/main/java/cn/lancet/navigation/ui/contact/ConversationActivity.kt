@@ -2,9 +2,10 @@ package cn.lancet.navigation.ui.contact
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import cn.lancet.navigation.R
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityConversationBinding
+import java.lang.Deprecated
+
 //import io.rong.imkit.conversation.ConversationFragment
 
 class ConversationActivity : AppCompatActivity() {
@@ -24,6 +25,13 @@ class ConversationActivity : AppCompatActivity() {
 //        supportFragmentManager.beginTransaction()
 //            .replace(R.id.container, ConversationFragment())
 //            .commit()
+
+
+    }
+
+
+    @Deprecated
+    private fun test(){
 
     }
 

@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.bmob.v3.BmobUser
-import cn.lancet.navigation.adapter.NoticeAdapter
+import cn.bmob.v3.ai.ChatMessageListener
+import cn.lancet.navigation.NavigationApp
+import cn.lancet.navigation.adapter.CharacterAdapter
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentHomeBinding
-import cn.lancet.navigation.module.RestResultInfo
+import cn.lancet.navigation.module.Character
 import cn.lancet.navigation.module.User
-import cn.lancet.navigation.rest.NoticeDetailActivity
 import cn.lancet.navigation.rest.NoticeViewModel
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -31,14 +31,14 @@ class FragmentHome : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    private var mRvMessage: RecyclerView? = null
+    private var mRvPrompt: RecyclerView? = null
 
-    private var mAdapter: NoticeAdapter? = null
+    private val mAdapter: CharacterAdapter by lazy {
+        CharacterAdapter(requireContext())
+    }
 
     private lateinit var viewModel: PlantListViewModel
     private lateinit var viewModelNotice: NoticeViewModel
-
-    private var mData = mutableListOf<RestResultInfo>()
 
     private val binding get() = _binding!!
 
@@ -70,45 +70,31 @@ class FragmentHome : Fragment() {
             ViewModelProvider.NewInstanceFactory()
         )[NoticeViewModel::class.java]
 
-        mAdapter = NoticeAdapter(requireContext())
-        mRvMessage = binding.rvMessage
-        mRvMessage?.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = mAdapter
-        }
-        mAdapter?.setOnItemClickListener(object : NoticeAdapter.OnItemClickListener {
-            override fun onItemClick(plant: RestResultInfo) {
-                val intent = Intent(requireContext(), NoticeDetailActivity::class.java)
-                intent.putExtra(Constant.KEY_REST_ID, plant.objectId)
+        mRvPrompt = binding.rvMessage
+        mRvPrompt?.apply { adapter = mAdapter }
+        mAdapter.setOnItemClickListener(object : CharacterAdapter.OnItemClickListener {
+            override fun onItemClick(character: Character) {
+                val intent = Intent(requireContext(), ChatActivity::class.java)
+                    .apply {
+                        putExtra(Constant.KEY_CHARACTER_TITLE, character.cnName)
+                        putExtra(Constant.KEY_CHARACTER_PROMPT, character.prompt)
+                        putExtra(Constant.KEY_CHARACTER_NAME, character.enName)
+                        putExtra(Constant.KEY_CHARACTER_AVATAR, character.avatar)
+                        putExtra(Constant.KEY_CHARACTER_WELCOME, character.welTips)
+                    }
                 startActivity(intent)
             }
-
         })
 
         getNotices()
 
-        lifecycleScope.launch {
-            viewModel.mPlantInfoFlow.collect {
-                mAdapter?.setData(it)
-            }
-        }
+        viewModel.getCharacterInfo()
 
         lifecycleScope.launch {
-            viewModel.mLocalRestInfoFlow.collect {
-                mData.clear()
-                it.forEach { restResultEntity ->
-                    val entity = RestResultInfo()
-                    entity.userId = ""
-                    entity.plantName = restResultEntity.plantName
-                    entity.plantUrl = restResultEntity.plantUrl
-                    entity.plantDescription = restResultEntity.plantDescription
-                    entity.favourite = restResultEntity.favourite
-                    mData.add(entity)
-                }
-                mAdapter?.setData(mData)
+            viewModel.mCharacterInfoFlow.collect {
+                mAdapter.setData(it)
             }
         }
-
     }
 
     private fun getNotices() {
@@ -117,6 +103,34 @@ class FragmentHome : Fragment() {
         }else{
             viewModel.getLocalRestInfo(requireContext())
         }
+    }
+
+    private fun chatWithBmobAI(tips:String){
+        if (NavigationApp().mBmobAI?.isConnect == false){
+            NavigationApp().mBmobAI?.Connect()
+        }
+
+        NavigationApp().mBmobAI?.Chat(tips,BmobUser.getCurrentUser().username?:"135246",
+            object : ChatMessageListener {
+                override fun onMessage(message: String?) {
+
+                }
+
+                override fun onFinish(message: String?) {
+
+                }
+
+                override fun onError(error: String?) {
+
+                }
+
+                override fun onClose() {
+
+                }
+
+            })
+
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -129,7 +143,7 @@ class FragmentHome : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mRvMessage = null
+        mRvPrompt = null
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this)
         }

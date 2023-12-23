@@ -9,13 +9,16 @@ import cn.bmob.v3.listener.FindListener
 import cn.lancet.navigation.module.User
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.Locale
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 
 class ContactListViewModel() : ViewModel() {
 
     var contactSharedFlow = MutableSharedFlow<MutableList<User>>()
-    fun getContactList() {
+    suspend fun getContactList() = suspendCancellableCoroutine { continuation ->
         val queries = BmobQuery<User>()
         queries.findObjects(object : FindListener<User>() {
             override fun done(users: MutableList<User>?, e: BmobException?) {
@@ -23,10 +26,15 @@ class ContactListViewModel() : ViewModel() {
                     val result = users.filter {
                         it.objectId != BmobUser.getCurrentUser(User::class.java).objectId
                     }
-
-                    viewModelScope.launch {
-                        contactSharedFlow.emit(result.toMutableList())
+                    result.forEach {
+                        it.sort_letter = it.name?.uppercase(Locale.ROOT)?.get(0).toString()
                     }
+                    continuation.resume(result.toMutableList())
+//                    viewModelScope.launch {
+//                        contactSharedFlow.emit(result.toMutableList())
+//                    }
+                }else{
+                    continuation.resumeWithException(BmobException(e))
                 }
             }
         })

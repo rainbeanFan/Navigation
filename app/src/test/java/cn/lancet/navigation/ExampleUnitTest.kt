@@ -1,6 +1,7 @@
 package cn.lancet.navigation
 
 import androidx.room.util.copy
+import cn.lancet.navigation.select.SelectV2
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -19,14 +20,16 @@ class ExampleUnitTest {
 //        val target = -8
 //        twoSum(nums, target)
 
-        val nums1 = intArrayOf(1,2,3,0,0,0)
-        val m = 3
-        val num2 = intArrayOf(2,5,6)
-        val n = 3
+//        val nums1 = intArrayOf(1,2,3,0,0,0)
+//        val m = 3
+//        val num2 = intArrayOf(2,5,6)
+//        val n = 3
+//
+//        merge(nums1,m,num2,n)
 
-        merge(nums1,m,num2,n)
+        SelectV2().test()
 
-        assertEquals(4, 2 + 2)
+//        assertEquals(4, 2 + 2)
     }
 
     fun twoSum(nums:IntArray,target:Int):IntArray{

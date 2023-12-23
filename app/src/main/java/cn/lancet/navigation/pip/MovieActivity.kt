@@ -45,7 +45,7 @@ class MovieActivity: AppCompatActivity() {
 
     private lateinit var session:MediaSessionCompat
 
-    private val movieListener = @RequiresApi(Build.VERSION_CODES.N) object : MovieView.MovieListener() {
+    private val movieListener =  object : MovieView.MovieListener() {
         override fun onMovieStarted() {
             updatePlaybackState(
                 PlaybackStateCompat.STATE_PLAYING,
@@ -85,12 +85,10 @@ class MovieActivity: AppCompatActivity() {
         binding.movie.doOnLayout { updatePictureInPictureParams()}
         binding.movie.setMovieListener(movieListener)
     }
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onStart() {
         super.onStart()
         initializeMediaSession()
     }
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun initializeMediaSession(){
         session = MediaSessionCompat(this,"Movie")
         session.isActive = true
@@ -113,14 +111,12 @@ class MovieActivity: AppCompatActivity() {
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onStop() {
         super.onStop()
         binding.movie.pause()
         session.release()
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onRestart() {
         super.onRestart()
         if (!isInPictureInPictureMode){
@@ -128,13 +124,11 @@ class MovieActivity: AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         adjustFullScreen(newConfig)
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
         if (hasFocus) {
@@ -182,7 +176,6 @@ class MovieActivity: AppCompatActivity() {
         enterPictureInPictureMode(updatePictureInPictureParams())
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private fun adjustFullScreen(config: Configuration){
         val insetsController = ViewCompat.getWindowInsetsController(window.decorView)
         insetsController?.systemBarsBehavior =
@@ -223,7 +216,6 @@ class MovieActivity: AppCompatActivity() {
         session.setPlaybackState(builder.build())
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     private inner class MediaSessionCallback(
         private val movieView: MovieView
     ):MediaSessionCompat.Callback() {

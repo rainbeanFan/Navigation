@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.bmob.v3.BmobUser
+import cn.bmob.v3.exception.BmobException
 import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.adapter.ContactAdapter
 import cn.lancet.navigation.constans.Constant
@@ -22,6 +25,8 @@ import cn.lancet.navigation.module.User
 import cn.lancet.navigation.util.FirstLetterComparator
 import cn.lancet.navigation.widget.SideBar
 import com.google.android.material.button.MaterialButton
+import io.rong.imkit.utils.RouteUtils
+import io.rong.imlib.model.Conversation
 import kotlinx.coroutines.launch
 
 
@@ -36,6 +41,7 @@ class FragmentContact : Fragment() {
     private var mSideBar: SideBar? = null
 
     private var mAdapter: ContactAdapter? = null
+
 
     private var mComparator = FirstLetterComparator()
 
@@ -98,13 +104,13 @@ class FragmentContact : Fragment() {
         mAdapter?.setOnItemClickListener(object : ContactAdapter.OnItemClickListener {
             override fun onItemClick(user: User) {
 
-//                RouteUtils.registerActivity(RouteUtils.RongActivityType.ConversationActivity,
-//                    ConversationActivity::class.java)
+                RouteUtils.registerActivity(RouteUtils.RongActivityType.ConversationActivity,
+                    ConversationActivity::class.java)
 
-//                val intent = Intent(requireContext(),ConversationActivity::class.java).apply {
-//                    putExtra(RouteUtils.CONVERSATION_TYPE,Conversation.ConversationType.PRIVATE)
-//                    putExtra(RouteUtils.TARGET_ID,user.objectId)
-//                }
+                val intent = Intent(requireContext(),ConversationActivity::class.java).apply {
+                    putExtra(RouteUtils.CONVERSATION_TYPE,Conversation.ConversationType.PRIVATE)
+                    putExtra(RouteUtils.TARGET_ID,user.objectId)
+                }
 
                 val bundle = Bundle().apply {
                     putString(Constant.KEY_USER_NAME,user.name)
@@ -112,11 +118,11 @@ class FragmentContact : Fragment() {
 
 //               requireContext().startActivity(intent)
 
-//                RouteUtils.routeToConversationActivity(
-//                    requireContext(),
-//                    Conversation.ConversationType.PRIVATE,
-//                    user.objectId,bundle
-//                )
+                RouteUtils.routeToConversationActivity(
+                    requireContext(),
+                    Conversation.ConversationType.PRIVATE,
+                    user.objectId,bundle
+                )
             }
         })
 
@@ -129,16 +135,21 @@ class FragmentContact : Fragment() {
             ViewModelProvider.NewInstanceFactory()
         )[ContactListViewModel::class.java]
 
-        lifecycleScope.launch {
-            viewModel.contactSharedFlow.collect {
-                mAdapter?.setData(it.sortedWith(mComparator).toMutableList())
-            }
-        }
         if (BmobUser.isLogin()){
-            viewModel.getContactList()
             mRvContact?.visibility = View.VISIBLE
             mSideBar?.visibility = View.VISIBLE
             mBtnLogin?.visibility = View.GONE
+            lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.RESUMED){
+                    try {
+                        val contactList = viewModel.getContactList()
+                        mAdapter?.setData(contactList.sortedWith(mComparator).toMutableList())
+                    }catch (e:BmobException){
+                        e.printStackTrace()
+                    }
+
+                }
+            }
         }else{
             mRvContact?.visibility = View.GONE
             mSideBar?.visibility = View.GONE

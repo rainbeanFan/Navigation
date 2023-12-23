@@ -17,6 +17,12 @@ object Constant {
 
     const val KEY_REST_TYPE = "rest_type"
 
+    const val KEY_CHARACTER_TITLE = "key_character_title"
+    const val KEY_CHARACTER_PROMPT = "key_character_prompt"
+    const val KEY_CHARACTER_NAME = "key_character_name"
+    const val KEY_CHARACTER_AVATAR = "key_character_avatar"
+    const val KEY_CHARACTER_WELCOME = "key_character_welcome"
+
 
 
 }

@@ -76,14 +76,14 @@ class CommentBottomDialog(noticeId:String):BottomSheetDialogFragment() {
         val etCommentContent = view.findViewById<AppCompatEditText>(R.id.et_remark)
 
         view.findViewById<MaterialButton>(R.id.btn_commit).setOnClickListener {
-            val commentContent = etCommentContent.text.toString()
-            mNoticeId?.let{
-                viewModel.comment(it,commentContent,"Image")
-            }
+//            val commentContent = etCommentContent.text.toString()
+//            mNoticeId?.let{
+//                viewModel.comment(it,commentContent,"Image")
+//            }
         }
 
         lifecycleScope.launch {
-            viewModel.commentStateFlow.collect(){
+            viewModel.commentStateFlow.collect {
                 if (it){
                     Toaster.showLong("评论成功啦！")
                     dismissAllowingStateLoss()

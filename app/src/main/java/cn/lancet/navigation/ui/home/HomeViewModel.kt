@@ -8,6 +8,7 @@ import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import cn.lancet.navigation.db.DBManager
 import cn.lancet.navigation.db.RestResultEntity
+import cn.lancet.navigation.module.Character
 import cn.lancet.navigation.module.Notice
 import cn.lancet.navigation.module.RestResultInfo
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,8 @@ class PlantListViewModel : ViewModel() {
     var mPlantInfoFlow = MutableSharedFlow<MutableList<RestResultInfo>>()
 
     var mLocalRestInfoFlow = MutableSharedFlow<MutableList<RestResultEntity>>()
+
+    var mCharacterInfoFlow = MutableSharedFlow<MutableList<Character>>()
 
     fun getPlantInfo(userId: String) {
         val query = BmobQuery<RestResultInfo>()
@@ -44,6 +47,21 @@ class PlantListViewModel : ViewModel() {
             val allRest = DBManager.instance.getDB(context).restResultDao().getAllRest()
             mLocalRestInfoFlow.emit(allRest)
         }
+    }
+
+    fun getCharacterInfo() {
+        val query = BmobQuery<Character>()
+        query.order("rank").findObjects(object : FindListener<Character>() {
+            override fun done(characters: MutableList<Character>?, e: BmobException?) {
+                if (e == null) {
+                    characters?.let {
+                        viewModelScope.launch {
+                            mCharacterInfoFlow.emit(characters)
+                        }
+                    }
+                }
+            }
+        })
     }
 
 }
