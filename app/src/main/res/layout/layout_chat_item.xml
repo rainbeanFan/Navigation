@@ -26,7 +26,7 @@
             android:padding="1dp"
             android:scaleType="centerCrop"
             app:shapeAppearance="@style/CircleRoundImageStyle"
-            app:strokeColor="@color/app_color_blue"
+            app:strokeColor="@color/light_blue_900"
             app:strokeWidth="2dp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -80,7 +80,7 @@
             android:padding="1dp"
             app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
             app:strokeWidth="2dp"
-            app:strokeColor="@color/app_color_blue"/>
+            app:strokeColor="@color/light_blue_900"/>
 
 
     </LinearLayout>

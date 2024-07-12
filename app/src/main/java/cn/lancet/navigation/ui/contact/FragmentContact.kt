@@ -25,8 +25,6 @@ import cn.lancet.navigation.module.User
 import cn.lancet.navigation.util.FirstLetterComparator
 import cn.lancet.navigation.widget.SideBar
 import com.google.android.material.button.MaterialButton
-import io.rong.imkit.utils.RouteUtils
-import io.rong.imlib.model.Conversation
 import kotlinx.coroutines.launch
 
 
@@ -103,26 +101,6 @@ class FragmentContact : Fragment() {
 
         mAdapter?.setOnItemClickListener(object : ContactAdapter.OnItemClickListener {
             override fun onItemClick(user: User) {
-
-                RouteUtils.registerActivity(RouteUtils.RongActivityType.ConversationActivity,
-                    ConversationActivity::class.java)
-
-                val intent = Intent(requireContext(),ConversationActivity::class.java).apply {
-                    putExtra(RouteUtils.CONVERSATION_TYPE,Conversation.ConversationType.PRIVATE)
-                    putExtra(RouteUtils.TARGET_ID,user.objectId)
-                }
-
-                val bundle = Bundle().apply {
-                    putString(Constant.KEY_USER_NAME,user.name)
-                }
-
-//               requireContext().startActivity(intent)
-
-                RouteUtils.routeToConversationActivity(
-                    requireContext(),
-                    Conversation.ConversationType.PRIVATE,
-                    user.objectId,bundle
-                )
             }
         })
 

@@ -10,8 +10,6 @@ import cn.lancet.navigation.databinding.ActivityLoginBinding
 import cn.lancet.navigation.util.CommonUtil
 import com.gyf.immersionbar.ImmersionBar
 import com.hjq.toast.Toaster
-import io.rong.imkit.IMCenter
-import io.rong.imlib.RongIMClient
 import kotlinx.coroutines.launch
 
 

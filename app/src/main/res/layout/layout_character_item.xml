@@ -17,7 +17,7 @@
         android:layout_marginStart="10dp"
         android:padding="1dp"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
-        app:strokeColor="@color/app_color_black"
+        app:strokeColor="@color/black"
         app:strokeWidth="0.5dp"
         android:src="@mipmap/ic_logo"
         android:scaleType="centerCrop"
