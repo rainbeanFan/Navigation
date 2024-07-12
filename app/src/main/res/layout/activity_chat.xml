@@ -52,7 +52,7 @@
             android:layout_toStartOf="@id/send_bt"
             android:layout_toEndOf="@id/voicebt"
             android:background="@drawable/rounded_corner"
-            android:hint="请输入感兴趣的话题"
+            android:hint="@string/please_enter_a_topic_of_interest"
             android:paddingHorizontal="5dp"
             android:textSize="8pt" />
 
@@ -65,7 +65,7 @@
             android:layout_marginStart="10dp"
             android:background="@drawable/not_content_button"
             android:padding="8dp"
-            android:text="发送" />
+            android:text="@string/send" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -87,9 +87,9 @@
             android:id="@+id/speakbt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/keyboardbt"
+            android:layout_toEndOf="@id/keyboardbt"
             android:background="@drawable/voice_shape"
-            android:text="按住说话"
+            android:text="@string/press_and_hold_to_speak"
             android:textColor="#ffffff" />
 
     </RelativeLayout>

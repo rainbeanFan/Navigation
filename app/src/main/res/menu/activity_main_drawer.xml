@@ -5,14 +5,14 @@
         <item
             android:id="@+id/fragmentA"
             android:icon="@drawable/ic_menu_home"
-            android:title="主页" />
+            android:title="@string/home" />
         <item
             android:id="@+id/fragmentB"
             android:icon="@drawable/icon_contacts"
-            android:title="好友" />
+            android:title="@string/friend" />
         <item
             android:id="@+id/fragmentC"
             android:icon="@drawable/ic_menu_me"
-            android:title="我的" />
+            android:title="@string/me" />
 
 </menu>

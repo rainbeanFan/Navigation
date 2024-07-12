@@ -22,6 +22,17 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="gift_tip">送出%1$s</string>
+    <string name="home">主页</string>
+    <string name="friend">好友</string>
+    <string name="me">我的</string>
+    <string name="please_enter_a_topic_of_interest">请输入感兴趣的话题</string>
+    <string name="press_and_hold_to_speak">按住说话</string>
+    <string name="send">发送</string>
+    <string name="contact">联系人</string>
+    <string name="registered">注册</string>
+    <string name="I_have_read_and_agreed">我已阅读并同意</string>
+    <string name="user_agreement">《用户协议》</string>
+    <string name="notice">公告</string>
 
     <string-array name="profile_tabs">
         <item>动态</item>

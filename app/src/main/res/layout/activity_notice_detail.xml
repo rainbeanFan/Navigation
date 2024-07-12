@@ -34,7 +34,7 @@
             android:textColor="@color/black"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="公告"/>
+            android:text="@string/notice"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_delete"
