@@ -15,6 +15,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="10dp"
+        android:padding="1dp"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
         app:strokeColor="@color/app_color_black"
         app:strokeWidth="0.5dp"

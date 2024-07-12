@@ -67,13 +67,12 @@
     <LinearLayout
         android:id="@+id/ll_gift_container"
         android:layout_width="match_parent"
-        android:background="#ffffffff"
+        android:background="#f9fff0f9"
         android:animateLayoutChanges="true"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:layout_weight="1"
         android:paddingBottom="40dp"
-        android:layout_height="0dp" />
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_rest"

@@ -23,14 +23,14 @@ import java.io.File
 import java.io.FileReader
 
 @HiltAndroidApp
-class NavigationApp:Application(),IAppComponent,DefaultLifecycleObserver {
+class NavigationApp:Application(),IAppComponent {
 
-    var mBmobAI:BmobAI?=null
+    companion object{
+        var mBmobAI:BmobAI?=null
+    }
 
     override fun onCreate() {
-        super<Application>.onCreate()
-
-        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+        super.onCreate()
 
         initialize(this)
 
@@ -68,39 +68,11 @@ class NavigationApp:Application(),IAppComponent,DefaultLifecycleObserver {
     }
 
 
-    private fun initStores() {
-        val storage = Firebase.storage("")
-        storage.reference
-    }
-
-    private fun getLancetProcessName():String?{
-        try {
-            val file = File("/proc/"+android.os.Process.myPid()+"/"+"cmdline")
-            val mBufferedReader = BufferedReader(FileReader(file))
-            val processName = mBufferedReader.readLine().trim()
-            mBufferedReader.close()
-            return processName
-        }catch (e:Exception){
-            return null
-        }
-    }
-
     override fun initialize(app: Application) {
 
         ServiceFactory.instance.setUserInstallService(UserInstallService())
         ServiceFactory.instance.setUserExitService(FindService())
 
-        AppConfig.COMPONENTS.forEach {component->
-            try {
-                val clazz = Class.forName(component)
-                val obj = clazz.newInstance()
-                if (obj is IAppComponent){
-                    obj.initialize(app)
-                }
-            }catch (e:Exception){
-                e.printStackTrace()
-            }
-        }
     }
 
 

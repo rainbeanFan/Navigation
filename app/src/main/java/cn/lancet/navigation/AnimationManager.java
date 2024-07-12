@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -179,8 +180,8 @@ public class AnimationManager {
     private static View findViewByMessage(AnimMessage message) {
         for (int i = 0; i < mAnimViewContainer.getChildCount(); i++) {
             AnimMessage giftMessage = (AnimMessage) mAnimViewContainer.getChildAt(i).getTag();
-            if (giftMessage.getUserName().equals(message.getUserName()) &&
-                    giftMessage.getGiftName().equals(message.getGiftName())) {
+            if (Objects.equals(giftMessage.getUserName(), message.getUserName()) &&
+                    giftMessage.getGiftId()==message.getGiftId()) {
                 return mAnimViewContainer.getChildAt(i);
             }
         }
@@ -201,12 +202,16 @@ public class AnimationManager {
             final AnimMessage message = (AnimMessage) giftView.getTag();// 原来的礼物view的信息
             message.setGiftNum(message.getGiftNum() + giftMessage.getGiftNum()); // 合并追送的礼物数量
             giftView.setTag(message);
-            if (message.isComboAnimationOver()) {
+
+            final MagicTextView giftNum = (MagicTextView) giftView.findViewById(R.id.giftNum);
+            giftNum.setText("x" + message.getGiftNum());
+
+/*            if (message.isComboAnimationOver()) {
                 // 2.连击动画已完成 此时view 未消失，除了1 的操作外，还需重新启动连击动画
                 final MagicTextView giftNum = (MagicTextView) giftView.findViewById(R.id.giftNum);
                 giftNum.setText("x" + giftNum.getTag());
                 ((GiftView) giftView).startComboAnim(giftNum);
-            }
+            }*/
         }
     }
 

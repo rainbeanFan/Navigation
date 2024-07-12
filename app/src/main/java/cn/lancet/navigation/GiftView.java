@@ -75,31 +75,32 @@ public class GiftView extends RelativeLayout {
         sendUser.setText(mAnimMessage.getUserName());
         giftIcon.setImageResource(R.mipmap.live_red_packet);
 
-        userIcon.startAnimation(mIconScaleAnim);
-        giftNumView.setTag(1);/*给数量控件设置标记*/
+//        userIcon.startAnimation(mIconScaleAnim);
+        giftNumView.setText("x" + mAnimMessage.getGiftNum());
+        giftNumView.setTag(mAnimMessage.getGiftNum());/*给数量控件设置标记*/
         mAnimMessage.setUpdateTime(System.currentTimeMillis());/*设置时间标记*/
         setTag(mAnimMessage);/*设置view标识*/
-        mIconScaleAnim.setAnimationListener(new Animation.AnimationListener() {
+        /*mIconScaleAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                sendUser.setVisibility(View.VISIBLE);
-                giftName.setVisibility(View.VISIBLE);
-                giftTextContainerLayout.setVisibility(View.VISIBLE);
-                giftTextContainerLayout.startAnimation(mGiftLayoutInAnim);//开始执行显示礼物的动画
-                sendUser.startAnimation(mUserNameIn);
-                giftName.startAnimation(mGiftNameIn);
+//                sendUser.setVisibility(View.VISIBLE);
+//                giftName.setVisibility(View.VISIBLE);
+//                giftTextContainerLayout.setVisibility(View.VISIBLE);
+//                giftTextContainerLayout.startAnimation(mGiftLayoutInAnim);//开始执行显示礼物的动画
+//                sendUser.startAnimation(mUserNameIn);
+//                giftName.startAnimation(mGiftNameIn);
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
-        });
+        });*/
 
-        mGiftLayoutInAnim.setAnimationListener(new Animation.AnimationListener() {/*显示动画的监听*/
+        /*mGiftLayoutInAnim.setAnimationListener(new Animation.AnimationListener() {*//*显示动画的监听*//*
             @Override
             public void onAnimationStart(Animation animation) {
             }
@@ -116,7 +117,7 @@ public class GiftView extends RelativeLayout {
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
-        });
+        });*/
 
     }
 
@@ -152,7 +153,6 @@ public class GiftView extends RelativeLayout {
                     startComboAnim(giftNumView);
                 } else {
                     ((AnimMessage)getTag()).setComboAnimationOver(true);
-                    return;
                 }
             }
 

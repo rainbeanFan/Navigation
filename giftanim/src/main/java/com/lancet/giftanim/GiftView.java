@@ -76,7 +76,7 @@ public class GiftView extends RelativeLayout {
         giftIcon.setImageResource(R.mipmap.live_red_packet);
 
         userIcon.startAnimation(mIconScaleAnim);
-        giftNumView.setTag(1);/*给数量控件设置标记*/
+        giftNumView.setTag(mAnimMessage.getGiftNum());/*给数量控件设置标记*/
         mAnimMessage.setUpdateTime(System.currentTimeMillis());/*设置时间标记*/
         setTag(mAnimMessage);/*设置view标识*/
         mIconScaleAnim.setAnimationListener(new Animation.AnimationListener() {
@@ -86,12 +86,12 @@ public class GiftView extends RelativeLayout {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                sendUser.setVisibility(View.VISIBLE);
-                giftName.setVisibility(View.VISIBLE);
-                giftTextContainerLayout.setVisibility(View.VISIBLE);
-                giftTextContainerLayout.startAnimation(mGiftLayoutInAnim);//开始执行显示礼物的动画
-                sendUser.startAnimation(mUserNameIn);
-                giftName.startAnimation(mGiftNameIn);
+//                sendUser.setVisibility(View.VISIBLE);
+//                giftName.setVisibility(View.VISIBLE);
+//                giftTextContainerLayout.setVisibility(View.VISIBLE);
+//                giftTextContainerLayout.startAnimation(mGiftLayoutInAnim);//开始执行显示礼物的动画
+//                sendUser.startAnimation(mUserNameIn);
+//                giftName.startAnimation(mGiftNameIn);
             }
 
             @Override

@@ -24,10 +24,6 @@ const val SEND_BY_BOT = "bot"
 data class BmobMessage(
     val session:String,
     val userName:String,
-    val message:String,
+    var message:String,
     val sendBy:String,
-):BmobObject(){
-    override fun toString(): String {
-        return "BmobMessage(session='$session', userName='$userName', message='$message', sendBy='$sendBy')"
-    }
-}
+):BmobObject()

@@ -10,8 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import cn.bmob.v3.BmobUser
-import cn.bmob.v3.ai.ChatMessageListener
-import cn.lancet.navigation.NavigationApp
 import cn.lancet.navigation.adapter.CharacterAdapter
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentHomeBinding
@@ -103,34 +101,6 @@ class FragmentHome : Fragment() {
         }else{
             viewModel.getLocalRestInfo(requireContext())
         }
-    }
-
-    private fun chatWithBmobAI(tips:String){
-        if (NavigationApp().mBmobAI?.isConnect == false){
-            NavigationApp().mBmobAI?.Connect()
-        }
-
-        NavigationApp().mBmobAI?.Chat(tips,BmobUser.getCurrentUser().username?:"135246",
-            object : ChatMessageListener {
-                override fun onMessage(message: String?) {
-
-                }
-
-                override fun onFinish(message: String?) {
-
-                }
-
-                override fun onError(error: String?) {
-
-                }
-
-                override fun onClose() {
-
-                }
-
-            })
-
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

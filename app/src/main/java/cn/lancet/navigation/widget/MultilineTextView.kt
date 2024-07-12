@@ -58,9 +58,9 @@ class MultilineTextView(context: Context, attrs: AttributeSet?) : View(context, 
                 (IMAGE_MARGIN_TOP + mBitmap.height)
             ) {
                 width.toFloat()
-            } else ({
+            } else {
                 (width - IMAGE_WIDTH)
-            }).toFloat()
+            }
 
             count = mPaint.breakText(
                 text, start, text.length,

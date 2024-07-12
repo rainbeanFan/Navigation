@@ -9,6 +9,7 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.util.Rational
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import cn.lancet.navigation.AnimMessage
 import cn.lancet.navigation.AnimationManager
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityRestHomeBinding
+import cn.lancet.navigation.dp
 import cn.lancet.navigation.module.RestType
 
 
@@ -47,6 +49,11 @@ class RestHomeActivity : AppCompatActivity() {
         AnimationManager.addGiftContainer(binding.llGiftContainer)
 
         initEvent()
+    }
+
+    override fun onDestroy() {
+        AnimationManager.release()
+        super.onDestroy()
     }
 
     private fun initEvent() {
@@ -98,7 +105,41 @@ class RestHomeActivity : AppCompatActivity() {
 
         binding.tvAdd.setOnClickListener {
 
-            AnimationManager.addAnimalMessage(AnimMessage(userName = "小黑子", headUrl = "", giftNum = 10, giftName = "飞机"))
+            val layoutParams = binding.llGiftContainer.layoutParams
+            layoutParams.height = 200
+
+            layoutParams.width = MATCH_PARENT
+            binding.llGiftContainer.layoutParams = layoutParams
+            binding.llGiftContainer.requestLayout()
+
+
+            /*
+                        for (i in 0..50){
+                            when(i.mod(5)){
+                                0->{
+                                    AnimationManager.addAnimalMessage(AnimMessage(userName = "一无所有", giftId = i, headUrl = "", giftNum = 10, giftName = "飞机"))
+                                }
+                                1->{
+                                    AnimationManager.addAnimalMessage(AnimMessage(userName = "普通家庭", giftId = i, headUrl = "", giftNum = 30, giftName = "游艇"))
+                                }
+                                2->{
+                                    AnimationManager.addAnimalMessage(AnimMessage(userName = "悔创阿里", giftId = i, headUrl = "", giftNum = 50, giftName = "火箭"))
+                                }
+                                3->{
+                                    AnimationManager.addAnimalMessage(AnimMessage(userName = "大碗宽面", giftId = i, headUrl = "", giftNum = 70, giftName = "跑车"))
+                                }
+                                4->{
+                                    AnimationManager.addAnimalMessage(AnimMessage(userName = "姓丁名磊字三石", giftId = i, headUrl = "", giftNum = 90, giftName = "麋鹿"))
+                                }
+                                else->{
+                                    AnimationManager.addAnimalMessage(AnimMessage(userName = "张朝阳", giftId = i, headUrl = "", giftNum = 100, giftName = "圣诞帽"))
+                                }
+                            }
+                        }
+            */
+
+
+//            AnimationManager.addAnimalMessage(AnimMessage(userName = "小黑子", headUrl = "", giftNum = 10, giftName = "飞机"))
 
 
 /*            mAdapter.insertData(RestType(
@@ -112,7 +153,14 @@ class RestHomeActivity : AppCompatActivity() {
 
 
         binding.tvUpdate.setOnClickListener {
-            AnimationManager.addAnimalMessage(AnimMessage(userName = "Jacky", headUrl = "", giftNum = 20, giftName = "红包"))
+
+            val layoutParams = binding.llGiftContainer.layoutParams
+            layoutParams.height = 400
+            layoutParams.width = MATCH_PARENT
+            binding.llGiftContainer.layoutParams = layoutParams
+            binding.llGiftContainer.requestLayout()
+
+//            AnimationManager.addAnimalMessage(AnimMessage(userName = "Jacky", headUrl = "", giftNum = 20, giftName = "红包"))
 
         }
 

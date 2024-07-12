@@ -10,7 +10,7 @@ import cn.lancet.navigation.module.BmobMessage
 import cn.lancet.navigation.module.SEND_BY_ME
 import coil.load
 
-class ChatAdapter(val messageList:MutableList<BmobMessage>, val logo:String):RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
+class ChatAdapter(val messageList:MutableList<BmobMessage>, val logo:String, val userAvatar:String):RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
@@ -26,6 +26,10 @@ class ChatAdapter(val messageList:MutableList<BmobMessage>, val logo:String):Rec
             holder.binding.tvEndChatItemName.text = chatMsg.message
             holder.binding.llEndChatItemRoot.visibility = View.VISIBLE
             holder.binding.llStartChatItemRoot.visibility = View.GONE
+            holder.binding.ivEndChatItemAvatar.load(userAvatar){
+                placeholder(R.mipmap.icon_default_avatar)
+                error(R.mipmap.icon_default_avatar)
+            }
         }else{
             holder.binding.tvStartChatItemName.text = chatMsg.message
             holder.binding.llEndChatItemRoot.visibility = View.GONE
