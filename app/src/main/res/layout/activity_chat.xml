@@ -6,26 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_back"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:padding="10dp"
-        android:src="@drawable/rc_title_bar_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        android:elevation="8dp"
+        app:titleTextColor="@color/black"
+        app:titleCentered="true"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textColor="@color/app_color_black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="聊天" />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/iv_delete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_delete_outline_24"
+            android:tint="@color/black"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="end"/>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
 
     <RelativeLayout
         android:id="@+id/bottom_layout"
@@ -47,11 +49,11 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_centerInParent="true"
-            android:layout_toLeftOf="@id/send_bt"
-            android:layout_toRightOf="@id/voicebt"
+            android:layout_toStartOf="@id/send_bt"
+            android:layout_toEndOf="@id/voicebt"
             android:background="@drawable/rounded_corner"
             android:hint="请输入感兴趣的话题"
-            android:paddingLeft="5dp"
+            android:paddingHorizontal="5dp"
             android:textSize="8pt" />
 
         <Button
@@ -101,7 +103,7 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/bottom_layout"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintVertical_weight="1"
         app:stackFromEnd="true" />
 

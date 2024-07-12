@@ -3,7 +3,9 @@ package cn.lancet.navigation.ui.home
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.bmob.v3.BmobQuery
@@ -13,7 +15,9 @@ import cn.bmob.v3.exception.BmobException
 import cn.bmob.v3.listener.FindListener
 import cn.bmob.v3.listener.QueryListener
 import cn.bmob.v3.listener.SaveListener
+import cn.bmob.v3.listener.UpdateListener
 import cn.lancet.navigation.NavigationApp
+import cn.lancet.navigation.R
 import cn.lancet.navigation.adapter.ChatAdapter
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.ActivityChatBinding
@@ -51,8 +55,13 @@ class ChatActivity: AppCompatActivity(){
     }
 
     private fun initEvent(){
-        mBinding?.ivBack?.setOnClickListener { finish() }
-        mBinding?.tvTitle?.text = intent.getStringExtra(Constant.KEY_CHARACTER_TITLE)
+        mBinding?.toolbar?.setTitle(intent.getStringExtra(Constant.KEY_CHARACTER_TITLE))
+        setSupportActionBar(mBinding?.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        mBinding?.toolbar?.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        mBinding?.toolbar?.setNavigationIconTint(resources.getColor(R.color.black))
+        mBinding?.toolbar?.setNavigationOnClickListener { finish() }
         mSession = intent.getStringExtra(Constant.KEY_CHARACTER_NAME)?:""
         mPrompt = intent.getStringExtra(Constant.KEY_CHARACTER_PROMPT)?:""
         mLogo = intent.getStringExtra(Constant.KEY_CHARACTER_AVATAR)?:""
@@ -115,6 +124,31 @@ class ChatActivity: AppCompatActivity(){
 
                 })
 
+        }
+
+        mBinding?.ivDelete?.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setIcon(R.mipmap.bot)
+                .setTitle("温馨提示")
+                .setMessage("是否清空会话记录，清空后将不可恢复！")
+                .setPositiveButton("确定") { dialog, which ->
+                    clearSession()
+                }
+                .setNegativeButton("取消") { dialog, which ->
+
+                }
+                .create()
+                .show()
+        }
+
+        mBinding?.keyboardbt?.setOnClickListener {
+            mBinding?.bottomLayout?.visibility = View.VISIBLE
+            mBinding?.bottomLayoutVoice?.visibility = View.INVISIBLE
+        }
+
+        mBinding?.voicebt?.setOnClickListener {
+            mBinding?.bottomLayout?.visibility = View.INVISIBLE
+            mBinding?.bottomLayoutVoice?.visibility = View.VISIBLE
         }
 
     }
@@ -183,6 +217,26 @@ class ChatActivity: AppCompatActivity(){
         mChatList.clear()
         mChatAdapter.notifyDataSetChanged()
 
+        val bmobMessage = BmobMessage(session = mSession, userName = mUserName, message = "", sendBy = SEND_BY_BOT)
+
+        val bmobQuery = BmobQuery<BmobMessage>()
+        bmobQuery.addWhereEqualTo("userName",mUserName)
+        bmobQuery.addWhereEqualTo("session",mSession)
+        bmobQuery.findObjects(object : FindListener<BmobMessage>() {
+            override fun done(list: MutableList<BmobMessage>?, e: BmobException?) {
+                if (e == null && list!=null){
+                    list.forEach { messsage ->
+                        bmobMessage.delete(messsage.objectId, object : UpdateListener() {
+                            override fun done(e: BmobException?) {
+
+                            }
+                        })
+                    }
+                }else{
+                    Toaster.show("删除失败")
+                }
+            }
+        })
 
     }
 
