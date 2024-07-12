@@ -19,7 +19,6 @@ import cn.bmob.v3.BmobUser
 import cn.bmob.v3.exception.BmobException
 import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.adapter.ContactAdapter
-import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentContactBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.util.FirstLetterComparator

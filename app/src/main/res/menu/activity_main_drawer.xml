@@ -6,10 +6,10 @@
             android:id="@+id/fragmentA"
             android:icon="@drawable/ic_menu_home"
             android:title="@string/home" />
-        <item
+<!--        <item
             android:id="@+id/fragmentB"
             android:icon="@drawable/icon_contacts"
-            android:title="@string/friend" />
+            android:title="@string/friend" />-->
         <item
             android:id="@+id/fragmentC"
             android:icon="@drawable/ic_menu_me"
