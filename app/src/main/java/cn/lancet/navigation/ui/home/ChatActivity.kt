@@ -32,6 +32,7 @@ class ChatActivity: AppCompatActivity(){
     private var mSession = ""
     private var mUserName = ""
     private var mStartMessage = ""
+    private var mPrompt = ""
     private var mLogo = ""
     private var mUserAvatar = ""
 
@@ -53,7 +54,7 @@ class ChatActivity: AppCompatActivity(){
         mBinding?.ivBack?.setOnClickListener { finish() }
         mBinding?.tvTitle?.text = intent.getStringExtra(Constant.KEY_CHARACTER_TITLE)
         mSession = intent.getStringExtra(Constant.KEY_CHARACTER_NAME)?:""
-        mStartMessage = intent.getStringExtra(Constant.KEY_CHARACTER_WELCOME)?:""
+        mPrompt = intent.getStringExtra(Constant.KEY_CHARACTER_PROMPT)?:""
         mLogo = intent.getStringExtra(Constant.KEY_CHARACTER_AVATAR)?:""
 
         BmobQuery<User>().getObject(BmobUser.getCurrentUser().objectId, object : QueryListener<User>() {
@@ -67,7 +68,8 @@ class ChatActivity: AppCompatActivity(){
         val user = BmobUser.getCurrentUser()
         mUserName = user.username
 
-        NavigationApp.mBmobAI?.setPrompt("你好，我是${intent.getStringExtra(Constant.KEY_CHARACTER_TITLE)}，有什么可以帮助你的吗？")
+        mStartMessage = "你好，我是${intent.getStringExtra(Constant.KEY_CHARACTER_TITLE)}，有什么可以帮助你的吗？"
+        NavigationApp.mBmobAI?.setPrompt(mStartMessage)
 
         initHistoryChatList()
 
