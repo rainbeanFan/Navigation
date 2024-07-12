@@ -10,54 +10,6 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/splash"/>
 
-<!--    <cn.lancet.navigation.widget.MaterialEditText-->
-<!--        android:id="@+id/circle_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="80dp"-->
-<!--        android:hint="Account" />-->
-
-<!--    <cn.lancet.navigation.widget.TagLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginTop="200dp">-->
-
-<!--        <cn.lancet.navigation.widget.ColoredTextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="杭州" />-->
-
-<!--        <cn.lancet.navigation.widget.ColoredTextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-
-<!--            android:text="连云港" />-->
-
-<!--        <cn.lancet.navigation.widget.ColoredTextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-
-<!--            android:text="西安" />-->
-
-<!--        <cn.lancet.navigation.widget.ColoredTextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-
-<!--            android:text="乌鲁木齐" />-->
-
-<!--        <cn.lancet.navigation.widget.ColoredTextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-
-<!--            android:text="葫芦岛" />-->
-
-<!--    </cn.lancet.navigation.widget.TagLayout>-->
-
-    <!--    <cn.lancet.navigation.widget.CameraView-->
-    <!--        android:layout_marginTop="160dp"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"/>-->
-
     <TextView
         android:id="@+id/tv_jump"
         android:layout_width="wrap_content"

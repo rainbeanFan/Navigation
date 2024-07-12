@@ -1,7 +1,6 @@
 package cn.lancet.navigation
 
 import androidx.room.util.copy
-import cn.lancet.navigation.select.SelectV2
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -27,7 +26,6 @@ class ExampleUnitTest {
 //
 //        merge(nums1,m,num2,n)
 
-        SelectV2().test()
 
 //        assertEquals(4, 2 + 2)
     }

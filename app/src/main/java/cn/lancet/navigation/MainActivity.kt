@@ -9,8 +9,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import cn.lancet.navigation.databinding.ActivityMainBinding
-import cn.lancet.navigation.rest.RestHomeActivity
 import com.gyf.immersionbar.ImmersionBar
+import com.hjq.toast.Toaster
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         ImmersionBar.with(this).statusBarDarkFont(true).init()
 
         mBinding?.fabCreateNotice?.setOnClickListener {
-            startActivity(Intent(this, RestHomeActivity::class.java))
+            Toaster.show("创建新的角色")
         }
 
         val navHostFragment = NavHostFragment.create(R.navigation.lancet_navigation)

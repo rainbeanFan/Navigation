@@ -20,7 +20,6 @@ import cn.bmob.v3.BmobUser
 import cn.lancet.navigation.R
 import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.databinding.FragmentMeBinding
-import cn.lancet.navigation.widget.CommentBottomDialog
 import cn.lancet.navigation.widget.LogoutDialog
 import coil.load
 import com.google.android.material.imageview.ShapeableImageView
@@ -49,7 +48,6 @@ class FragmentMe : Fragment() {
 
     private val binding get() = _binding!!
 
-    private var mDialog: CommentBottomDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,32 +129,8 @@ class FragmentMe : Fragment() {
 //
 //                }
 
-            if (mDialog == null){
-                mDialog = CommentBottomDialog(noticeId = "123")
-            }
-            mDialog?.show(requireActivity().supportFragmentManager, "COMMENT")
 
-            Handler(Looper.getMainLooper()).postDelayed({
-                LogoutDialog.newInstance()
-                    .setOnLogoutListener(object : LogoutDialog.OnLogoutClickListener {
-                        override fun logout() {
-                            if (mDialog!=null && mDialog!!.showsDialog && !mDialog!!.isRemoving){
-                                mDialog?.dismissAllowingStateLoss()
-                            }
-                            if (mDialog != null){
-                                mDialog = null
-                            }
-                            if (mDialog == null){
-                                mDialog = CommentBottomDialog(noticeId = "123")
-                            }
-                            mDialog?.show(requireActivity().supportFragmentManager, "COMMENT")
-//                        BmobUser.logOut()
-//                        startActivity(Intent(requireContext(), LoginActivity::class.java))
-//                        activity?.finish()
-                        }
-                    })
-                    .show(requireActivity().supportFragmentManager, "LOGOUT")
-            }, 3000)
+
 
         }
 
@@ -165,16 +139,7 @@ class FragmentMe : Fragment() {
             LogoutDialog.newInstance()
                 .setOnLogoutListener(object : LogoutDialog.OnLogoutClickListener {
                     override fun logout() {
-                        if (mDialog!=null && mDialog!!.showsDialog && !mDialog!!.isRemoving){
-                            mDialog?.dismissAllowingStateLoss()
-                        }
-                        if (mDialog != null){
-                            mDialog = null
-                        }
-                        if (mDialog == null){
-                            mDialog = CommentBottomDialog(noticeId = "123")
-                        }
-                        mDialog?.show(requireActivity().supportFragmentManager, "COMMENT")
+
 //                        BmobUser.logOut()
 //                        startActivity(Intent(requireContext(), LoginActivity::class.java))
 //                        activity?.finish()

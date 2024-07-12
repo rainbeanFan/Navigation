@@ -9,13 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import cn.bmob.v3.BmobUser
 import cn.lancet.navigation.adapter.CharacterAdapter
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentHomeBinding
 import cn.lancet.navigation.module.Character
-import cn.lancet.navigation.module.User
-import cn.lancet.navigation.rest.NoticeViewModel
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -36,7 +33,6 @@ class FragmentHome : Fragment() {
     }
 
     private lateinit var viewModel: PlantListViewModel
-    private lateinit var viewModelNotice: NoticeViewModel
 
     private val binding get() = _binding!!
 
@@ -63,10 +59,6 @@ class FragmentHome : Fragment() {
             ViewModelProvider.NewInstanceFactory()
         )[PlantListViewModel::class.java]
 
-        viewModelNotice = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        )[NoticeViewModel::class.java]
 
         mRvPrompt = binding.rvMessage
         mRvPrompt?.apply { adapter = mAdapter }
@@ -84,7 +76,6 @@ class FragmentHome : Fragment() {
             }
         })
 
-        getNotices()
 
         viewModel.getCharacterInfo()
 
@@ -95,18 +86,12 @@ class FragmentHome : Fragment() {
         }
     }
 
-    private fun getNotices() {
-        if (BmobUser.isLogin()){
-            viewModel.getPlantInfo(BmobUser.getCurrentUser(User::class.java).objectId)
-        }else{
-            viewModel.getLocalRestInfo(requireContext())
-        }
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: String) {
         when (event) {
-            "deleteNotice" -> getNotices()
+            "add character" -> {
+
+            }
         }
     }
 
