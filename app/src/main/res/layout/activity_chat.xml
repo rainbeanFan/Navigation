@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:padding="8dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageButton
@@ -53,8 +54,10 @@
             android:layout_toEndOf="@id/voicebt"
             android:background="@drawable/rounded_corner"
             android:hint="@string/please_enter_a_topic_of_interest"
+            android:textColorHint="@color/black"
             android:paddingHorizontal="5dp"
-            android:textSize="8pt" />
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
 
         <Button
             android:id="@+id/send_bt"

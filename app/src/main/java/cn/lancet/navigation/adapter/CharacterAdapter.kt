@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cn.lancet.navigation.R
 import cn.lancet.navigation.module.Character
 import coil.load
+import coil.transform.BlurTransformation
 import com.google.android.material.imageview.ShapeableImageView
 
 class CharacterAdapter(val context: Context) :
@@ -34,6 +35,7 @@ class CharacterAdapter(val context: Context) :
         holder.ivCharacterAvatar.load(data.avatar) {
             placeholder(R.mipmap.icon_default_avatar)
             error(R.mipmap.icon_default_avatar)
+            transformations(BlurTransformation(context, 5f, 10f))
         }
 
         holder.tvPromptTitle.text = data.prompt

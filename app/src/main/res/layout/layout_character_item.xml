@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/root"
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:paddingVertical="15dp"
-    android:layout_marginVertical="10dp"
-    android:background="@drawable/rounded_corner">
+    android:layout_margin="10dp"
+    android:background="@drawable/rounded_corner"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_character_avatar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
         android:padding="1dp"
         app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Small"
         app:strokeColor="@color/black"
         app:strokeWidth="0.5dp"
-        android:src="@mipmap/ic_logo"
+        tools:src="@mipmap/bg_login_full"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,8 +32,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="@id/iv_character_avatar"
-        app:layout_constraintStart_toEndOf="@id/iv_character_avatar"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_icon"
@@ -60,7 +58,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_character_description"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintHorizontal_weight="1"
         android:layout_marginTop="5dp"
@@ -69,8 +67,7 @@
         android:textStyle="bold"
         android:textColor="@color/black_overlay"
         app:layout_constraintTop_toBottomOf="@id/iv_icon"
-        app:layout_constraintStart_toEndOf="@id/iv_character_avatar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:text="我是你的专属AI女友露丝，我拥有你能想象到的美好品质，而且是一个恋爱高手，能够提供给你非常棒的恋爱体验和情感价值。"/>
 
 

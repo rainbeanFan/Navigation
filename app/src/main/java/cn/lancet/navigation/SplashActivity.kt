@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import cn.bmob.v3.BmobUser
+import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.databinding.ActivitySplashBinding
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
@@ -39,7 +41,11 @@ class SplashActivity : AppCompatActivity() {
 
         updateAppState()
 
-        val intent = Intent(this@SplashActivity, MainActivity::class.java)
+        val intent = if (BmobUser.isLogin()){
+            Intent(this@SplashActivity, MainActivity::class.java)
+        }else{
+            Intent(this@SplashActivity, LoginActivity::class.java)
+        }
 
         mJob = flow {
             for (i in 5 downTo 1) {

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import cn.bmob.v3.BmobUser
 import cn.lancet.navigation.adapter.CharacterAdapter
 import cn.lancet.navigation.constans.Constant
 import cn.lancet.navigation.databinding.FragmentHomeBinding
@@ -60,6 +61,7 @@ class FragmentHome : Fragment() {
         )[PlantListViewModel::class.java]
 
 
+
         mRvPrompt = binding.rvMessage
         mRvPrompt?.apply { adapter = mAdapter }
         mAdapter.setOnItemClickListener(object : CharacterAdapter.OnItemClickListener {
@@ -77,13 +79,17 @@ class FragmentHome : Fragment() {
         })
 
 
-        viewModel.getCharacterInfo()
-
-        lifecycleScope.launch {
-            viewModel.mCharacterInfoFlow.collect {
-                mAdapter.setData(it)
+        if (BmobUser.isLogin()){
+            viewModel.getCharacterInfo()
+            lifecycleScope.launch {
+                viewModel.mCharacterInfoFlow.collect {
+                    mAdapter.setData(it)
+                }
             }
+        }else{
+
         }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
