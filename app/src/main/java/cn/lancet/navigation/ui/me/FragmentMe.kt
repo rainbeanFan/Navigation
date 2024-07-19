@@ -1,9 +1,6 @@
 package cn.lancet.navigation.ui.me
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import cn.bmob.v3.BmobUser
 import cn.lancet.navigation.R
-import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.databinding.FragmentMeBinding
 import cn.lancet.navigation.widget.LogoutDialog
 import coil.load
 import com.google.android.material.imageview.ShapeableImageView
-import com.hjq.permissions.Permission
-import com.hjq.permissions.XXPermissions
 import kotlinx.coroutines.launch
 
 
@@ -94,7 +88,7 @@ class FragmentMe : Fragment() {
                             error(R.mipmap.icon_default_avatar)
                         }
                         binding.tvNickname.text = userInfo.name
-                        binding.tvUserSex.text = userInfo.RCToken?:"未知"
+                        binding.tvUserSex.text = userInfo.account?:"未知"
                         binding.tvUserEmail.text = userInfo.name
                     }catch (e:Exception){
                         e.printStackTrace()
@@ -140,9 +134,6 @@ class FragmentMe : Fragment() {
                 .setOnLogoutListener(object : LogoutDialog.OnLogoutClickListener {
                     override fun logout() {
 
-//                        BmobUser.logOut()
-//                        startActivity(Intent(requireContext(), LoginActivity::class.java))
-//                        activity?.finish()
                     }
                 })
                 .show(requireActivity().supportFragmentManager, "LOGOUT")
