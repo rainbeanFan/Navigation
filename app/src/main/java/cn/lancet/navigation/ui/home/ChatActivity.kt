@@ -32,6 +32,10 @@ import kotlinx.coroutines.launch
 
 class ChatActivity: AppCompatActivity(){
 
+    private companion object {
+        const val GUEST_USER_NAME = "guest"
+    }
+
     private var mBinding: ActivityChatBinding? = null
     private var mSession = ""
     private var mUserName = ""
@@ -66,16 +70,18 @@ class ChatActivity: AppCompatActivity(){
         mPrompt = intent.getStringExtra(Constant.KEY_CHARACTER_PROMPT)?:""
         mLogo = intent.getStringExtra(Constant.KEY_CHARACTER_AVATAR)?:""
 
-        BmobQuery<User>().getObject(BmobUser.getCurrentUser().objectId, object : QueryListener<User>() {
-            override fun done(user: User?, e: BmobException?) {
-                if (e == null) {
-                    mUserAvatar = user?.avatar?:""
+        val currentUser = runCatching { BmobUser.getCurrentUser(User::class.java) }.getOrNull()
+        currentUser?.objectId?.takeIf { it.isNotBlank() }?.let { userId ->
+            BmobQuery<User>().getObject(userId, object : QueryListener<User>() {
+                override fun done(user: User?, e: BmobException?) {
+                    if (e == null) {
+                        mUserAvatar = user?.avatar ?: ""
+                    }
                 }
-            }
-        })
+            })
+        }
 
-        val user = BmobUser.getCurrentUser()
-        mUserName = user.username
+        mUserName = currentUser?.username ?: GUEST_USER_NAME
 
         mStartMessage = "你好，我是${intent.getStringExtra(Constant.KEY_CHARACTER_TITLE)}，有什么可以帮助你的吗？"
         NavigationApp.mBmobAI?.setPrompt(mStartMessage)
@@ -88,12 +94,18 @@ class ChatActivity: AppCompatActivity(){
                 Toast.makeText(this,"请输入内容",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            NavigationApp.mBmobAI?.Connect()
+            val bmobAI = NavigationApp.mBmobAI
+            bmobAI?.Connect()
 
             addToChat(content,SEND_BY_ME)
             mBinding?.messageEditText?.setText("")
 
-            NavigationApp.mBmobAI?.Chat(content,mSession,
+            if (bmobAI == null) {
+                addToLastMessage("当前 SDK 不可用，已进入访客模式。")
+                return@setOnClickListener
+            }
+
+            bmobAI.Chat(content,mSession,
                 object : ChatMessageListener {
                     override fun onMessage(message: String?) {
                         Log.d("ChatActivity", "onMessage: $message")
@@ -102,12 +114,14 @@ class ChatActivity: AppCompatActivity(){
 
                     override fun onFinish(message: String?) {
                         Log.d("ChatActivity", "onFinish: $message")
-                        val bmobMessage = BmobMessage(session = mSession, userName = mUserName, message = message ?: "", sendBy = SEND_BY_BOT)
-                        bmobMessage.save(object : SaveListener<String>() {
-                            override fun done(p0: String?, p1: BmobException?) {
+                        if (mUserName != GUEST_USER_NAME) {
+                            val bmobMessage = BmobMessage(session = mSession, userName = mUserName, message = message ?: "", sendBy = SEND_BY_BOT)
+                            bmobMessage.save(object : SaveListener<String>() {
+                                override fun done(p0: String?, p1: BmobException?) {
 
-                            }
-                        })
+                                }
+                            })
+                        }
 
                         mBinding?.sendBt?.isEnabled = true
                     }
@@ -156,6 +170,11 @@ class ChatActivity: AppCompatActivity(){
     private fun initHistoryChatList() {
         val bmobMessage = BmobMessage(session = mSession, userName = mUserName, message = mStartMessage, sendBy = SEND_BY_BOT)
         mChatList.add(0, bmobMessage)
+        mBinding?.chatRecyclerView?.adapter = mChatAdapter
+
+        if (mUserName == GUEST_USER_NAME) {
+            return
+        }
 
         val query = BmobQuery<BmobMessage>()
         query.addWhereEqualTo("userName", mUserName)
@@ -197,14 +216,16 @@ class ChatActivity: AppCompatActivity(){
     fun addToChat(content: String,sendBy: String){
         lifecycleScope.launch(Dispatchers.Main){
             val message = BmobMessage(session = mSession, userName = mUserName, message = content, sendBy = sendBy)
-            message.save(object : SaveListener<String>() {
-                override fun done(result: String?, e: BmobException?) {
-                    if (e != null) {
-                        Toaster.show("保存失败")
-                        Log.e("ChatActivity", "done: ${e.message}")
+            if (mUserName != GUEST_USER_NAME) {
+                message.save(object : SaveListener<String>() {
+                    override fun done(result: String?, e: BmobException?) {
+                        if (e != null) {
+                            Toaster.show("保存失败")
+                            Log.e("ChatActivity", "done: ${e.message}")
+                        }
                     }
-                }
-            })
+                })
+            }
             mChatList.add(message)
             mChatAdapter.notifyDataSetChanged()
             mBinding?.chatRecyclerView?.smoothScrollToPosition(mChatAdapter.itemCount)
@@ -216,6 +237,10 @@ class ChatActivity: AppCompatActivity(){
         NavigationApp.mBmobAI?.Clear(mSession)
         mChatList.clear()
         mChatAdapter.notifyDataSetChanged()
+
+        if (mUserName == GUEST_USER_NAME) {
+            return
+        }
 
         val bmobMessage = BmobMessage(session = mSession, userName = mUserName, message = "", sendBy = SEND_BY_BOT)
 

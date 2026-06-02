@@ -74,6 +74,13 @@ xmlns:tools="http://schemas.android.com/tools">
         android:launchMode="singleTop" />
 
     <activity
+        android:name="io.flutter.embedding.android.FlutterActivity"
+        android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+        android:hardwareAccelerated="true"
+        android:theme="@style/Theme.Navigation.NoActionBar"
+        android:windowSoftInputMode="adjustResize" />
+
+    <activity
         android:name="cn.lancet.navigation.rest.RestActivity" />
     <activity android:name="cn.lancet.navigation.rest.NoticeDetailActivity" />
     <activity android:name="cn.lancet.navigation.ui.me.UserInfoActivity" />

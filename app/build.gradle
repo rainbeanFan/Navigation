@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
-    id 'com.google.devtools.ksp'
     id 'com.google.dagger.hilt.android'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
@@ -11,8 +10,8 @@ plugins {
 }
 
 android {
-    namespace 'cn.lancet.navigation'
-    compileSdk 34
+    namespace = 'cn.lancet.navigation'
+    compileSdk 36
 
     signingConfigs {
         debug {
@@ -32,7 +31,7 @@ android {
 
     defaultConfig {
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode parent.ext.versionCode
         versionName parent.ext.versionName
 
@@ -47,41 +46,41 @@ android {
 
         //仅保留v7a，v8a架构的so库
         ndk {
-            abiFilters 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
         }
 
     }
 
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
+            signingConfig = signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         release {
-            signingConfig signingConfigs.release
+            signingConfig = signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
-        viewBinding true
-        dataBinding true
+        viewBinding = true
+        dataBinding = true
     }
 
 }
 
 // Allow references to generated code
 kapt {
-    correctErrorTypes true
+    correctErrorTypes = true
 }
 
 //repositories {
@@ -92,79 +91,84 @@ kapt {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.core:core-ktx:1.17.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.work:work-runtime-ktx:2.11.2'
+    implementation 'com.google.android.material:material:1.14.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
-    implementation 'com.google.firebase:firebase-analytics:21.2.1'
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
-    implementation 'androidx.lifecycle:lifecycle-process:2.6.2'
-    implementation 'com.google.firebase:firebase-analytics:21.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.10.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0'
+    implementation 'com.google.firebase:firebase-analytics:23.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.10.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0'
+    implementation 'androidx.lifecycle:lifecycle-process:2.10.0'
+    implementation 'com.google.firebase:firebase-analytics:23.0.0'
 
-    implementation 'com.google.firebase:firebase-auth:21.1.0'
-    implementation 'com.google.firebase:firebase-database:20.1.0'
-    implementation 'com.google.firebase:firebase-crashlytics:18.3.6'
-    implementation 'com.google.firebase:firebase-perf:20.3.1'
-    implementation 'com.google.firebase:firebase-messaging:23.2.1'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:20.3.1'
+    implementation 'com.google.firebase:firebase-auth:24.0.1'
+    implementation 'com.google.firebase:firebase-database:22.0.1'
+    implementation 'com.google.firebase:firebase-crashlytics:20.0.3'
+    implementation 'com.google.firebase:firebase-perf:22.0.4'
+    implementation 'com.google.firebase:firebase-messaging:25.0.1'
+    implementation 'com.google.firebase:firebase-inappmessaging-display:22.0.2'
     implementation 'com.google.android.play:app-update-ktx:2.1.0'
     implementation project(path: ':common')
     implementation project(path: ':find')
     implementation project(path: ':discovery')
     implementation project(path: ':me')
+    if (findProject(':flutter') != null) {
+        implementation project(path: ':flutter')
+    }
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
 
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.6'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.9.6'
 
     implementation 'io.coil-kt:coil:1.4.0'
 
     // retrofit注解+封装okhttp依赖, 2.6.+支持kotlin协程
-    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:retrofit:3.0.0'
     //okhttp3
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.3.2'
 ////gson数据解析器
-    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:3.0.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:3.0.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'com.squareup.okio:okio:3.9.0'
-    implementation 'com.google.code.gson:gson:2.11.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.8'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'com.squareup.okio:okio:3.16.4'
+    implementation 'com.google.code.gson:gson:2.13.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.3.2'
 
-    implementation 'com.tencent:mmkv:1.3.7'
+    implementation 'com.tencent:mmkv:2.3.0'
 
-    implementation 'com.github.getActivity:Toaster:12.3'
+    implementation 'com.github.getActivity:Toaster:13.8'
 
     implementation "org.greenrobot:eventbus:3.3.1"
 
-    implementation 'com.google.dagger:hilt-android:2.51.1'
-    kapt 'com.google.dagger:hilt-compiler:2.51.1'
+    implementation 'com.google.dagger:hilt-android:2.57.2'
+    kapt 'com.google.dagger:hilt-compiler:2.57.2'
 
     implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
     implementation 'com.github.getActivity:XXPermissions:16.8'
+    implementation 'com.github.Dimezis:BlurView:version-2.0.6'
 
-    implementation 'androidx.camera:camera-core:1.3.4'
-    implementation 'androidx.camera:camera-camera2:1.3.4'
-    implementation 'androidx.camera:camera-lifecycle:1.3.4'
-    implementation 'androidx.camera:camera-video:1.3.4'
+    implementation 'androidx.camera:camera-core:1.5.2'
+    implementation 'androidx.camera:camera-camera2:1.5.2'
+    implementation 'androidx.camera:camera-lifecycle:1.5.2'
+    implementation 'androidx.camera:camera-video:1.5.2'
 
-    implementation 'androidx.camera:camera-view:1.3.4'
-    implementation 'androidx.camera:camera-extensions:1.3.4'
+    implementation 'androidx.camera:camera-view:1.5.2'
+    implementation 'androidx.camera:camera-extensions:1.5.2'
 
-    implementation 'androidx.room:room-runtime:2.5.2'
-    annotationProcessor 'androidx.room:room-compiler:2.5.2'
-
+    implementation 'androidx.room:room-runtime:2.8.4'
     // To use Kotlin annotation processing tool (kapt)
-    ksp 'androidx.room:room-compiler:2.5.2'
+    kapt 'androidx.room:room-compiler:2.8.4'
 
 }

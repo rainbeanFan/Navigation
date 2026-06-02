@@ -1,6 +1,8 @@
 package cn.lancet.navigation.ui.me
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,19 +10,16 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import cn.bmob.v3.BmobUser
-import cn.lancet.navigation.R
 import cn.lancet.navigation.databinding.FragmentMeBinding
 import cn.lancet.navigation.widget.LogoutDialog
 import coil.load
 import com.google.android.material.imageview.ShapeableImageView
-import kotlinx.coroutines.launch
-
 
 class FragmentMe : Fragment() {
 
@@ -29,19 +28,18 @@ class FragmentMe : Fragment() {
     private var mUserAvatar: ShapeableImageView? = null
     private var mUserName: AppCompatTextView? = null
 
-    private lateinit var viewModel: MeViewModel
+    private val binding get() = _binding!!
 
     private val launcherActivity = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == AppCompatActivity.RESULT_OK) {
-            val mUri = it.data?.data
-            binding.avatar.setImageURI(mUri)
+            val uri = it.data?.data
+            if (uri != null) {
+                binding.avatar.setImageURI(uri)
+            }
         }
     }
-
-    private val binding get() = _binding!!
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,8 +50,7 @@ class FragmentMe : Fragment() {
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
-
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onCreateView(
@@ -65,88 +62,90 @@ class FragmentMe : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        )[MeViewModel::class.java]
-
         mUserAvatar = binding.avatar
+        mUserName = binding.tvNickname
 
+        setupMeInsets()
+        setupDailyWallpaper()
         initEvent()
+        bindGuestUserInfo()
+    }
 
-        if (BmobUser.isLogin()) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.RESUMED){
-                    try {
-                        val userInfo = viewModel.getUserInfo()
-                        binding.avatar.load(userInfo.avatar) {
-                            crossfade(true)
-                            placeholder(R.mipmap.icon_default_avatar)
-                            error(R.mipmap.icon_default_avatar)
-                        }
-                        binding.tvNickname.text = userInfo.name
-                        binding.tvUserSex.text = userInfo.account?:"未知"
-                        binding.tvUserEmail.text = userInfo.name
-                    }catch (e:Exception){
-                        e.printStackTrace()
-                    }
-                }
+    private fun setupDailyWallpaper() {
+        val appContext = requireContext().applicationContext
 
+        MeDailyWallpaperWorkScheduler.enqueueDailyWork(appContext)
+        MeDailyWallpaperWorkScheduler.enqueueOneTimeWarmUp(appContext)
+
+        val repository = MeDailyWallpaperRepository(appContext)
+
+        MeDailyWallpaperLoader(repository)
+            .loadInto(
+                imageView = binding.ivAvatarBg,
+                lifecycleOwner = viewLifecycleOwner,
+                alpha = 1.0f
+            )
+    }
+
+    private fun setupMeInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.clMeRoot) { _, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            binding.svMeContent.updatePadding(
+                left = binding.svMeContent.paddingLeft,
+                top = systemBars.top + 20.dp(),
+                right = binding.svMeContent.paddingRight,
+                bottom = systemBars.bottom + 150.dp()
+            )
+
+            binding.actionLogout.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topMargin = systemBars.top + 12.dp()
+                marginEnd = 16.dp()
             }
+
+            insets
         }
 
+        ViewCompat.requestApplyInsets(binding.clMeRoot)
+    }
+
+    private fun bindGuestUserInfo() {
+        binding.avatar.load("https://cn.bing.com/th?id=ONUT.RZzpZxfJ3d0M_VAtoK_L3w&pid=News&w=120&h=96&c=14&rs=2&qlt=90&dpr=2")
+        binding.tvNickname.text = "访客"
+        binding.tvUserSex.text = "未知"
+        binding.tvUserAge.text = "未知"
+        binding.tvUserEmail.text = "未登录"
+        binding.tvUserDesc.text = "已跳过登录注册校验"
     }
 
     private fun initEvent() {
-
-        binding.actionLogout.visibility = if (BmobUser.isLogin()) View.VISIBLE else View.GONE
+        binding.actionLogout.visibility = View.GONE
 
         binding.avatar.setOnClickListener {
-//            XXPermissions.with(this)
-////                .permission(Permission.MANAGE_EXTERNAL_STORAGE)
-//                .permission(
-//                    Permission.READ_MEDIA_IMAGES,
-//                    Permission.READ_MEDIA_VIDEO,
-//                    Permission.READ_MEDIA_AUDIO
-//                )
-//                .request { permissions, allGranted ->
-//                    if (allGranted) {
-//                        val intent = Intent(
-//                            Intent.ACTION_PICK,
-//                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-//                        )
-//                        launcherActivity.launch(intent)
-//                    }
-//
-//                }
-
-
-
-
+            val intent = Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            )
+            launcherActivity.launch(intent)
         }
-
 
         binding.actionLogout.setOnClickListener {
             LogoutDialog.newInstance()
-                .setOnLogoutListener(object : LogoutDialog.OnLogoutClickListener {
-                    override fun logout() {
-
+                .setOnLogoutListener(
+                    object : LogoutDialog.OnLogoutClickListener {
+                        override fun logout() {
+                            // TODO: 接入真实退出登录逻辑
+                        }
                     }
-                })
+                )
                 .show(requireActivity().supportFragmentManager, "LOGOUT")
         }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED){
-                viewModel.stateFlow.collect {
-                    binding.tvUserSex.text = it.toString()
-                }
-            }
-        }
-
     }
 
     override fun onDestroy() {
@@ -158,5 +157,9 @@ class FragmentMe : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun Int.dp(): Int {
+        return (this * resources.displayMetrics.density + 0.5f).toInt()
     }
 }

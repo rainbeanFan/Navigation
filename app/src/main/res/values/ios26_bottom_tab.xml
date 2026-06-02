@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.Walden.IOS26.BottomTab.ActiveIndicator" parent="">
+        <item name="android:width">@dimen/ios26_bottom_tab_indicator_width</item>
+        <item name="android:height">@dimen/ios26_bottom_tab_indicator_height</item>
+        <item name="marginHorizontal">@dimen/ios26_bottom_tab_indicator_margin</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Walden.IOS26.BottomTab.ActiveIndicator</item>
+        <item name="android:color">@color/ios26_tab_active_indicator</item>
+    </style>
+
+    <style name="ShapeAppearance.Walden.IOS26.BottomTab.ActiveIndicator" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>

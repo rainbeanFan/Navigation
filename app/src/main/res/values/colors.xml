@@ -12,4 +12,10 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+    <color name="ios26_tab_glass_surface">#E6F8FCFF</color>
+    <color name="ios26_tab_glass_stroke">#99FFFFFF</color>
+    <color name="ios26_tab_active_indicator">#F2FFFFFF</color>
+    <color name="ios26_tab_ripple">#1F0A5D68</color>
+    <color name="ios26_tab_item_active">#FF0A5D68</color>
+    <color name="ios26_tab_item_inactive">#99333B45</color>
 </resources>

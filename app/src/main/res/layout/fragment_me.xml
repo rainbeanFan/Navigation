@@ -1,245 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_me_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
-
-    <View
-        android:id="@+id/iv_avatar_bg"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/teal_200"
-        android:scaleType="centerCrop"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:background="#F2F4F8"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/action_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:fitsSystemWindows="true"
-        android:src="@drawable/icon_logout"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/avatar"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="50dp"
+        android:id="@+id/iv_avatar_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="1"
+        android:contentDescription="@null"
+        android:importantForAccessibility="no"
         android:scaleType="centerCrop"
-        android:src="@mipmap/icon_default_avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/CircleRoundImageStyle"
-        app:strokeColor="@color/light_blue_900"
-        app:strokeWidth="0.5dp" />
+        tools:src="@mipmap/icon_default_avatar" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_overlap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/avatar">
+    <View
+        android:id="@+id/v_me_bg_scrim"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#B3FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar_bg"
+        app:layout_constraintEnd_toEndOf="@id/iv_avatar_bg"
+        app:layout_constraintStart_toStartOf="@id/iv_avatar_bg"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar_bg" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/sv_me_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="48dp"
+        android:paddingBottom="160dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <!--姓名-->
-            <LinearLayout
+            <Space
+                android:layout_width="1dp"
+                android:layout_height="20dp" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/avatar"
+                android:layout_width="118dp"
+                android:layout_height="118dp"
+                android:elevation="8dp"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_default_avatar"
+                app:shapeAppearance="@style/CircleRoundImageStyle"
+                app:strokeColor="#AAFFFFFF"
+                app:strokeWidth="2dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_me_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="我的"
+                android:textColor="#18232C"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_me_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="每天换一张心情背景"
+                android:textColor="#7A8791"
+                android:textSize="13sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_overlap"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="#D9FFFFFF"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
+                app:strokeColor="#66FFFFFF"
+                app:strokeWidth="1dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="昵称"
-                    android:textColor="@android:color/black" />
+                    android:orientation="vertical"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_nickname"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="end|center_vertical"
-                    android:maxLines="8"
-                    android:paddingStart="20dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    tools:text="普通家庭马化腾" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_right_arrow" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="昵称"
+                            android:textColor="#18232C"
+                            android:textSize="15sp" />
 
-            </LinearLayout>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_nickname"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:gravity="end|center_vertical"
+                            android:maxLines="1"
+                            android:textColor="#46525C"
+                            android:textSize="15sp"
+                            tools:text="访客" />
 
-            <!--性别-->
-            <LinearLayout
-                android:id="@+id/ll_user_sex"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="8dp"
+                            android:alpha="0.55"
+                            android:src="@drawable/img_right_arrow" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="性别"
-                    android:textColor="@android:color/black" />
+                    </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_user_sex"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="end|center_vertical"
-                    android:paddingStart="20dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp"
+                        android:background="#1A000000" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_right_arrow" />
+                    <LinearLayout
+                        android:id="@+id/ll_user_sex"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp">
 
-            </LinearLayout>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="性别"
+                            android:textColor="#18232C"
+                            android:textSize="15sp" />
 
-            <!--年龄-->
-            <LinearLayout
-                android:id="@+id/ll_user_age"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_user_sex"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:gravity="end|center_vertical"
+                            android:textColor="#46525C"
+                            android:textSize="15sp"
+                            tools:text="未知" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="年龄"
-                    android:textColor="@android:color/black" />
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="8dp"
+                            android:alpha="0.55"
+                            android:src="@drawable/img_right_arrow" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_user_age"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="end|center_vertical"
-                    android:paddingStart="20dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    </LinearLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_right_arrow" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp"
+                        android:background="#1A000000" />
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_user_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp">
 
-            <!--签名-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="年龄"
+                            android:textColor="#18232C"
+                            android:textSize="15sp" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="签名"
-                    android:textColor="@android:color/black" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_user_age"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:gravity="end|center_vertical"
+                            android:textColor="#46525C"
+                            android:textSize="15sp"
+                            tools:text="未知" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_user_desc"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:maxLength="24"
-                    android:maxLines="3"
-                    android:paddingStart="20dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="8dp"
+                            android:alpha="0.55"
+                            android:src="@drawable/img_right_arrow" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_right_arrow" />
+                    </LinearLayout>
 
-            </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp"
+                        android:background="#1A000000" />
 
-            <!--生日-->
-            <LinearLayout
-                android:id="@+id/ll_user_birthday"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="邮箱"
-                    android:textColor="@android:color/black" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="签名"
+                            android:textColor="#18232C"
+                            android:textSize="15sp" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_user_email"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="end|center_vertical"
-                    android:paddingStart="20dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_user_desc"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:gravity="end|center_vertical"
+                            android:maxLength="40"
+                            android:maxLines="3"
+                            android:textColor="#46525C"
+                            android:textSize="15sp"
+                            tools:text="已跳过登录注册校验" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/img_right_arrow" />
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="8dp"
+                            android:alpha="0.55"
+                            android:src="@drawable/img_right_arrow" />
 
-            </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp"
+                        android:background="#1A000000" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_user_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="邮箱"
+                            android:textColor="#18232C"
+                            android:textSize="15sp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_user_email"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:gravity="end|center_vertical"
+                            android:textColor="#46525C"
+                            android:textSize="15sp"
+                            tools:text="未登录" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="8dp"
+                            android:alpha="0.55"
+                            android:src="@drawable/img_right_arrow" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/action_logout"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_me_action_button"
+        android:contentDescription="@null"
+        android:padding="11dp"
+        android:src="@drawable/icon_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#4D5A63" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

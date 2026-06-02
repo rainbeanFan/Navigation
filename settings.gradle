@@ -3,20 +3,32 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url = uri('https://maven.aliyun.com/repository/public') }
+        maven { url = uri('https://maven.aliyun.com/repository/google') }
+        maven { url = uri('https://maven.aliyun.com/repository/jcenter') }
+        maven { url = uri('https://maven.aliyun.com/repository/central') }
     }
 
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode = RepositoriesMode.PREFER_SETTINGS
     repositories {
+        String storageUrl = System.env.FLUTTER_STORAGE_BASE_URL ?: "https://storage.googleapis.com"
+
+        maven { url = uri('https://maven.aliyun.com/repository/public') }
+        maven { url = uri('https://maven.aliyun.com/repository/google') }
+        maven { url = uri('https://maven.aliyun.com/repository/jcenter') }
+        maven { url = uri('https://maven.aliyun.com/repository/central') }
+        maven { url = uri("${storageUrl}/download.flutter.io") }
+
         google()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
+//        mavenCentral()
+        maven { url = uri('https://jitpack.io') }
         maven {
-            url "https://maven.rongcloud.cn/repository/maven-releases/"
+            url = uri("https://maven.rongcloud.cn/repository/maven-releases/")
         }
-        maven {url 'https://dl.bintray.com/chaozhouzhang/maven' }
-        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
+        maven {url = uri('https://dl.bintray.com/chaozhouzhang/maven') }
+//        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
 
     }
 
@@ -34,3 +46,10 @@ include ':me'
 include ':common'
 include ':find'
 include ':discovery'
+
+def flutterModuleDir = file('flutter_module')
+def flutterInclude = new File(flutterModuleDir, '.android/include_flutter.groovy')
+if (flutterInclude.exists()) {
+    setBinding(new Binding([gradle: this]))
+    evaluate(flutterInclude)
+}

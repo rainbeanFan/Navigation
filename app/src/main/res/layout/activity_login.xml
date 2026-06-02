@@ -2,13 +2,49 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@mipmap/bg_login_full" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:paddingHorizontal="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Talen-spark,make big story！"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:includeFontPadding="false"
+            android:lineSpacingMultiplier="0.8"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="20sp"
+            app:autoSizeMaxTextSize="26sp"
+            app:autoSizeStepGranularity="1sp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            tools:text="Talen-spark,make big story！Talen-spark,make big story！"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_livesdk_comment_user_default" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/account_layout"

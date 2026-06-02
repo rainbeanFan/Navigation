@@ -25,8 +25,12 @@ class NavigationApp : Application(), IAppComponent {
         initialize(this)
 
         Toaster.init(this)
-        Bmob.initialize(this, "18f0791eb905bf4a3efb8769d449c9e9")
-        mBmobAI = BmobAI()
+        runCatching {
+            Bmob.initialize(this, "18f0791eb905bf4a3efb8769d449c9e9")
+            mBmobAI = BmobAI()
+        }.onFailure {
+            mBmobAI = null
+        }
         MMKV.initialize(this)
 
     }

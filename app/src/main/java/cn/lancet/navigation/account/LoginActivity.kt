@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import cn.lancet.navigation.MainActivity
 import cn.lancet.navigation.databinding.ActivityLoginBinding
-import cn.lancet.navigation.util.CommonUtil
 import com.gyf.immersionbar.ImmersionBar
 import com.hjq.toast.Toaster
 import kotlinx.coroutines.launch
@@ -47,21 +46,7 @@ class LoginActivity : AppCompatActivity() {
 
         mBinding?.btnLogin?.setOnClickListener {
             mAccount = mBinding?.etAccount?.text.toString()
-            if (mAccount.isBlank() || !CommonUtil.emailIsValid(mAccount)) {
-                Toaster.show("please input your email！")
-                return@setOnClickListener
-            }
-
             mPassword = mBinding?.etPwd?.text.toString()
-            if (mPassword.isBlank()) {
-                Toaster.show("please input your password！")
-                return@setOnClickListener
-            }
-
-            if (!mBinding!!.checkbox.isChecked) {
-                Toaster.show("请先同意用户协议！")
-                return@setOnClickListener
-            }
             viewModel.login(mAccount, mPassword)
         }
 

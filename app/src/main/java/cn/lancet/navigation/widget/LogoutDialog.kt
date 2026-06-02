@@ -12,6 +12,7 @@ import android.view.WindowManager
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.DialogFragment
 import cn.lancet.navigation.R
+import androidx.core.graphics.drawable.toDrawable
 
 class LogoutDialog : DialogFragment(){
 
@@ -36,7 +37,7 @@ class LogoutDialog : DialogFragment(){
             params.gravity = Gravity.CENTER
             window.apply {
                 attributes = params
-                setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
             }
         }
 

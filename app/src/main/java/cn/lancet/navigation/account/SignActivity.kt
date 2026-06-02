@@ -1,16 +1,14 @@
 package cn.lancet.navigation.account
 
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import cn.lancet.navigation.MainActivity
 import cn.lancet.navigation.databinding.ActivitySignBinding
-import cn.lancet.navigation.util.CommonUtil
 import cn.lancet.navigation.util.FileUtils
 import com.gyf.immersionbar.ImmersionBar
 import com.hjq.permissions.Permission
@@ -80,21 +78,7 @@ class SignActivity : AppCompatActivity() {
 
         mBinding?.btnSign?.setOnClickListener {
             mAccount = mBinding?.etAccount?.text.toString()
-            if (mAccount.isBlank() || !CommonUtil.emailIsValid(mAccount)) {
-                Toaster.show("please input your email")
-                return@setOnClickListener
-            }
-
             mPassword = mBinding?.etPwd?.text.toString()
-            if (mPassword.isBlank()) {
-                Toaster.show("please input your password")
-                return@setOnClickListener
-            }
-
-            if (!mBinding!!.checkbox.isChecked) {
-                Toaster.show("请先同意用户协议！")
-                return@setOnClickListener
-            }
             viewModel.signUp(mAccount, mPassword,mAvatar)
         }
 
@@ -102,7 +86,7 @@ class SignActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.signupSharedFlow.collect {
                 if (it) {
-                    Toaster.show("注册成功，可以登录啦！")
+                    startActivity(Intent(this@SignActivity, MainActivity::class.java))
                     finish()
                 } else {
                     Toaster.showLong("注册失败，请稍后再试!")

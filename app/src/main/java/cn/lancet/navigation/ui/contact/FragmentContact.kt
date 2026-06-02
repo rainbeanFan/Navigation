@@ -1,7 +1,6 @@
 package cn.lancet.navigation.ui.contact
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,22 +8,14 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cn.bmob.v3.BmobUser
-import cn.bmob.v3.exception.BmobException
-import cn.lancet.navigation.account.LoginActivity
 import cn.lancet.navigation.adapter.ContactAdapter
 import cn.lancet.navigation.databinding.FragmentContactBinding
 import cn.lancet.navigation.module.User
 import cn.lancet.navigation.util.FirstLetterComparator
 import cn.lancet.navigation.widget.SideBar
 import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.launch
 
 
 class FragmentContact : Fragment() {
@@ -39,10 +30,6 @@ class FragmentContact : Fragment() {
 
     private var mAdapter: ContactAdapter? = null
 
-
-    private var mComparator = FirstLetterComparator()
-
-    private lateinit var viewModel: ContactListViewModel
 
     private val binding get() = _binding!!
 
@@ -103,35 +90,9 @@ class FragmentContact : Fragment() {
             }
         })
 
-        mBtnLogin?.setOnClickListener {
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
-        }
-
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.NewInstanceFactory()
-        )[ContactListViewModel::class.java]
-
-        if (BmobUser.isLogin()){
-            mRvContact?.visibility = View.VISIBLE
-            mSideBar?.visibility = View.VISIBLE
-            mBtnLogin?.visibility = View.GONE
-            lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.RESUMED){
-                    try {
-                        val contactList = viewModel.getContactList()
-                        mAdapter?.setData(contactList.sortedWith(mComparator).toMutableList())
-                    }catch (e:BmobException){
-                        e.printStackTrace()
-                    }
-
-                }
-            }
-        }else{
-            mRvContact?.visibility = View.GONE
-            mSideBar?.visibility = View.GONE
-            mBtnLogin?.visibility = View.VISIBLE
-        }
+        mRvContact?.visibility = View.VISIBLE
+        mSideBar?.visibility = View.VISIBLE
+        mBtnLogin?.visibility = View.GONE
 
     }
 
